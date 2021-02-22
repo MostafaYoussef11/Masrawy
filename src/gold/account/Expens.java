@@ -336,6 +336,9 @@ public class Expens extends javax.swing.JFrame {
         boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isSaved){
             Tools.MasgBox("تم الحفظ بنجاح");
+            String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+            String sqlDaily = "INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"');";
+            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{
             Tools.ErorBox("خطأ");

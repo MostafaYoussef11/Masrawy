@@ -350,6 +350,9 @@ public class Export extends javax.swing.JFrame {
             boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
             if(isSaved){
                 Tools.MasgBox("تم الحفظ بنجاح");
+                String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
+                String sqlDaily = "INSERT INTO daily VALUES("+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
+                ConectionDataBase.ExecuteAnyQuery(sqlDaily);
                 SetNew();
                 btnNew.setEnabled(false);
                // btnSave.setEnabled(false);

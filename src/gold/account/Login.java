@@ -7,6 +7,7 @@ package gold.account;
 
 
 import DataBase.ConectionDataBase;
+import DataBase.savedData;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -150,6 +151,8 @@ public class Login extends javax.swing.JFrame {
         String Password = txtPassword.getText();
         String Server = comServer.getSelectedItem().toString();
         Servernum = comServer.getSelectedItem().toString();
+        savedData.setServer(Server);
+        savedData.setUserName(userName);
         boolean isLogin = ConectionDataBase.CheckUesrName(userName, Password);
         if(isLogin){
            // JOptionPane.showMessageDialog(null, "تم الدخول");

@@ -42,27 +42,24 @@ public class ConectionDataBase {
     private static Connection con;
     private static Statement stmt;
     private static String server ;
-//    public ConectionDataBase(){
-//        server = Login.getServer();
-//    }
+
   private static void SetConnection(){
-    //  server = Login.getServer();
+      server = savedData.getServer();
       try{
           Class .forName("com.mysql.jdbc.Driver");
-//          switch(server){
-//              case "المحلي" :
-//                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
-//                 break;
-//              case "41.38.1.120" :
-//                 con = (Connection) DriverManager.getConnection("jdbc:mysql://41.38.1.120/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
-//                 break;
-//              default:
-//                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
-//                 break;
-//          }
-        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
-
+          switch(server){
+              case "المحلي" :
+                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+                 break;
+              case "41.38.1.120" :
+                 con = (Connection) DriverManager.getConnection("jdbc:mysql://41.38.1.120/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+                 break;
+              default:
+                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+                 break;
+          }
       }catch(ClassNotFoundException | SQLException ex){
+          Tools.ErorBox(ex.getMessage());
           System.err.println(ex.getMessage());
       }
   

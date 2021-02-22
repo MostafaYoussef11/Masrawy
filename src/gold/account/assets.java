@@ -305,6 +305,9 @@ public class assets extends javax.swing.JFrame {
         boolean isSaved = ConectionDataBase.ExecuteAnyQuery(Sql);
         if(isSaved){
             Tools.MasgBox("تم الحفظ");
+            String tableName = "تجهيزات";
+            String sqlDaily ="INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+notes+"','"+tableName+"');";
+            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{
             Tools.ErorBox("خطأ");
