@@ -7,6 +7,8 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -18,59 +20,23 @@ import java.util.logging.Logger;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    private final String userName;
+    private final String Server;
+    public MainFrame(String userName , String Server) {
         initComponents();
-    //    updatedate();
-    //    new MyThread("update").start();
+        this.userName = userName;
+        this.Server = Server;
         
     }
-    private void updatedate(){
-//         TimerTask task = new TimerTask() {
-//          
-//            @Override
-//            public void run(){
-//                String assets = ConectionDataBase.getSum("assets", "price_assets");
-//                txtassition.setText(assets);
-//                String expens = ConectionDataBase.getSum("expens", "price_expens");
-//                txtexpen.setText(expens);
-//                String exports = ConectionDataBase.getSum("exports", "price_export");
-//                txtexport.setText(exports);
-//                String imports = ConectionDataBase.getSum("imports", "amount_imports");
-//                txtImport.setText(imports);
-//                double Sumtotal = Double.valueOf(imports) - Double.valueOf(expens) - Double.valueOf(exports) - Double.valueOf(assets);
-//                total.setText(String.valueOf(Sumtotal));
-//
-//                String assetsD = ConectionDataBase.getSumOnDay("assets", "price_assets");
-//                txtDassition.setText(assetsD);
-//                String expensD = ConectionDataBase.getSumOnDay("expens", "price_expens");
-//                txtDexpen.setText(expensD);
-//                String exportsD = ConectionDataBase.getSumOnDay("exports", "price_export");
-//                txtDexport.setText(exportsD);
-//                String importsD = ConectionDataBase.getSumOnDay("imports", "amount_imports");
-//                txtDImport.setText(importsD);
-//                double SumtotalD = Double.valueOf(importsD) - Double.valueOf(expensD) - Double.valueOf(exportsD) - Double.valueOf(assetsD);
-//                totalD.setText(String.valueOf(SumtotalD)); 
-//            }      
-//       };
-//    Timer timer = new Timer(true);
-//    timer.schedule(task, 0,5000);
-//    try {
-//        Thread.sleep(60000); // Cancel task after 1 minute.
-//    } catch (InterruptedException e) {
-//             // TODO Auto-generated catch block
-//
-//    }
-//    timer.cancel();
 
-    
-    
+    private MainFrame() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-   
-       
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +70,13 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         total = new javax.swing.JLabel();
         totalD = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtLastUpdate = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtServer = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("برنامج ادارة الحسابات");
@@ -253,6 +226,45 @@ public class MainFrame extends javax.swing.JFrame {
         totalD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totalD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        txtLastUpdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel1.setText("اخر تحديث");
+
+        jLabel2.setText("السيرفر");
+
+        txtServer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        jLabel3.setText("المستخدم");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(txtLastUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtServer, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtLastUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtServer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,6 +297,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,7 +341,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(totalD, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -391,45 +405,26 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-       // new MyThread("update").start();
+        txtServer.setText(Server);
+        txtUser.setText(userName);
     }//GEN-LAST:event_formWindowOpened
-    //        if(onOffPan.isSelected()){
-//            PanRebort.setVisible(true);
-//            String assets = ConectionDataBase.getSum("assets", "price_assets");
-//            txtassition.setText(assets);
-//            String expens = ConectionDataBase.getSum("expens", "price_expens");
-//            txtexpen.setText(expens);
-//            String exports = ConectionDataBase.getSum("exports", "price_export");
-//            txtexport.setText(exports);
-//            String imports = ConectionDataBase.getSum("imports", "amount_imports");
-//            txtImport.setText(imports);
-//            double Sumtotal = Double.valueOf(imports) - Double.valueOf(expens) - Double.valueOf(exports) - Double.valueOf(assets);
-//            total.setText(String.valueOf(Sumtotal));
-//
-//            String assetsD = ConectionDataBase.getSumOnDay("assets", "price_assets");
-//            txtDassition.setText(assetsD);
-//            String expensD = ConectionDataBase.getSumOnDay("expens", "price_expens");
-//            txtDexpen.setText(expensD);
-//            String exportsD = ConectionDataBase.getSumOnDay("exports", "price_export");
-//            txtDexport.setText(exportsD);
-//            String importsD = ConectionDataBase.getSumOnDay("imports", "amount_imports");
-//            txtDImport.setText(importsD);
-//            double SumtotalD = Double.valueOf(importsD) - Double.valueOf(expensD) - Double.valueOf(exportsD) - Double.valueOf(assetsD);
-//            totalD.setText(String.valueOf(SumtotalD)); 
-//        }else{
-//            PanRebort.setVisible(false);
-//        }
+   
     
    public class MyThread extends Thread {
-
+       
     public MyThread(String name) {
         super(name);
     }
 
     @Override
     public void run() {
+//        SimpleDateFormat formatDate = new SimpleDateFormat("YYYY-MM-dd");
+        SimpleDateFormat TimeFormat = new SimpleDateFormat("hh:mm:ss a");
+        Date now = new Date();
+        String time = TimeFormat.format(now);
+        txtLastUpdate.setText("");
         System.out.println("MyThread - START "+Thread.currentThread().getName());
+        
         try {
             Thread.sleep(1000);
             //Get database connection, delete unused data from DB
@@ -438,6 +433,7 @@ public class MainFrame extends javax.swing.JFrame {
             Tools.ErorBox(e.getMessage());
         }
         System.out.println("MyThread - END "+Thread.currentThread().getName());
+        txtLastUpdate.setText(time);
     }
 
     private void doDBProcessing() throws InterruptedException {
@@ -513,12 +509,16 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel total;
     private javax.swing.JLabel totalD;
     private javax.swing.JLabel txtDImport;
@@ -528,6 +528,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel txtImport;
     private javax.swing.JLabel txtImport1;
     private javax.swing.JLabel txtImportD1;
+    private javax.swing.JLabel txtLastUpdate;
+    private javax.swing.JLabel txtServer;
+    private javax.swing.JLabel txtUser;
     private javax.swing.JLabel txtassition;
     private javax.swing.JLabel txtexpen;
     private javax.swing.JLabel txtexport;

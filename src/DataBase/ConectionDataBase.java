@@ -10,6 +10,7 @@ import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import com.sun.javafx.iio.common.ImageTools;
 import com.sun.javafx.tk.Toolkit;
+import gold.account.Login;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -40,13 +41,27 @@ import javax.swing.table.DefaultTableModel;
 public class ConectionDataBase {
     private static Connection con;
     private static Statement stmt;
-
+    private static String server ;
+//    public ConectionDataBase(){
+//        server = Login.getServer();
+//    }
   private static void SetConnection(){
+    //  server = Login.getServer();
       try{
           Class .forName("com.mysql.jdbc.Driver");
-       //   con = (Connection) DriverManager.getConnection("jdbc:mysql://41.38.1.120/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+//          switch(server){
+//              case "المحلي" :
+//                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+//                 break;
+//              case "41.38.1.120" :
+//                 con = (Connection) DriverManager.getConnection("jdbc:mysql://41.38.1.120/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+//                 break;
+//              default:
+//                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+//                 break;
+//          }
+        con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
 
-          con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
       }catch(ClassNotFoundException | SQLException ex){
           System.err.println(ex.getMessage());
       }
