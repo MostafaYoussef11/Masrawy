@@ -417,6 +417,9 @@ public class Expens extends javax.swing.JFrame {
       boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sql);
       if(isUpdate){
           Tools.MasgBox("تم تحديث البيانات");
+          String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+          String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+note+"' WHERE id = "+id+" AND name_table = '"+tableName+"';";
+          ConectionDataBase.ExecuteAnyQuery(sqlDaily);
           SetNew();
       }else{
           Tools.ErorBox("خطأ");
@@ -427,10 +430,15 @@ public class Expens extends javax.swing.JFrame {
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
         String id = txtId.getText();
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+        String date = format.format(txtDate.getDate());
         String sql = "DELETE FROM expens WHERE id_expens="+id;
         boolean isDel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isDel){
             Tools.MasgBox("تم الحذف بنجاح");
+            String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+            String sqlDaily ="delete FROM daily WHERE date_day='"+date+"'AND name_table = '"+tableName+"' AND id= "+id+";";
+            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{
             Tools.ErorBox("خطأ");

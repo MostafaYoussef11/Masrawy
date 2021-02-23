@@ -8,12 +8,30 @@ package gold.account;
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
 import DataBase.savedData;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import org.bouncycastle.asn1.ASN1InputStream;
 
 /**
  *
@@ -421,6 +439,34 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+        Date day = new Date();
+        String date = format.format(day);
+        String imports = ConectionDataBase.getSumOnDay("imports", "amount_imports");
+        
+        try {
+            //ConectionDataBase.exportRebort(date, Double.valueOf(imports));
+            InputStream stream = new FileInputStream(new File("E:\\Masrawy Account\\Masrawy\\src\\Rebort\\dayReport.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(stream); 
+            String sql = "SELECT * FROM daily WHERE date_day='"+date+"';";
+            JRDesignQuery designQuery = new JRDesignQuery();
+            designQuery.setText(sql);
+            jd.setQuery(designQuery);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            HashMap para = new HashMap();
+            para.put("date", date);
+            para.put("sumImport", Double.valueOf(imports));
+            Connection con = ConectionDataBase.getCon();
+            JasperPrint jp = JasperFillManager.fillReport(jr, para, con);
+            JasperViewer.viewReport(jp, false);
+//            OutputStream os = new FileOutputStream(new File("E:\\Rebort\\"+date+".pdf"));
+//            JasperExportManager.exportReportToPdfStream(jp, os);
+//            File pdf = File.createTempFile("output.", ".pdf");
+//            JasperExportManager.exportReportToPdfStream(jp, new FileOutputStream(pdf));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
    
     

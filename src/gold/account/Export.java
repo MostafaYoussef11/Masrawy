@@ -428,8 +428,11 @@ public class Export extends javax.swing.JFrame {
         
         boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isUpdate){
-            Tools.MasgBox("تم تحديث البيانات بنجاح");
-            SetNew();
+          Tools.MasgBox("تم تحديث البيانات بنجاح");
+          String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
+          String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+nots+"' WHERE id = "+id+" AND name_table = '"+tabName+"';";
+          ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+          SetNew();
         }else{
             Tools.ErorBox("خطأ");
         }
@@ -442,6 +445,11 @@ public class Export extends javax.swing.JFrame {
         boolean isdel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isdel){
             Tools.MasgBox("تم الحذف بنجاح");
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+            String date = sdf.format(txtDate.getDate());
+            String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
+            String sqlDaily ="delete FROM daily WHERE date_day='"+date+"'AND name_table = '"+tabName+"' AND id= "+id+";";
+            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{
             Tools.ErorBox("خطأ");

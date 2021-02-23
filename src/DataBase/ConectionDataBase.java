@@ -15,6 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,6 +26,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +36,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 /**
  *
@@ -64,6 +76,11 @@ public class ConectionDataBase {
       }
   
   }
+
+    public static Connection getCon() {
+        SetConnection();
+        return con;
+    }
     
   public static boolean CheckUesrName(String userName , String Password){
      try{
@@ -78,7 +95,8 @@ public class ConectionDataBase {
            con.close();
            return isTrue;
        }catch(SQLException ex){
-           System.err.println(ex.getMessage());
+         //  System.err.println(ex.getMessage());
+           Tools.ErorBox(ex.getMessage());
            return false;
        }
   
@@ -307,5 +325,5 @@ public class ConectionDataBase {
        }
    
    }
-    
+
 }

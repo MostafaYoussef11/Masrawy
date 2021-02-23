@@ -363,12 +363,17 @@ public class assets extends javax.swing.JFrame {
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
-        String id , sql;
+        String id , sql , date;
         id = txtid.getText();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        date = format.format(txtdate.getDate());
         sql = "DELETE FROM assets WHERE id_assets="+id+";";
         boolean isDel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isDel){
             Tools.MasgBox("تم الحذف ");
+            String tableName = "تجهيزات";
+            String sqlDaily ="delete FROM daily WHERE date_day='"+date+"'AND name_table = '"+tableName+"' AND id= "+id+";";
+            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }
         else{
@@ -388,6 +393,9 @@ public class assets extends javax.swing.JFrame {
         boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isUpdate){
             Tools.MasgBox("تم تحديث البيانات");
+            String tableName = "تجهيزات";
+            String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+notes+"' WHERE id = "+id+" AND name_table = '"+tableName+"';";
+            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{
             Tools.ErorBox("خطأ");
