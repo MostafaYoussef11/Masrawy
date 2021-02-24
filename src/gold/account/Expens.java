@@ -454,7 +454,7 @@ public class Expens extends javax.swing.JFrame {
         //Set Table and Text Feild 
         Tools.SearchField(tableExpens, txtSearch);
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", txtWorkGroup);
-        String sql = "SELECT expens.note , workgroup.name_workgroup , expens.price_expens , expens.date_expens , expens.id_expens FROM expens INNER JOIN workgroup ON expens.id_workgroup = workgroup.id_workgroup;";
+        String sql = "SELECT expens.note , workgroup.name_workgroup , expens.price_expens , expens.date_expens , expens.id_expens FROM expens INNER JOIN workgroup ON expens.id_workgroup = workgroup.id_workgroup ORDER BY id_expens DESC ;";
         String[] coulmnName = new String [] { "البيان", "المجموعة", "المبلغ", "التاريخ", "رقم"};
         ConectionDataBase.fillAndCenterTable(sql, tableExpens, coulmnName);
         String id = ConectionDataBase.AutoId("expens", "id_expens");

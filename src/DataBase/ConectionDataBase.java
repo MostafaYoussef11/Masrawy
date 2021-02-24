@@ -326,4 +326,23 @@ public class ConectionDataBase {
    
    }
 
+      public static String getIdFromName(String tablename , String name){
+       try{
+           String id = "";
+           SetConnection();
+           stmt = (Statement) con.createStatement();
+           String sql = "SELECT id"+tablename+" AS id FROM "+tablename+" where name"+tablename+" ='"+name+"';";
+           ResultSet rst = stmt.executeQuery(sql);
+           while(rst.next()){
+               id = rst.getString("id");
+           }
+           con.close();
+           return id;
+       
+       }catch(SQLException ex){
+           return "";
+       }
+   
+   }
+   
 }

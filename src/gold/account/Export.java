@@ -29,7 +29,7 @@ public class Export extends javax.swing.JFrame {
     private void SetNew(){
         Tools.SearchField(table_export, txtSearch);
         // table 
-        String sql = "SELECT exports.note , exports.price_export , account.name_account , exports.date_exports , exports.id_exports FROM exports INNER JOIN account ON exports.id_account = account.id_account ; ";
+        String sql = "SELECT exports.note , exports.price_export , account.name_account , exports.date_exports , exports.id_exports FROM exports INNER JOIN account ON exports.id_account = account.id_account ORDER BY id_exports DESC  ; ";
         String[] coulmnName = new String [] {
                 "البيان", "المبلغ", "الحساب", "التاريخ", "رقم"
             };

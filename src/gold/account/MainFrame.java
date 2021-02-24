@@ -446,7 +446,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         try {
             //ConectionDataBase.exportRebort(date, Double.valueOf(imports));
-            InputStream stream = new FileInputStream(new File("E:\\Masrawy Account\\Masrawy\\src\\Rebort\\dayReport.jrxml"));
+            InputStream stream =getClass().getResourceAsStream("/Rebort/dayReport.jrxml"); 
+                  //  new FileInputStream(new File());
+            
             JasperDesign jd = JRXmlLoader.load(stream); 
             String sql = "SELECT * FROM daily WHERE date_day='"+date+"';";
             JRDesignQuery designQuery = new JRDesignQuery();
