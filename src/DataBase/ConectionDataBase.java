@@ -170,6 +170,32 @@ public class ConectionDataBase {
     } 
    
  }
+   
+public static String getSum(String sql ){
+    try{
+       String sum = null;
+       SetConnection();
+       stmt = (Statement) con.createStatement();
+       stmt.executeQuery(sql);
+       ResultSet rst = stmt.getResultSet();
+       while(rst.next()){
+           sum = rst.getString("sum");
+       }
+       con.close();
+       if(sum == null || sum.equals("0")){
+           return "0.00";
+       }else{
+           return sum;
+       }
+    }
+   catch(SQLException ex){
+       Tools.ErorBox(ex.getMessage());
+       return null;
+    } 
+   
+ }
+   
+   
      public static String getSumOnDay(String tableName , String CoulmName){
     try{
        String sum = null;
@@ -241,7 +267,7 @@ public class ConectionDataBase {
    public static boolean SaveImportTable(String id ,String date ,String wight , String caliber , String price , String amount , String id_wg ,String path){
        try{
            SetConnection();
-           PreparedStatement pstm = (PreparedStatement) con.prepareStatement("INSERT INTO imports VALUES(?,?,?,?,?,?,?,?)");
+           PreparedStatement pstm = (PreparedStatement) con.prepareStatement("INSERT INTO imports VALUES(?,?,?,?,?,?,?,?,0)");
            pstm.setInt(1, Integer.valueOf(id));
            pstm.setString(2, date);
            pstm.setDouble(3,Double.valueOf(wight));

@@ -555,7 +555,7 @@ public class Imports extends javax.swing.JFrame {
         amount = txtamount.getText();
         id_wg = ConectionDataBase.getIdFrmName("workgroup", txtWorkGroup.getSelectedItem().toString());
         if(txtPathFile.getText().length() == 0){
-            Sql = "INSERT INTO imports VALUES("+id+",'"+date+"' ,"+wight+","+caliber+","+price+","+amount+","+id_wg+", null );";
+            Sql = "INSERT INTO imports VALUES("+id+",'"+date+"' ,"+wight+","+caliber+","+price+","+amount+","+id_wg+", null , 0 );";
             isSaved = ConectionDataBase.ExecuteAnyQuery(Sql);
         }else{
             isSaved = ConectionDataBase.SaveImportTable(id, date, wight, caliber, price, amount, id_wg, txtPathFile.getText());

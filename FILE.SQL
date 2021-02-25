@@ -46,3 +46,9 @@ UPDATE account SET id_type = 6  WHERE id_account = 29 ;
 
 
 ALTER TABLE account ADD FOREIGN KEY (id_type) REFERENCES _type(id_type); 
+
+
+UPDATE assets SET id_workgroup = 4  WHERE id_assets = 1 ;
+UPDATE assets SET id_workgroup = 3 WHERE id_assets = 2;
+UPDATE assets SET id_workgroup = 4 WHERE id_assets = 3;
+UPDATE assets SET id_workgroup = 3 WHERE id_assets = 4;
