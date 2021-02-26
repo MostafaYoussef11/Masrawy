@@ -161,6 +161,11 @@ public class workGroupFrame extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("اضافة نظام");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,14 +211,14 @@ public class workGroupFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                     .addComponent(txtName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -250,11 +255,12 @@ public class workGroupFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtid.getText();
         String name = txtName.getText();
+        String id_deal = ConectionDataBase.getIdFrmName("deal", jComboBox1.getSelectedItem().toString());
         if( name.isEmpty()){
             Tools.ErorBox("اكتب اسم المجموعة");
         }
         else{
-        String sql = "INSERT INTO workgroup values("+id+",'"+name+"');";
+        String sql = "INSERT INTO workgroup values("+id+",'"+name+"',"+id_deal+");";
         boolean isAdd = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isAdd){
             Tools.MasgBox("تم الحفظ بنجاح");
@@ -271,11 +277,13 @@ public class workGroupFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Select Row and find Id And Name
         int row = wgroupTable.getSelectedRow();
-        String id = wgroupTable.getValueAt(row, 1).toString();
-        String name = wgroupTable.getValueAt(row, 0).toString();
+        String id = wgroupTable.getValueAt(row, 2).toString();
+        String name = wgroupTable.getValueAt(row, 1).toString();
+        String comb = wgroupTable.getValueAt(row, 0).toString();
         // Set Jtextfiled 
         txtName.setText(name);
         txtid.setText(id);
+        jComboBox1.setSelectedItem(comb);
         // btns select
         btnNew.setEnabled(false);
         btnEdit.setEnabled(true);
@@ -292,11 +300,12 @@ public class workGroupFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtid.getText();
         String name = txtName.getText();
+        String id_deal = ConectionDataBase.getIdFrmName("deal",jComboBox1.getSelectedItem().toString());
         if(name.equals("")){
             Tools.ErorBox("اكتب اسم المجموعة");
         }
         else{
-        String sql = "UPDATE workgroup SET name_workgroup ='"+name+"' WHERE id_workgroup="+id+";";
+        String sql = "UPDATE workgroup SET name_workgroup ='"+name+"', id_deal = "+id_deal +" WHERE id_workgroup="+id+";";
         boolean isAdd = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isAdd){
             Tools.MasgBox("تم الحفظ بنجاح");
@@ -322,6 +331,13 @@ public class workGroupFrame extends javax.swing.JFrame {
             Tools.ErorBox("خطأ !");
         }
     }//GEN-LAST:event_btnDelActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        deal d = new deal();
+        d.setLocationRelativeTo(null);
+        d.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

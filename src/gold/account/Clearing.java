@@ -328,17 +328,17 @@ public class Clearing extends javax.swing.JFrame {
             .addGroup(StonLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtHtow, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtHfilter, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtHfilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txxtHassets, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(StonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txxtHassets, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(machin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comAccount))
@@ -491,9 +491,61 @@ public class Clearing extends javax.swing.JFrame {
             String sqlSumExiption = "SELECT SUM(price_expens) AS sum FROM expens WHERE id_workgroup = "+id_work+" AND  isRelay = 0;";
             String SumExepens = ConectionDataBase.getSum(sqlSumExiption);
             txtExpention.setText(SumExepens);
-            String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 2 OR id_type = 8;";
-            String counWorker = ConectionDataBase.getSum(sqlCountWorker);
-            txtCount.setText(counWorker);
+             String selectDeal = "SELECT id_deal AS sum FROM workgroup WHERE id_workgroup="+id_work+";";
+             String id_deal = ConectionDataBase.getSum(selectDeal);
+             String id_type = "";
+            switch (id_deal){
+                case "1": 
+                    id_type = "2";
+                    tabPanel.setEnabled(true);
+                    tabPanel.setTitleAt(0, "غربال");
+                    tabPanel.setSelectedIndex(0);
+                    tabPanel.setEnabledAt(1, false);
+                    //tabPanel.setTitleAt(1, null);
+
+                    txt1.setText("تلت اللودر");//تلت اللودر
+                    txt2.setText("الغربال");//الغربال
+                    txt3.setText("العمال");//العمال
+                    txt4.setText("التلتين");//التلتين
+                    txt5.setText("العربية");//العربية
+                    txt6.setText("العامل الواحد");//العامل الواحد
+                                
+                    String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
+                    String counWorker = ConectionDataBase.getSum(sqlCountWorker);
+                    txtCount.setText(counWorker);
+                    
+                    double amount = Double.valueOf(txtAmount.getText());
+                    int loder = (int) (amount / 3);
+                    txtLoder.setText(String.valueOf(loder));
+                    int Towthird = loder*2 ;
+                    txtTthirds.setText(String.valueOf(Towthird));
+                    double expens = Double.valueOf(txtExpention.getText());
+                    int clear = (int) (Towthird - expens);
+                    int oneThird = clear / 3 ;
+                    txtworks.setText(String.valueOf(oneThird));
+                    int workerCount = Integer.valueOf(txtCount.getText());
+                    int OneWorker = oneThird / workerCount;
+                    txtoneWork.setText(String.valueOf(OneWorker));
+                    int GhorbalAndCar = oneThird - OneWorker;
+                    txtGhorbal.setText(String.valueOf(GhorbalAndCar));
+                    txtCar.setText(String.valueOf(GhorbalAndCar));
+                    break;
+                case "2":
+                    id_type = "8";
+                    
+                    sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
+                    counWorker = ConectionDataBase.getSum(sqlCountWorker);
+                    txtCount.setText(counWorker);
+                    
+                    
+                    break;
+                default:
+                    break;
+            }
+
+            
+            
+            
         
         }
     }//GEN-LAST:event_jButton1ActionPerformed

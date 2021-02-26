@@ -94,7 +94,7 @@ public class Imports extends javax.swing.JFrame {
         txtwight.setText("");
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", txtWorkGroup);
         txtwight.requestFocus();
-        String sql = "Select workgroup.name_workgroup , imports.amount_imports , imports.price_imports , imports.caliber , imports.wight_imports , imports.date_imports , imports.id_import FROM imports INNER JOIN workgroup ON imports.id_workgroup = workgroup.id_workgroup ;";
+        String sql = "Select workgroup.name_workgroup , imports.amount_imports , imports.price_imports , imports.caliber , imports.wight_imports , imports.date_imports , imports.id_import FROM imports INNER JOIN workgroup ON imports.id_workgroup = workgroup.id_workgroup ORDER BY id_import DESC;";
         String[] coulmnName = new String[]{"المجموعة", "الاجمالي", "سعر الجرام", "العيار", "الوزن", "التاريخ", "رقم"};
         ConectionDataBase.fillAndCenterTable(sql, tableImport, coulmnName);
         
