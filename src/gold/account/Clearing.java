@@ -480,7 +480,7 @@ public class Clearing extends javax.swing.JFrame {
         txtAmount.setText("0.00");
         txtCount.setText("0");
     }//GEN-LAST:event_formWindowOpened
-
+    String id_work = "";
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ConectionDataBase.fillCombo("account", "name_account", comAccount);
@@ -490,7 +490,7 @@ public class Clearing extends javax.swing.JFrame {
              Tools.ErorBox("الرجاء اختيار اسم المجموعة");
            
         }else{
-            String id_work = ConectionDataBase.getIdFrmName("workgroup", nameWorkGroup);
+            id_work = ConectionDataBase.getIdFrmName("workgroup", nameWorkGroup);
             String SqlSumWight = "SELECT SUM(wight_imports) AS sum FROM imports WHERE id_workgroup = "+id_work+" AND  isRelay = 0;";
             String sumWight = ConectionDataBase.getSum(SqlSumWight);
             txtwight.setText(sumWight);
@@ -553,27 +553,24 @@ public class Clearing extends javax.swing.JFrame {
                     sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     int countWrker = Integer.parseInt(counWorker)+1;
-                    if(machin.isSelected()){
-                       txtCount.setText(""+countWrker);
-                       comAccount.setEnabled(true);
-                    }else{
-                        txtCount.setText(counWorker);
-                        comAccount.setEnabled(false);
-                    }
+                    txtCount.setText(""+countWrker);
+                    comAccount.setEnabled(true);
                     double  total , Expens;
                     total = Double.valueOf(txtAmount.getText());
                     Expens = Double.valueOf(txtExpention.getText());
                     int filter = (int)(total - Expens);
-                    txtHfilter.setText(String.valueOf(filter));
+                    txtHfilter.setText(filter+".00");
                     int htow = filter/2;
-                    txtHtow.setText(String.valueOf(htow));
+                    txtHtow.setText(htow+".00");
                     String sumAssets = ConectionDataBase.getSum("SELECT SUM(price_assets) AS sum FROM assets WHERE id_workgroup ="+id_work+";");
                     txxtHassets.setText(sumAssets);
                     double assets =Double.valueOf(sumAssets);
                     double tow = Double.valueOf(htow);
                     double f = tow - assets;
-                  //  String filtering = String.valueOf(f);
                     txtClear.setText(""+f);
+                    double hWorker = tow / countWrker;
+                    txtHworker.setText(""+hWorker);
+                    
                     break;
                 default:
                     Tools.ErorBox("الاتفاق؟؟");
@@ -589,6 +586,26 @@ public class Clearing extends javax.swing.JFrame {
 
     private void machinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_machinActionPerformed
         // TODO add your handling code here:
+        if(machin.isSelected()){
+           comAccount.setEnabled(true);
+           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 ;";
+           String counWorker = ConectionDataBase.getSum(sqlCountWorker);
+           int countWrker = Integer.parseInt(counWorker)+1;
+           double tow = Double.valueOf(txtHtow.getText());
+           double oneWorker = tow/ countWrker;
+           txtHworker.setText(oneWorker+"");
+           txtCount.setText(""+countWrker);
+        }
+        else{
+           comAccount.setEnabled(false);
+           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 ;";
+           String counWorker = ConectionDataBase.getSum(sqlCountWorker);
+           int countWrker = Integer.parseInt(counWorker);
+           double tow = Double.valueOf(txtHtow.getText());
+           double oneWorker = tow/ countWrker;
+           txtHworker.setText(oneWorker+"");
+           txtCount.setText(""+countWrker);
+        }
         
     }//GEN-LAST:event_machinActionPerformed
 
