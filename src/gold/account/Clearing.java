@@ -263,9 +263,15 @@ public class Clearing extends javax.swing.JFrame {
         jLabel14.setText("مصروفات تشغيل");
         jLabel14.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        machin.setSelected(true);
         machin.setText("مكنة و هلتي");
         machin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         machin.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        machin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                machinActionPerformed(evt);
+            }
+        });
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("الي حساب");
@@ -284,6 +290,7 @@ public class Clearing extends javax.swing.JFrame {
         jLabel19.setText("صافي الحساب");
         jLabel19.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        txtClear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtClear.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout StonLayout = new javax.swing.GroupLayout(Ston);
@@ -476,6 +483,8 @@ public class Clearing extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        ConectionDataBase.fillCombo("account", "name_account", comAccount);
+        comAccount.setSelectedItem("عماد");
         String nameWorkGroup = comWork.getSelectedItem().toString();
         if(nameWorkGroup.equals("اختر اسم المجموعة")){
              Tools.ErorBox("الرجاء اختيار اسم المجموعة");
@@ -494,13 +503,16 @@ public class Clearing extends javax.swing.JFrame {
              String selectDeal = "SELECT id_deal AS sum FROM workgroup WHERE id_workgroup="+id_work+";";
              String id_deal = ConectionDataBase.getSum(selectDeal);
              String id_type = "";
+             String counWorker ="";
             switch (id_deal){
                 case "1": 
                     id_type = "2";
                     tabPanel.setEnabled(true);
                     tabPanel.setTitleAt(0, "غربال");
+                    tabPanel.setTitleAt(1, null);
                     tabPanel.setSelectedIndex(0);
                     tabPanel.setEnabledAt(1, false);
+                    tabPanel.setEnabledAt(0, true);
                     //tabPanel.setTitleAt(1, null);
 
                     txt1.setText("تلت اللودر");//تلت اللودر
@@ -511,7 +523,7 @@ public class Clearing extends javax.swing.JFrame {
                     txt6.setText("العامل الواحد");//العامل الواحد
                                 
                     String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
-                    String counWorker = ConectionDataBase.getSum(sqlCountWorker);
+                    counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     txtCount.setText(counWorker);
                     
                     double amount = Double.valueOf(txtAmount.getText());
@@ -532,23 +544,53 @@ public class Clearing extends javax.swing.JFrame {
                     break;
                 case "2":
                     id_type = "8";
-                    
+                    tabPanel.setEnabled(true);
+                    tabPanel.setTitleAt(1, "حجر");
+                    tabPanel.setTitleAt(0, null);
+                    tabPanel.setSelectedIndex(1);
+                    tabPanel.setEnabledAt(0, false);
+                    tabPanel.setEnabledAt(1, true);
                     sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
-                    txtCount.setText(counWorker);
-                    
-                    
+                    int countWrker = Integer.parseInt(counWorker)+1;
+                    if(machin.isSelected()){
+                       txtCount.setText(""+countWrker);
+                       comAccount.setEnabled(true);
+                    }else{
+                        txtCount.setText(counWorker);
+                        comAccount.setEnabled(false);
+                    }
+                    double  total , Expens;
+                    total = Double.valueOf(txtAmount.getText());
+                    Expens = Double.valueOf(txtExpention.getText());
+                    int filter = (int)(total - Expens);
+                    txtHfilter.setText(String.valueOf(filter));
+                    int htow = filter/2;
+                    txtHtow.setText(String.valueOf(htow));
+                    String sumAssets = ConectionDataBase.getSum("SELECT SUM(price_assets) AS sum FROM assets WHERE id_workgroup ="+id_work+";");
+                    txxtHassets.setText(sumAssets);
+                    double assets =Double.valueOf(sumAssets);
+                    double tow = Double.valueOf(htow);
+                    double f = tow - assets;
+                  //  String filtering = String.valueOf(f);
+                    txtClear.setText(""+f);
                     break;
                 default:
+                    Tools.ErorBox("الاتفاق؟؟");
                     break;
             }
-
+            
             
             
             
         
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void machinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_machinActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_machinActionPerformed
 
     /**
      * @param args the command line arguments
