@@ -351,6 +351,11 @@ public class Export extends javax.swing.JFrame {
             if(isSaved){
                 Tools.MasgBox("تم الحفظ بنجاح");
                 String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
+                String now_balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
+                double nBalance = Double.valueOf(now_balance);
+                double UpBalance = nBalance + price_ex;
+                String upDateNowBalance = "UPDATE account SET now_balance="+UpBalance+" WHERE id_account="+id_account+";";
+                ConectionDataBase.ExecuteAnyQuery(upDateNowBalance);
                 String sqlDaily = "INSERT INTO daily VALUES("+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
                 ConectionDataBase.ExecuteAnyQuery(sqlDaily);
                 SetNew();
@@ -400,16 +405,16 @@ public class Export extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         // Enable TheTxtJfeled
-        txtDate.setEnabled(true);
-        txtNote.setEnabled(true);
-        txtPrice.setEnabled(true);
-        comAccount.setEnabled(true);
-        // Buttuns Enable and Disable
-        btnDel.setEnabled(false);
-        btnEdit.setEnabled(false);
-        btnNew.setEnabled(false);
-        btnSave.setEnabled(false);
-        btnUpdate.setEnabled(true);
+//        txtDate.setEnabled(true);
+//        txtNote.setEnabled(true);
+//        txtPrice.setEnabled(true);
+//        comAccount.setEnabled(true);
+//        // Buttuns Enable and Disable
+//        btnDel.setEnabled(false);
+//        btnEdit.setEnabled(false);
+//        btnNew.setEnabled(false);
+//        btnSave.setEnabled(false);
+//        btnUpdate.setEnabled(true);
         
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -442,9 +447,14 @@ public class Export extends javax.swing.JFrame {
         // TODO add your handling code here:
         String id = txtId.getText();
         String sql = "DELETE FROM exports WHERE id_exports="+id+";";
+        String id_acount = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
+        String balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_acount+";");
+        double price = Double.valueOf(txtPrice.getText());
+        double newBalance = Double.valueOf(balance) - price;
         boolean isdel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isdel){
             Tools.MasgBox("تم الحذف بنجاح");
+            ConectionDataBase.ExecuteAnyQuery("UPDATE account SET now_balance="+newBalance+" WHERE id_account="+id_acount+";");
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
             String date = sdf.format(txtDate.getDate());
             String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();

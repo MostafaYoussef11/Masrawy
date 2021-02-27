@@ -156,15 +156,37 @@ public class Accounts extends javax.swing.JFrame {
 
             },
             new String [] {
-                "النوع", "الرصيد", "المجموعة", "اسم الحساب", "رقم "
+                "النوع", "الرصيد الحالي", "رصيد اول المدة", "المجموعة", "اسم الحساب", "رقم "
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         AccontTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AccontTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(AccontTable);
+        if (AccontTable.getColumnModel().getColumnCount() > 0) {
+            AccontTable.getColumnModel().getColumn(0).setResizable(false);
+            AccontTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            AccontTable.getColumnModel().getColumn(1).setResizable(false);
+            AccontTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+            AccontTable.getColumnModel().getColumn(2).setResizable(false);
+            AccontTable.getColumnModel().getColumn(2).setPreferredWidth(120);
+            AccontTable.getColumnModel().getColumn(3).setResizable(false);
+            AccontTable.getColumnModel().getColumn(3).setPreferredWidth(150);
+            AccontTable.getColumnModel().getColumn(4).setResizable(false);
+            AccontTable.getColumnModel().getColumn(4).setPreferredWidth(150);
+            AccontTable.getColumnModel().getColumn(5).setResizable(false);
+            AccontTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+        }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -287,9 +309,9 @@ public class Accounts extends javax.swing.JFrame {
 
     private void SetNew(){
          String[] coulmnName =  new String [] {
-                "الرصيد", "المجموعة", "اسم الحساب", "رقم "
+                "النوع", "الرصيد الحالي", "رصيد اول المدة", "المجموعة", "اسم الحساب", "رقم "
             };
-       String sql = "SELECT _type.name_type , account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup INNER JOIN _type ON account.id_type = _type.id_type ORDER BY account.id_account DESC;  ";
+       String sql = "SELECT  _type.name_type , account.now_balance , account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup INNER JOIN _type ON account.id_type = _type.id_type ORDER BY account.id_account DESC;  ";
       //  String sql = "SELECT account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup ;  ";
         ConectionDataBase.fillAndCenterTable(sql, AccontTable, coulmnName);
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", comWorkgroup);
@@ -328,7 +350,7 @@ public class Accounts extends javax.swing.JFrame {
         String balance = txtBalance.getText();
         String nameType = jComboBox1.getSelectedItem().toString();
         String id_type = ConectionDataBase.getIdFromName("_type",nameType );
-        String sql = "INSERT INTO account VALUES("+id+",'"+name+"',"+id_workgroup+","+balance+","+id_type+");";
+        String sql = "INSERT INTO account VALUES("+id+",'"+name+"',"+id_workgroup+","+balance+","+id_type+","+balance+");";
         
         // isSaved 
         boolean is_Save = ConectionDataBase.ExecuteAnyQuery(sql);
@@ -352,9 +374,9 @@ public class Accounts extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = AccontTable.getSelectedRow();
         txtBalance.setText(AccontTable.getValueAt(row, 1).toString());
-        txtName.setText(AccontTable.getValueAt(row, 3).toString());
-        txtId.setText(AccontTable.getValueAt(row, 4).toString());
-        comWorkgroup.setSelectedItem(AccontTable.getValueAt(row, 2));
+        txtName.setText(AccontTable.getValueAt(row, 4).toString());
+        txtId.setText(AccontTable.getValueAt(row, 5).toString());
+        comWorkgroup.setSelectedItem(AccontTable.getValueAt(row, 3));
         jComboBox1.setSelectedItem(AccontTable.getValueAt(row, 0));
         //btns is True
         btnEdit.setEnabled(true);

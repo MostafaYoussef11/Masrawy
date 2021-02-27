@@ -76,6 +76,7 @@ public class Clearing extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("تصفية الشغل");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -552,6 +553,8 @@ public class Clearing extends javax.swing.JFrame {
                     tabPanel.setEnabledAt(1, true);
                     sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
+                    machin.setSelected(true);
+                    
                     int countWrker = Integer.parseInt(counWorker)+1;
                     txtCount.setText(""+countWrker);
                     comAccount.setEnabled(true);
@@ -569,8 +572,7 @@ public class Clearing extends javax.swing.JFrame {
                     double f = tow - assets;
                     txtClear.setText(""+f);
                     double hWorker = tow / countWrker;
-                    txtHworker.setText(""+hWorker);
-                    
+                    txtHworker.setText(""+hWorker);  
                     break;
                 default:
                     Tools.ErorBox("الاتفاق؟؟");

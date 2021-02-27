@@ -240,37 +240,43 @@
         <Component class="javax.swing.JTable" name="AccontTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="0">
-                <Column editable="true" title="&#x627;&#x644;&#x646;&#x648;&#x639;" type="java.lang.Object"/>
-                <Column editable="true" title="&#x627;&#x644;&#x631;&#x635;&#x64a;&#x62f;" type="java.lang.Object"/>
-                <Column editable="true" title="&#x627;&#x644;&#x645;&#x62c;&#x645;&#x648;&#x639;&#x629;" type="java.lang.Object"/>
-                <Column editable="true" title="&#x627;&#x633;&#x645; &#x627;&#x644;&#x62d;&#x633;&#x627;&#x628;" type="java.lang.Object"/>
-                <Column editable="true" title="&#x631;&#x642;&#x645; " type="java.lang.Object"/>
+              <Table columnCount="6" rowCount="0">
+                <Column editable="false" title="&#x627;&#x644;&#x646;&#x648;&#x639;" type="java.lang.Object"/>
+                <Column editable="false" title="&#x627;&#x644;&#x631;&#x635;&#x64a;&#x62f; &#x627;&#x644;&#x62d;&#x627;&#x644;&#x64a;" type="java.lang.Object"/>
+                <Column editable="false" title="&#x631;&#x635;&#x64a;&#x62f; &#x627;&#x648;&#x644; &#x627;&#x644;&#x645;&#x62f;&#x629;" type="java.lang.Object"/>
+                <Column editable="false" title="&#x627;&#x644;&#x645;&#x62c;&#x645;&#x648;&#x639;&#x629;" type="java.lang.Object"/>
+                <Column editable="false" title="&#x627;&#x633;&#x645; &#x627;&#x644;&#x62d;&#x633;&#x627;&#x628;" type="java.lang.Object"/>
+                <Column editable="false" title="&#x631;&#x642;&#x645; " type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="100" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="150" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
