@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ClearReport_Imports" pageWidth="277" pageHeight="20" whenNoDataType="AllSectionsNoDetail" columnWidth="277" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="3c9ec143-4b8c-4e68-a38f-bb766f19dd82">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_workgroup" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     expens.`date_expens` AS expens_date_expens,
+     expens.`price_expens` AS expens_price_expens,
+     expens.`note` AS expens_note
+
+FROM
+     `expens` expens
+where 
+    isRelay =0 
+AND
+   id_workgroup = 1]]>
+	</queryString>
+	<field name="expens_date_expens" class="java.sql.Date"/>
+	<field name="expens_price_expens" class="java.lang.Double"/>
+	<field name="expens_note" class="java.lang.String"/>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="195" y="0" width="81" height="20" uuid="c822c9d9-1ecc-4eff-89f5-f68c6f2f392e"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("YYYY/MM/dd").format($F{expens_date_expens})
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="100" height="20" uuid="c6bbd671-20fc-4025-8af0-9b1864c2bd67"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{expens_price_expens}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="95" height="20" uuid="0ad719da-1b3d-49bb-89cf-3e7631bcd23d"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{expens_note}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
