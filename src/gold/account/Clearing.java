@@ -7,6 +7,17 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -542,6 +553,28 @@ public class Clearing extends javax.swing.JFrame {
                     int GhorbalAndCar = oneThird - OneWorker;
                     txtGhorbal.setText(String.valueOf(GhorbalAndCar));
                     txtCar.setText(String.valueOf(GhorbalAndCar));
+                    
+                   //printer
+                    try{
+                        InputStream stream = getClass().getResourceAsStream("/Rebort/ClearGhorbalReport.jrxml");
+                        JasperDesign jd = JRXmlLoader.load(stream); 
+                        String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
+                        JRDesignQuery designQuery = new JRDesignQuery();
+                        designQuery.setText(sql);
+                        jd.setQuery(designQuery);
+                        JasperReport jr = JasperCompileManager.compileReport(jd);
+                        HashMap map = new HashMap();
+                        map.put("sumImport", amount);
+                        int id = Integer.parseInt(id_work);
+                        map.put("id_workgroup", id);
+                        map.put("SumExpen", expens);
+                        map.put("CountWorker", workerCount);
+                        Connection con = ConectionDataBase.getCon();
+                        JasperPrint jp = JasperFillManager.fillReport(jr, map, con);
+                        JasperViewer.viewReport(jp,false);
+                    }catch(Exception ex){
+                        Tools.ErorBox(ex.getMessage());  
+                    } 
                     break;
                 case "2":
                     id_type = "8";
@@ -572,7 +605,29 @@ public class Clearing extends javax.swing.JFrame {
                     double f = tow - assets;
                     txtClear.setText(""+f);
                     double hWorker = tow / countWrker;
-                    txtHworker.setText(""+hWorker);  
+                    txtHworker.setText(""+hWorker);
+                    //Printer
+                    try{
+                     InputStream stream = getClass().getResourceAsStream("/Rebort/ClearStonReport.jrxml");
+                     JasperDesign jp = JRXmlLoader.load(stream);
+                     String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
+                     JRDesignQuery query = new JRDesignQuery();
+                     query.setText(sql);
+                     jp.setQuery(query);
+                     JasperReport jr = JasperCompileManager.compileReport(jp);
+                     HashMap map = new HashMap();
+                     int id = Integer.parseInt(id_work);
+                     map.put("id_workgroup", id);
+                     map.put("SumImport", total);
+                     map.put("SumExpens", Expens);
+                     map.put("CountWorker", countWrker);
+                     Connection con = ConectionDataBase.getCon();
+                     JasperPrint print = JasperFillManager.fillReport(jr, map, con);
+                     JasperViewer.viewReport(print , false);
+                     
+                    }catch(Exception ex){
+                        Tools.ErorBox(ex.getMessage());
+                    }
                     break;
                 default:
                     Tools.ErorBox("الاتفاق؟؟");
