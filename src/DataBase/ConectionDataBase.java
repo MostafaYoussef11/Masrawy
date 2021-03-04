@@ -267,7 +267,7 @@ public static String getSum(String sql ){
    public static boolean SaveImportTable(String id ,String date ,String wight , String caliber , String price , String amount , String id_wg ,String path){
        try{
            SetConnection();
-           PreparedStatement pstm = (PreparedStatement) con.prepareStatement("INSERT INTO imports VALUES(?,?,?,?,?,?,?,?,0)");
+           PreparedStatement pstm = (PreparedStatement) con.prepareStatement("INSERT INTO imports VALUES(?,?,?,?,?,?,?,?,0,null)");
            pstm.setInt(1, Integer.valueOf(id));
            pstm.setString(2, date);
            pstm.setDouble(3,Double.valueOf(wight));
@@ -332,7 +332,31 @@ public static String getSum(String sql ){
        }
    
    }
+      public static String[] fill(String sql){
+       try{
+           SetConnection();
+           stmt = (Statement) con.createStatement();
+           ResultSet rst;
+//           String sql = "SELECT "+coulmName+" FROM "+tableName+";";
+           rst = stmt.executeQuery(sql);
+           rst.last();
+           int c = rst.getRow();
+           rst.beforeFirst();
+           String values[] = new String[c];
+           int i = 0;
+           while(rst.next()){
+               values[i]=rst.getString(1);
+               i++;
+           }
+           con.close();
+           return values;
+           //combo.setModel(new DefaultComboBoxModel(values));
+       }catch(SQLException ex){
+           Tools.ErorBox(ex.getMessage());
+           return null;
+       }
    
+   }
    public static String getIdFrmName(String tablename , String name){
        try{
            String id = "";
@@ -370,5 +394,50 @@ public static String getSum(String sql ){
        }
    
    }
+      
+      
+      
+ public static String[] setClear(String id_work , String id_type , String amount ,String note , String txtClear ){
+      String idAccount = "";
+      String id_cred = "";
+      String[] names ;
+      SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+      String date = format.format(new Date());
+     try{ 
+     SetConnection();
+     stmt = (Statement) con.createStatement();
+     String sql = "select id_account AS id from account where id_workgroup = "+id_work+" and id_type="+id_type+" ;";
+     ResultSet rst = stmt.executeQuery(sql);
+     rst.last();
+     int count = rst.getRow();
+     names = new String[count];
+     int i = 0;
+     rst.beforeFirst();
+     while(rst.next()){
+         idAccount = rst.getString("id");
+         id_cred = AutoId("creditors", "id_credit");
+         ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+",'"+note+"');");
+         String nameACount = getSum("Select name_account as sum where id_account= "+idAccount +";");
+         names[i] = nameACount;
+         i++;
+     }
+     id_cred = AutoId("creditors", "id_credit");
+     String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,'"+note+"');";
+     ExecuteAnyQuery(SqlInsert_creidet);
+     names[i] = "عرفه";
+     
+     con.close();
+     String nType = getSum("SELECT name_type AS sum from _type where id_type ="+id_type+";");
+     Tools.MasgBox("تم الترحيل الي حساب " + nType);
+     return names;
+     
+    }catch(SQLException ex){
+        Tools.ErorBox(ex.getMessage());
+        return null;
+    }
+ 
+ 
+ 
+ }
    
 }

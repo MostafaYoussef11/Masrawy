@@ -324,7 +324,7 @@ public class assets extends javax.swing.JFrame {
         if(isSaved){
             Tools.MasgBox("تم الحفظ");
             String tableName = "تجهيزات"+" "+comwork.getSelectedItem().toString();
-            String sqlDaily ="INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+notes+"','"+tableName+"');";
+            String sqlDaily ="INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+notes+"','"+tableName+"' ,0 , null);";
             ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{

@@ -753,6 +753,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x62a;&#x631;&#x62d;&#x64a;&#x644; &#x627;&#x644;&#x62a;&#x635;&#x641;&#x64a;&#x629;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -19,7 +19,7 @@ FROM
 where
 (id_type=2 or id_type=6)
 and
-id_workgroup=1]]>
+id_workgroup=$P{id_workgroup}]]>
 	</queryString>
 	<field name="account_id_account" class="java.lang.Integer"/>
 	<field name="account_name_account" class="java.lang.String"/>

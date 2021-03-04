@@ -331,7 +331,7 @@ public class Expens extends javax.swing.JFrame {
         id_work = ConectionDataBase.getIdFrmName("workgroup", txtWorkGroup.getSelectedItem().toString());
         note = txtNote.getText();
         // the Sql Statement 
-        String sql = "INSERT INTO expens VALUES("+id+", '"+date+"',"+price+","+id_work+",'"+note+"',0);";
+        String sql = "INSERT INTO expens VALUES("+id+", '"+date+"',"+price+","+id_work+",'"+note+"',0,null);";
         // If Condetion
         boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isSaved){

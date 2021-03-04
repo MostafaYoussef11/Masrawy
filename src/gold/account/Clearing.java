@@ -9,6 +9,8 @@ import DataBase.ConectionDataBase;
 import DataBase.Tools;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -28,6 +30,10 @@ public class Clearing extends javax.swing.JFrame {
     /**
      * Creates new form Clearing
      */
+    
+    
+    private String id_work = "";
+    String id_deal ="";
     public Clearing() {
         initComponents();
     }
@@ -378,6 +384,11 @@ public class Clearing extends javax.swing.JFrame {
         jButton2.setText("طباعة");
 
         jButton3.setText("ترحيل التصفية");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -492,7 +503,7 @@ public class Clearing extends javax.swing.JFrame {
         txtAmount.setText("0.00");
         txtCount.setText("0");
     }//GEN-LAST:event_formWindowOpened
-    String id_work = "";
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ConectionDataBase.fillCombo("account", "name_account", comAccount);
@@ -513,7 +524,7 @@ public class Clearing extends javax.swing.JFrame {
             String SumExepens = ConectionDataBase.getSum(sqlSumExiption);
             txtExpention.setText(SumExepens);
              String selectDeal = "SELECT id_deal AS sum FROM workgroup WHERE id_workgroup="+id_work+";";
-             String id_deal = ConectionDataBase.getSum(selectDeal);
+             id_deal = ConectionDataBase.getSum(selectDeal);
              String id_type = "";
              String counWorker ="";
             switch (id_deal){
@@ -598,7 +609,7 @@ public class Clearing extends javax.swing.JFrame {
                     txtHfilter.setText(filter+".00");
                     int htow = filter/2;
                     txtHtow.setText(htow+".00");
-                    String sumAssets = ConectionDataBase.getSum("SELECT SUM(price_assets) AS sum FROM assets WHERE id_workgroup ="+id_work+";");
+                    String sumAssets = ConectionDataBase.getSum("SELECT SUM(price_assets) AS sum FROM assets WHERE id_workgroup ="+id_work+" AND isRelay = 0;");
                     txxtHassets.setText(sumAssets);
                     double assets =Double.valueOf(sumAssets);
                     double tow = Double.valueOf(htow);
@@ -620,7 +631,7 @@ public class Clearing extends javax.swing.JFrame {
                      map.put("id_workgroup", id);
                      map.put("SumImport", total);
                      map.put("SumExpens", Expens);
-                     map.put("CountWorker", countWrker);
+                     map.put("CountWorker", Integer.parseInt(txtCount.getText()));
                      Connection con = ConectionDataBase.getCon();
                      JasperPrint print = JasperFillManager.fillReport(jr, map, con);
                      JasperViewer.viewReport(print , false);
@@ -665,6 +676,59 @@ public class Clearing extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_machinActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+       // Update imports for Workgroup isRely =1
+       SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+       String d = format.format(new Date());
+       String id_cridet = ConectionDataBase.AutoId("creditors", "id_credit");
+       String SqlUpdateImport = "UPDATE imports SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+       String SqlUpdateExpens = "UPDATE expens SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+       String SqlUpdateAssets = "UPDATE assets SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+//       String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cridet+",'"+d+"',"+txtClear.getText()+",24);";
+       switch(id_deal){
+           case "1":
+               break;
+           case "2":
+               String id_type = "8";
+               int count = Integer.parseInt(txtCount.getText());
+               String note = "تصفية شغل "+comWork.getSelectedItem().toString() + " اجمالي الوزن " + txtwight.getText();
+               String[] names = ConectionDataBase.setClear(id_work, id_type, txtHworker.getText(),note,txtClear.getText());
+              // ConectionDataBase.setClear("7", "7", txtClear.getText(),note);
+               ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
+               ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
+              // ConectionDataBase.ExecuteAnyQuery(SqlInsert_creidet);
+               ConectionDataBase.ExecuteAnyQuery(SqlUpdateAssets);
+              
+               if(machin.isSelected()){
+                   ConectionDataBase.ExecuteAnyQuery("INSERT INTO creditors VALUES("+ConectionDataBase.AutoId("creditors", "id_credit")+",'"+d+"',"+txtHworker.getText()+","+ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString())+",'"+note+"');");
+               }
+               int counts = names.length;
+               for(int i = 0 ; i<counts ; i++){
+                   Tools.MasgBox(""+ names[i]);
+               }
+//              
+//               String sql = "SELECT id_account from account where id_type= 8 and id_workgroup = "+id_work+";";
+//               String[] id_workers = ConectionDataBase.fill(sql);
+//                int count = id_workers.length;
+//               for(int i = 0 ; i<count ; i++){
+//                  // Tools.MasgBox("num  " + i + id_workers[i]);
+//                  String id_creConectionDataBase.AutoId("creditors", "id_id_credit");
+//                   String id_account = id_workers[i];
+//                  
+//                   
+//                   
+//               }
+               
+               break;
+       
+       
+       }
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
