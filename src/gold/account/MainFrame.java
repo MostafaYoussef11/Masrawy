@@ -517,7 +517,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void doDBProcessing() throws InterruptedException {
         Thread.sleep(1000);
-             String assets = ConectionDataBase.getSum("assets", "price_assets");
+            String assets = ConectionDataBase.getSum("assets", "price_assets");
             txtassition.setText(assets);
             String expens = ConectionDataBase.getSum("expens", "price_expens");
             txtexpen.setText(expens);

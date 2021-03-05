@@ -107,3 +107,4 @@ UPDATE account SET now_balance =(SELECT balance_account FROM account WHERE id_ac
 
 
 
+  CREATE DATABASE masrawy DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;

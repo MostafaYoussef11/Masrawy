@@ -432,6 +432,11 @@ public class Clearing extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton2.setText("طباعة");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("ترحيل التصفية");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -581,7 +586,8 @@ public class Clearing extends javax.swing.JFrame {
         txtAmount.setText("0.00");
         txtCount.setText("0");
     }//GEN-LAST:event_formWindowOpened
-    
+    private double  total , Expens , amount , expens;
+    private int workerCount;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ConectionDataBase.fillCombo("account", "name_account", comAccount);
@@ -627,43 +633,24 @@ public class Clearing extends javax.swing.JFrame {
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     txtCount.setText(counWorker);
                     
-                    double amount = Double.valueOf(txtAmount.getText());
+                    amount = Double.valueOf(txtAmount.getText());
                     int loder = (int) (amount / 3);
                     txtLoder.setText(String.valueOf(loder));
                     int Towthird = loder*2 ;
                     txtTthirds.setText(String.valueOf(Towthird));
-                    double expens = Double.valueOf(txtExpention.getText());
+                    expens = Double.valueOf(txtExpention.getText());
                     int clear = (int) (Towthird - expens);
                     int oneThird = clear / 3 ;
                     txtworks.setText(String.valueOf(oneThird));
-                    int workerCount = Integer.valueOf(txtCount.getText());
+                     workerCount = Integer.valueOf(txtCount.getText());
                     int OneWorker = oneThird / workerCount;
                     txtoneWork.setText(String.valueOf(OneWorker));
                     int GhorbalAndCar = oneThird - OneWorker;
                     txtGhorbal.setText(String.valueOf(GhorbalAndCar));
                     txtCar.setText(String.valueOf(GhorbalAndCar));
                     
-                   //printer
-                    try{
-                        InputStream stream = getClass().getResourceAsStream("/Rebort/ClearGhorbalReport.jrxml");
-                        JasperDesign jd = JRXmlLoader.load(stream); 
-                        String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
-                        JRDesignQuery designQuery = new JRDesignQuery();
-                        designQuery.setText(sql);
-                        jd.setQuery(designQuery);
-                        JasperReport jr = JasperCompileManager.compileReport(jd);
-                        HashMap map = new HashMap();
-                        map.put("sumImport", amount);
-                        int id = Integer.parseInt(id_work);
-                        map.put("id_workgroup", id);
-                        map.put("SumExpen", expens);
-                        map.put("CountWorker", workerCount);
-                        Connection con = ConectionDataBase.getCon();
-                        JasperPrint jp = JasperFillManager.fillReport(jr, map, con);
-                        JasperViewer.viewReport(jp,false);
-                    }catch(Exception ex){
-                        Tools.ErorBox(ex.getMessage());  
-                    } 
+            
+
                     break;
                 case "2":
                     id_type = "8";
@@ -680,7 +667,7 @@ public class Clearing extends javax.swing.JFrame {
                     int countWrker = Integer.parseInt(counWorker)+1;
                     txtCount.setText(""+countWrker);
                     comAccount.setEnabled(true);
-                    double  total , Expens;
+                    
                     total = Double.valueOf(txtAmount.getText());
                     Expens = Double.valueOf(txtExpention.getText());
                     int filter = (int)(total - Expens);
@@ -696,37 +683,12 @@ public class Clearing extends javax.swing.JFrame {
                     double hWorker = tow / countWrker;
                     HworKer = hWorker;
                     txtHworker.setText(""+hWorker);
-                    //Printer
-//                    try{
-//                     InputStream stream = getClass().getResourceAsStream("/Rebort/ClearStonReport.jrxml");
-//                     JasperDesign jp = JRXmlLoader.load(stream);
-//                     String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
-//                     JRDesignQuery query = new JRDesignQuery();
-//                     query.setText(sql);
-//                     jp.setQuery(query);
-//                     JasperReport jr = JasperCompileManager.compileReport(jp);
-//                     HashMap map = new HashMap();
-//                     int id = Integer.parseInt(id_work);
-//                     map.put("id_workgroup", id);
-//                     map.put("SumImport", total);
-//                     map.put("SumExpens", Expens);
-//                     map.put("CountWorker", Integer.parseInt(txtCount.getText()));
-//                     Connection con = ConectionDataBase.getCon();
-//                     JasperPrint print = JasperFillManager.fillReport(jr, map, con);
-//                     JasperViewer.viewReport(print , false);
-//                     
-//                    }catch(Exception ex){
-//                        Tools.ErorBox(ex.getMessage());
-//                    }
+                    
                     break;
                 default:
                     Tools.ErorBox("الاتفاق؟؟");
                     break;
-            }
-            
-            
-            
-            
+            } 
         
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -762,58 +724,32 @@ public class Clearing extends javax.swing.JFrame {
         // TODO add your handling code here:
         
        // Update imports for Workgroup isRely =1
+       String note = "تصفية شغل "+comWork.getSelectedItem().toString() + " اجمالي الوزن " + txtwight.getText();
        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
        String d = format.format(new Date());
        String id_cridet = ConectionDataBase.AutoId("creditors", "id_credit");
        String SqlUpdateImport = "UPDATE imports SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
        String SqlUpdateExpens = "UPDATE expens SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
        String SqlUpdateAssets = "UPDATE assets SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
-//       String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cridet+",'"+d+"',"+txtClear.getText()+",24);";
        switch(id_deal){
            case "1":
-               break;
-           case "2":
-               String id_type = "8";
-//               int count = Integer.parseInt(txtCount.getText());
-               String note = "تصفية شغل "+comWork.getSelectedItem().toString() + " اجمالي الوزن " + txtwight.getText();
-               String[] names = ConectionDataBase.setClear(id_work, id_type, txtHworker.getText(),note,txtClear.getText());
-               int counts = names.length;
-//               for(int i = 0 ; i<counts ; i++){
-////           try {
-////               txtStarus.setText(txtStarus.getText()+"\n"+"تم الترحيل الي حساب "+names[i]);
-////               Thread.sleep(1000);
-////           } catch (InterruptedException ex) {
-////               Logger.getLogger(Clearing.class.getName()).log(Level.SEVERE, null, ex);
-////           }
-//               }
-               
-               
+               ConectionDataBase.setClear(id_work, "2", txtoneWork.getText(), note);
+               //set Clear Lodar
+               ConectionDataBase.ExecuteAnyQuery("");
                ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
                ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
-              // ConectionDataBase.ExecuteAnyQuery(SqlInsert_creidet);
                ConectionDataBase.ExecuteAnyQuery(SqlUpdateAssets);
-              
+               break;
+           case "2":
+               ConectionDataBase.setClear(id_work, "8", txtHworker.getText(),note,txtClear.getText());
+               ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
+               ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
+               ConectionDataBase.ExecuteAnyQuery(SqlUpdateAssets);
                if(machin.isSelected()){
                    String id_accountMachin = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
                    ConectionDataBase.ExecuteAnyQuery("INSERT INTO creditors VALUES("+ConectionDataBase.AutoId("creditors", "id_credit")+",'"+d+"',"+txtHworker.getText()+","+id_accountMachin+",'"+note+"');");
-                   ConectionDataBase.newBalance(id_accountMachin);
-                   //  txtStarus.setText(txtStarus.getText()+"\n"+"تم الترحيل الي حساب "+comAccount.getSelectedItem().toString());
-                 
-               }
-
-//              
-//               String sql = "SELECT id_account from account where id_type= 8 and id_workgroup = "+id_work+";";
-//               String[] id_workers = ConectionDataBase.fill(sql);
-//                int count = id_workers.length;
-//               for(int i = 0 ; i<count ; i++){
-//                  // Tools.MasgBox("num  " + i + id_workers[i]);
-//                  String id_creConectionDataBase.AutoId("creditors", "id_id_credit");
-//                   String id_account = id_workers[i];
-//                  
-//                   
-//                   
-//               }
-               
+                   ConectionDataBase.newBalance(id_accountMachin); 
+               }  
                break;
        
        
@@ -839,6 +775,68 @@ public class Clearing extends javax.swing.JFrame {
             txtHworker.setEnabled(true);
         }
     }//GEN-LAST:event_edWorkerActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       switch(id_deal){
+           case "1":
+               try{
+            InputStream stream = getClass().getResourceAsStream("/Rebort/ClearGhorbalReport.jrxml");
+            JasperDesign jd = JRXmlLoader.load(stream); 
+            String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
+            JRDesignQuery designQuery = new JRDesignQuery();
+            designQuery.setText(sql);
+            jd.setQuery(designQuery);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            HashMap map = new HashMap();
+            map.put("sumImport", amount);
+            int id = Integer.parseInt(id_work);
+            map.put("id_workgroup", id);
+            map.put("SumExpen", expens);
+            map.put("CountWorker", workerCount);
+            Connection con = ConectionDataBase.getCon();
+            JasperPrint jp = JasperFillManager.fillReport(jr, map, con);
+            JasperViewer.viewReport(jp,false);
+            }catch(Exception ex){
+                Tools.ErorBox(ex.getMessage());  
+            } 
+               break;
+           case "2":
+               try{
+                     InputStream stream = getClass().getResourceAsStream("/Rebort/ClearStonReport.jrxml");
+                     JasperDesign jp = JRXmlLoader.load(stream);
+                     String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
+                     JRDesignQuery query = new JRDesignQuery();
+                     query.setText(sql);
+                     jp.setQuery(query);
+                     JasperReport jr = JasperCompileManager.compileReport(jp);
+                     HashMap map = new HashMap();
+                     int id = Integer.parseInt(id_work);
+                     map.put("id_workgroup", id);
+                     map.put("SumImport", total);
+                     map.put("SumExpens", Expens);
+                     map.put("CountWorker", Integer.parseInt(txtCount.getText()));
+                     Connection con = ConectionDataBase.getCon();
+                     JasperPrint print = JasperFillManager.fillReport(jr, map, con);
+                     JasperViewer.viewReport(print , false);
+                     
+                    }catch(Exception ex){
+                        Tools.ErorBox(ex.getMessage());
+                    }
+                break;
+           default:
+               break;
+       
+       }
+        
+        
+ 
+        
+             
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

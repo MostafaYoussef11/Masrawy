@@ -319,12 +319,12 @@ public class assets extends javax.swing.JFrame {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         date = format.format(txtdate.getDate());
         String id_work = ConectionDataBase.getIdFrmName("workgroup", comwork.getSelectedItem().toString());
-        Sql = "INSERT INTO assets VALUES("+id+","+price+",'"+notes+"','"+date+"',"+id_work+");";
+        Sql = "INSERT INTO assets VALUES("+id+","+price+",'"+notes+"','"+date+"',"+id_work+",0,null);";
         boolean isSaved = ConectionDataBase.ExecuteAnyQuery(Sql);
         if(isSaved){
             Tools.MasgBox("تم الحفظ");
             String tableName = "تجهيزات"+" "+comwork.getSelectedItem().toString();
-            String sqlDaily ="INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+notes+"','"+tableName+"' ,0 , null);";
+            String sqlDaily ="INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+notes+"','"+tableName+"');";
             ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{

@@ -438,7 +438,39 @@ public static String getSum(String sql ){
         return null;
     }
  }
-   
+ 
+  public static void setClear(String id_work , String id_type , String amount ,String note){
+      String idAccount = "";
+      String id_cred = "";
+      String[] names ;
+      SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+      String date = format.format(new Date());
+     try{ 
+     SetConnection();
+     stmt = (Statement) con.createStatement();
+     String sql = "select id_account AS id from account where id_workgroup = "+id_work+" and id_type="+id_type+" ;";
+     ResultSet rst = stmt.executeQuery(sql);
+     rst.last();
+     int count = rst.getRow();
+     names = new String[count+1];
+     int i = 0;
+     rst.beforeFirst();
+     while(rst.next()){
+         idAccount = rst.getString("id");
+         id_cred = AutoId("creditors", "id_credit");
+         ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+",'"+note+"');");
+         newBalance(idAccount);
+         String nameACount = getSum("Select name_account as sum from account where id_account= "+idAccount +";");
+         names[i] = nameACount;
+         i++;
+     }
+     con.close();
+
+    }catch(SQLException ex){
+        Tools.ErorBox(ex.getMessage());
+    }
+ }
+ 
 public static void newBalance(String id_accoun ){
     String old_balance = getSum("SELECT balance_account AS sum FROM account WHERE id_account="+id_accoun+";");
     String sumExpoort = getSum("SELECT SUM(price_export) AS sum FROM exports WHERE id_account="+id_accoun+";");
