@@ -60,7 +60,7 @@
                           <Component id="jLabel3" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="tabPanel" alignment="1" max="-2" attributes="0"/>
+                  <Component id="tabPanel" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel4" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -104,7 +104,7 @@
               <Component id="tabPanel" min="-2" pref="159" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="32767" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -471,12 +471,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="comAccount" pref="244" max="32767" attributes="0"/>
+                              <Component id="comAccount" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel16" min="-2" pref="61" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtHtow" max="32767" attributes="0"/>
-                          <Component id="txtHworker" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="edWorker" pref="95" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="txtHworker" min="-2" pref="236" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -540,6 +544,7 @@
                           <Component id="txtHworker" pref="30" max="32767" attributes="0"/>
                           <Component id="jLabel19" max="32767" attributes="0"/>
                           <Component id="txtClear" alignment="0" max="32767" attributes="0"/>
+                          <Component id="edWorker" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="20" max="32767" attributes="0"/>
                   </Group>
@@ -680,9 +685,13 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtHworker">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtHworkerKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
@@ -704,6 +713,16 @@
                   </Border>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JToggleButton" name="edWorker">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/gold/account/pencil.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edWorkerActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

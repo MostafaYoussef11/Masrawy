@@ -353,7 +353,7 @@ public class Export extends javax.swing.JFrame {
                 String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
                 String now_balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
                 double nBalance = Double.valueOf(now_balance);
-                double UpBalance = nBalance + price_ex;
+                double UpBalance = nBalance - price_ex;
                 String upDateNowBalance = "UPDATE account SET now_balance="+UpBalance+" WHERE id_account="+id_account+";";
                 ConectionDataBase.ExecuteAnyQuery(upDateNowBalance);
                 String sqlDaily = "INSERT INTO daily VALUES("+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
@@ -437,6 +437,8 @@ public class Export extends javax.swing.JFrame {
           String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
           String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+nots+"' WHERE id = "+id+" AND name_table = '"+tabName+"';";
           ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+          String UpDateBalance = "UPDATE account SET now_balance =(SELECT balance_account FROM account WHERE id_account = "+id_account+")-(SELECT SUM(price_export) FROM exports WHERE id_account ="+id_account+" ) WHERE id_account ="+id_account +";";
+          ConectionDataBase.ExecuteAnyQuery(UpDateBalance);
           SetNew();
         }else{
             Tools.ErorBox("خطأ");

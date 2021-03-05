@@ -410,34 +410,45 @@ public static String getSum(String sql ){
      ResultSet rst = stmt.executeQuery(sql);
      rst.last();
      int count = rst.getRow();
-     names = new String[count];
+     names = new String[count+1];
      int i = 0;
      rst.beforeFirst();
      while(rst.next()){
          idAccount = rst.getString("id");
          id_cred = AutoId("creditors", "id_credit");
          ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+",'"+note+"');");
-         String nameACount = getSum("Select name_account as sum where id_account= "+idAccount +";");
+         newBalance(idAccount);
+         String nameACount = getSum("Select name_account as sum from account where id_account= "+idAccount +";");
          names[i] = nameACount;
          i++;
      }
      id_cred = AutoId("creditors", "id_credit");
      String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,'"+note+"');";
      ExecuteAnyQuery(SqlInsert_creidet);
-     names[i] = "عرفه";
+     newBalance("24");
+     names[count] = "عرفه";
      
      con.close();
-     String nType = getSum("SELECT name_type AS sum from _type where id_type ="+id_type+";");
-     Tools.MasgBox("تم الترحيل الي حساب " + nType);
+//     String nType = getSum("SELECT name_type AS sum from _type where id_type ="+id_type+";");
+//     Tools.MasgBox("تم الترحيل الي حساب " + nType);
      return names;
      
     }catch(SQLException ex){
         Tools.ErorBox(ex.getMessage());
         return null;
     }
- 
- 
- 
  }
    
+public static void newBalance(String id_accoun ){
+    String old_balance = getSum("SELECT balance_account AS sum FROM account WHERE id_account="+id_accoun+";");
+    String sumExpoort = getSum("SELECT SUM(price_export) AS sum FROM exports WHERE id_account="+id_accoun+";");
+    String sumCreditors = getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+id_accoun+";");
+    double oBalance = Double.valueOf(old_balance);
+    double export = Double.valueOf(sumExpoort);
+    double credit = Double.valueOf(sumCreditors);
+    double NewBalance = oBalance + credit - export;
+    String setBalance = "UPDATE account SET now_balance="+NewBalance+" WHERE id_account="+id_accoun+";";
+    ExecuteAnyQuery(setBalance);
+}
+ 
 }
