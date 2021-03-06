@@ -439,7 +439,7 @@ public static String getSum(String sql ){
     }
  }
  
-  public static void setClear(String id_work , String id_type , String amount ,String note){
+  public static String[] setClearGhorbal(String id_work , String id_type , String amount ,String id_clear ,String note){
       String idAccount = "";
       String id_cred = "";
       String[] names ;
@@ -452,22 +452,26 @@ public static String getSum(String sql ){
      ResultSet rst = stmt.executeQuery(sql);
      rst.last();
      int count = rst.getRow();
-     names = new String[count+1];
+     names = new String[count];
      int i = 0;
      rst.beforeFirst();
      while(rst.next()){
          idAccount = rst.getString("id");
          id_cred = AutoId("creditors", "id_credit");
-         ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+",'"+note+"');");
+         //INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,'"+note+"');"
+         ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+","+id_clear+",'"+note+"');");
          newBalance(idAccount);
          String nameACount = getSum("Select name_account as sum from account where id_account= "+idAccount +";");
          names[i] = nameACount;
          i++;
      }
+     
      con.close();
-
+      return names;
     }catch(SQLException ex){
-        Tools.ErorBox(ex.getMessage());
+         Tools.ErorBox(ex.getMessage());
+        return null;
+       
     }
  }
  

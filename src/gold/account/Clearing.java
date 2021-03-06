@@ -6,11 +6,15 @@
 package gold.account;
 
 import DataBase.ConectionDataBase;
+import static DataBase.ConectionDataBase.AutoId;
+import static DataBase.ConectionDataBase.ExecuteAnyQuery;
+import static DataBase.ConectionDataBase.newBalance;
 import DataBase.Tools;
 import com.sun.org.apache.xerces.internal.parsers.IntegratedParserConfiguration;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -26,6 +30,7 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import org.apache.commons.lang.ArrayUtils;
 
 /**
  *
@@ -723,37 +728,54 @@ public class Clearing extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         
-       // Update imports for Workgroup isRely =1
-       String note = "تصفية شغل "+comWork.getSelectedItem().toString() + " اجمالي الوزن " + txtwight.getText();
-       SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-       String d = format.format(new Date());
-       String id_cridet = ConectionDataBase.AutoId("creditors", "id_credit");
-       String SqlUpdateImport = "UPDATE imports SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
-       String SqlUpdateExpens = "UPDATE expens SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
-       String SqlUpdateAssets = "UPDATE assets SET isRelay = 1 ,id_credit = "+id_cridet+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
-       switch(id_deal){
-           case "1":
-               ConectionDataBase.setClear(id_work, "2", txtoneWork.getText(), note);
-               //set Clear Lodar
-               ConectionDataBase.ExecuteAnyQuery("");
-               ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
-               ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
-               ConectionDataBase.ExecuteAnyQuery(SqlUpdateAssets);
-               break;
-           case "2":
-               ConectionDataBase.setClear(id_work, "8", txtHworker.getText(),note,txtClear.getText());
-               ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
-               ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
-               ConectionDataBase.ExecuteAnyQuery(SqlUpdateAssets);
-               if(machin.isSelected()){
-                   String id_accountMachin = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
-                   ConectionDataBase.ExecuteAnyQuery("INSERT INTO creditors VALUES("+ConectionDataBase.AutoId("creditors", "id_credit")+",'"+d+"',"+txtHworker.getText()+","+id_accountMachin+",'"+note+"');");
-                   ConectionDataBase.newBalance(id_accountMachin); 
-               }  
-               break;
-       
-       
-       }
+
+        
+      String id_Clear = ConectionDataBase.AutoId("clear", "id_clear");
+      SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+      Date date = new Date();
+      String Sdate = format.format(date);
+      String note = "تصفية شغل "+comWork.getSelectedItem().toString() + " اجمالي الوزن " + txtwight.getText();
+      //Insert Data to Clear Table 
+      String Sql = "INSERT INTO clear VALUES("+id_Clear+",'"+Sdate+"','"+note+"');";
+      boolean isInsert = ConectionDataBase.ExecuteAnyQuery(Sql);
+      String SqlUpdateImport = "UPDATE imports SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+      String SqlUpdateExpens = "UPDATE expens SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+      String SqlUpdateAssets = "UPDATE assets SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+      if(isInsert){
+          switch(id_deal){
+              case "1":
+                  boolean UpImp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
+                  boolean UpExp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
+                  boolean isUpdate = UpImp && UpExp ;
+                  if(isUpdate){
+                      //String id_work , String id_type , String amount ,String id_clear ,String note
+                     String[] namesWorker = ConectionDataBase.setClearGhorbal(id_work,"2",txtoneWork.getText(),id_Clear,note);
+                     // insert into Ghorbal acount
+                     String[] Ghorbal = ConectionDataBase.setClearGhorbal(id_work,"5",txtGhorbal.getText(),id_Clear,note);
+                     //insert into Car
+                     String[] cars = ConectionDataBase.setClearGhorbal(id_work, "1", txtCar.getText(), id_Clear, note);
+                     // insert into my Account
+                     String id_cred = AutoId("creditors", "id_credit");
+                     boolean upLoder = ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+Sdate+"',"+txtLoder.getText() + ",24,"+id_Clear+",'"+note+"');");
+                     if(upLoder){
+                       ConectionDataBase.newBalance("24");
+                       Tools.MasgBox("تم ترحيل التصفية الي حساب " + "عرفه");
+                     }
+                     String[] name = (String[]) ArrayUtils.addAll(namesWorker, cars);
+                     String[] names = (String[])ArrayUtils.addAll(name, Ghorbal);
+                     int count = names.length;
+                     for(int i =0 ; i <= count ;i++){
+                        Tools.MasgBox("تم ترحيل التصفية الي حساب " + names[i]);
+                     }
+                  } 
+                  break;
+               case"2":
+                   break;
+          }
+      }else{
+      
+      }
+      
         
         
     }//GEN-LAST:event_jButton3ActionPerformed
