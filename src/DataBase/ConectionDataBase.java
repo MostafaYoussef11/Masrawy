@@ -397,42 +397,52 @@ public static String getSum(String sql ){
       
       
       
- public static String[] setClear(String id_work , String id_type , String amount ,String note , String txtClear ){
+ public static String[] setClear(String id_work , String id_type , String amount ,String note ,String id_clear , String txtClear ,boolean isSelect , String JacHamer){
       String idAccount = "";
       String id_cred = "";
       String[] names ;
       SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
       String date = format.format(new Date());
      try{ 
-     SetConnection();
-     stmt = (Statement) con.createStatement();
-     String sql = "select id_account AS id from account where id_workgroup = "+id_work+" and id_type="+id_type+" ;";
-     ResultSet rst = stmt.executeQuery(sql);
-     rst.last();
-     int count = rst.getRow();
-     names = new String[count+1];
-     int i = 0;
-     rst.beforeFirst();
-     while(rst.next()){
-         idAccount = rst.getString("id");
-         id_cred = AutoId("creditors", "id_credit");
-         ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+",'"+note+"');");
-         newBalance(idAccount);
-         String nameACount = getSum("Select name_account as sum from account where id_account= "+idAccount +";");
-         names[i] = nameACount;
-         i++;
-     }
-     id_cred = AutoId("creditors", "id_credit");
-     String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,'"+note+"');";
-     ExecuteAnyQuery(SqlInsert_creidet);
-     newBalance("24");
-     names[count] = "عرفه";
-     
+         SetConnection();
+         stmt = (Statement) con.createStatement();         String sql = "select id_account AS id from account where id_workgroup = "+id_work+" and id_type="+id_type+" ;";
+         ResultSet rst = stmt.executeQuery(sql);
+         rst.last();
+         int count = rst.getRow();
+         if(isSelect){
+         names = new String[count+2];
+         }else{
+             names = new String[count+1];
+         }
+         int i = 0;
+         rst.beforeFirst();
+            while(rst.next()){
+                 idAccount = rst.getString("id");
+                 id_cred = AutoId("creditors", "id_credit");
+                 // id_credit , date_credit , amount , id_account , id_clear , note
+                 ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+","+id_clear+",'"+note+"');");
+                 newBalance(idAccount);
+                 String nameACount = getSum("Select name_account as sum from account where id_account= "+idAccount +";");
+                 names[i] = nameACount;
+                 i++;
+           }
+
+        id_cred = AutoId("creditors", "id_credit");
+        String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,"+id_clear+",'"+note+"');";
+        ExecuteAnyQuery(SqlInsert_creidet);
+        newBalance("24");
+        names[count] = "عرفه";
+      if(isSelect){
+        id_cred = AutoId("creditors", "id_credit");
+        String idAcountJachamer = getIdFrmName("account", JacHamer);
+        String SqlInsert_creidetJackHamer ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+amount+","+idAcountJachamer+","+id_clear+",'"+note+"');";
+        ExecuteAnyQuery(SqlInsert_creidetJackHamer);
+        newBalance(idAcountJachamer);
+        count = count + 1;
+        names[count] = JacHamer;
+      }
      con.close();
-//     String nType = getSum("SELECT name_type AS sum from _type where id_type ="+id_type+";");
-//     Tools.MasgBox("تم الترحيل الي حساب " + nType);
-     return names;
-     
+     return names; 
     }catch(SQLException ex){
         Tools.ErorBox(ex.getMessage());
         return null;

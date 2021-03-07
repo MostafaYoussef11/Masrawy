@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractListModel;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -127,8 +128,8 @@ public class Clearing extends javax.swing.JFrame {
         txtClear = new javax.swing.JLabel();
         edWorker = new javax.swing.JToggleButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("تصفية الشغل");
@@ -436,17 +437,19 @@ public class Clearing extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton2.setText("طباعة");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPrint.setText("طباعة");
+        btnPrint.setEnabled(false);
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPrintActionPerformed(evt);
             }
         });
 
-        jButton3.setText("ترحيل التصفية");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setText("ترحيل التصفية");
+        btnClear.setEnabled(false);
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -456,9 +459,9 @@ public class Clearing extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -466,8 +469,8 @@ public class Clearing extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -570,29 +573,41 @@ public class Clearing extends javax.swing.JFrame {
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
- 
+        setNew();
+    }//GEN-LAST:event_formWindowOpened
+    private double  total , Expens , amount , expens;
+    private int workerCount;
+    private void setNew(){
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", comWork);
         comWork.addItem("اختر اسم المجموعة");
         comWork.setSelectedItem("اختر اسم المجموعة");
-        
         tabPanel.setEnabled(false);
+        Ghorbal.setEnabled(false);
+        Ston.setEnabled(false);
         tabPanel.setTitleAt(0, null);
         tabPanel.setTitleAt(1, null);
-        
+        Ghorbal.setVisible(true);
         txt1.setText(null);//تلت اللودر
         txt2.setText(null);//الغربال
         txt3.setText(null);//العمال
         txt4.setText(null);//التلتين
         txt5.setText(null);//العربية
         txt6.setText(null);//العامل الواحد
-        
+        txtLoder.setText(null);
+        txtTthirds.setText(null);
+        txtGhorbal.setText(null);
+        txtCar.setText(null);
+        txtworks.setText(null);
+        txtoneWork.setText(null);
         txtwight.setText("0.00");
         txtExpention.setText("0.00");
         txtAmount.setText("0.00");
         txtCount.setText("0");
-    }//GEN-LAST:event_formWindowOpened
-    private double  total , Expens , amount , expens;
-    private int workerCount;
+        btnClear.setEnabled(false);
+        btnPrint.setEnabled(false);
+    }
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         ConectionDataBase.fillCombo("account", "name_account", comAccount);
@@ -626,18 +641,16 @@ public class Clearing extends javax.swing.JFrame {
                     tabPanel.setEnabledAt(1, false);
                     tabPanel.setEnabledAt(0, true);
                     //tabPanel.setTitleAt(1, null);
-
+                    Ghorbal.setEnabled(true);
                     txt1.setText("تلت اللودر");//تلت اللودر
                     txt2.setText("الغربال");//الغربال
                     txt3.setText("العمال");//العمال
                     txt4.setText("التلتين");//التلتين
                     txt5.setText("العربية");//العربية
-                    txt6.setText("العامل الواحد");//العامل الواحد
-                                
+                    txt6.setText("العامل الواحد");//العامل الواحد           
                     String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     txtCount.setText(counWorker);
-                    
                     amount = Double.valueOf(txtAmount.getText());
                     int loder = (int) (amount / 3);
                     txtLoder.setText(String.valueOf(loder));
@@ -653,9 +666,6 @@ public class Clearing extends javax.swing.JFrame {
                     int GhorbalAndCar = oneThird - OneWorker;
                     txtGhorbal.setText(String.valueOf(GhorbalAndCar));
                     txtCar.setText(String.valueOf(GhorbalAndCar));
-                    
-            
-
                     break;
                 case "2":
                     id_type = "8";
@@ -665,6 +675,7 @@ public class Clearing extends javax.swing.JFrame {
                     tabPanel.setSelectedIndex(1);
                     tabPanel.setEnabledAt(0, false);
                     tabPanel.setEnabledAt(1, true);
+                    Ston.setEnabled(true);
                     sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     machin.setSelected(true);
@@ -694,7 +705,8 @@ public class Clearing extends javax.swing.JFrame {
                     Tools.ErorBox("الاتفاق؟؟");
                     break;
             } 
-        
+           btnClear.setEnabled(true);
+           btnPrint.setEnabled(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -725,60 +737,75 @@ public class Clearing extends javax.swing.JFrame {
         
     }//GEN-LAST:event_machinActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        
-
+        String Sql , SqlUpdateImport , SqlUpdateExpens , SqlUpdateAssets ;
+        boolean isInsert , UpImp ,UpExp ,isUpdate ,UpAst ;
         
       String id_Clear = ConectionDataBase.AutoId("clear", "id_clear");
       SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
       Date date = new Date();
       String Sdate = format.format(date);
       String note = "تصفية شغل "+comWork.getSelectedItem().toString() + " اجمالي الوزن " + txtwight.getText();
+      int okOrCancel = JOptionPane.showConfirmDialog(null,"هل ترغب في ترحيل التصفية","ترحيل التصفية",JOptionPane.OK_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE);
+      if(okOrCancel == JOptionPane.OK_OPTION){
       //Insert Data to Clear Table 
-      String Sql = "INSERT INTO clear VALUES("+id_Clear+",'"+Sdate+"','"+note+"');";
-      boolean isInsert = ConectionDataBase.ExecuteAnyQuery(Sql);
-      String SqlUpdateImport = "UPDATE imports SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
-      String SqlUpdateExpens = "UPDATE expens SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
-      String SqlUpdateAssets = "UPDATE assets SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
-      if(isInsert){
-          switch(id_deal){
-              case "1":
-                  boolean UpImp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
-                  boolean UpExp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
-                  boolean isUpdate = UpImp && UpExp ;
-                  if(isUpdate){
-                      //String id_work , String id_type , String amount ,String id_clear ,String note
-                     String[] namesWorker = ConectionDataBase.setClearGhorbal(id_work,"2",txtoneWork.getText(),id_Clear,note);
-                     // insert into Ghorbal acount
-                     String[] Ghorbal = ConectionDataBase.setClearGhorbal(id_work,"5",txtGhorbal.getText(),id_Clear,note);
-                     //insert into Car
-                     String[] cars = ConectionDataBase.setClearGhorbal(id_work, "1", txtCar.getText(), id_Clear, note);
-                     // insert into my Account
-                     String id_cred = AutoId("creditors", "id_credit");
-                     boolean upLoder = ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+Sdate+"',"+txtLoder.getText() + ",24,"+id_Clear+",'"+note+"');");
-                     if(upLoder){
-                       ConectionDataBase.newBalance("24");
-                       Tools.MasgBox("تم ترحيل التصفية الي حساب " + "عرفه");
-                     }
-                     String[] name = (String[]) ArrayUtils.addAll(namesWorker, cars);
-                     String[] names = (String[])ArrayUtils.addAll(name, Ghorbal);
-                     int count = names.length;
-                     for(int i =0 ; i <= count ;i++){
-                        Tools.MasgBox("تم ترحيل التصفية الي حساب " + names[i]);
-                     }
-                  } 
-                  break;
-               case"2":
-                   break;
+          Sql = "INSERT INTO clear VALUES("+id_Clear+",'"+Sdate+"','"+note+"');";
+          isInsert = ConectionDataBase.ExecuteAnyQuery(Sql);
+          SqlUpdateImport = "UPDATE imports SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+          SqlUpdateExpens = "UPDATE expens SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+          SqlUpdateAssets = "UPDATE assets SET isRelay = 1 ,id_clear  = "+id_Clear+" WHERE id_workgroup="+id_work+" AND isRelay=0;";
+          if(isInsert){
+              switch(id_deal){
+                  case "1":
+                      UpImp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
+                      UpExp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
+                      isUpdate = UpImp && UpExp ;
+                      if(isUpdate){
+                          //String id_work , String id_type , String amount ,String id_clear ,String note
+                         String[] namesWorker = ConectionDataBase.setClearGhorbal(id_work,"2",txtoneWork.getText(),id_Clear,note);
+                         // insert into Ghorbal acount
+                         String[] SGhorbal = ConectionDataBase.setClearGhorbal(id_work,"5",txtGhorbal.getText(),id_Clear,note);
+                         //insert into Car
+                         String[] cars = ConectionDataBase.setClearGhorbal(id_work, "1", txtCar.getText(), id_Clear, note);
+                         // insert into my Account
+                         String id_cred = AutoId("creditors", "id_credit");
+                         boolean upLoder = ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+Sdate+"',"+txtLoder.getText() + ",24,"+id_Clear+",'"+note+"');");
+                         if(upLoder){
+                           ConectionDataBase.newBalance("24");
+                           Tools.MasgBox("تم ترحيل التصفية الي حساب " + "عرفه");
+                         }
+                         String[] name = (String[]) ArrayUtils.addAll(namesWorker, cars);
+                         String[] names = (String[])ArrayUtils.addAll(name, SGhorbal);
+                         int count = names.length;
+                         for(int i =0 ; i < count ;i++){
+                            Tools.MasgBox("تم ترحيل التصفية الي حساب " + names[i]);
+                         //   System.out.println("تم ترحيل التصفية الي حساب " + names[i]);
+                         }
+                      } 
+                      break;
+                   case"2":
+                      UpImp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateImport);
+                      UpExp = ConectionDataBase.ExecuteAnyQuery(SqlUpdateExpens);
+                      UpAst = ConectionDataBase.ExecuteAnyQuery(SqlUpdateAssets);
+                      isUpdate = UpImp && UpExp && UpAst ;  
+                      if(isUpdate){
+                       String[] names = ConectionDataBase.setClear(id_work, "8", txtHworker.getText(), note, id_Clear, txtClear.getText(),machin.isSelected() , comAccount.getSelectedItem().toString());
+                       int count = names.length;
+                       for(int i=0 ; i < count ; i++){
+                           Tools.MasgBox("تم ترحيل التصفية الي حساب " + names[i]);
+                         //  System.out.println("تم ترحيل التصفية الي حساب " + names[i]);
+                        }
+                      }
+                       break;
+              }
+              setNew();
+          }else{
+              Tools.ErorBox("خطأ");
           }
-      }else{
-      
       }
-      
-        
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
+
+    }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtHworkerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHworkerKeyTyped
 
@@ -798,7 +825,7 @@ public class Clearing extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_edWorkerActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
        switch(id_deal){
            case "1":
@@ -858,7 +885,7 @@ public class Clearing extends javax.swing.JFrame {
         
         
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -898,12 +925,12 @@ public class Clearing extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Ghorbal;
     private javax.swing.JPanel Ston;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JComboBox comAccount;
     private javax.swing.JComboBox comWork;
     private javax.swing.JToggleButton edWorker;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
