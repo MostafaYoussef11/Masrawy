@@ -196,13 +196,13 @@ public static String getSum(String sql ){
  }
    
    
-     public static String getSumOnDay(String tableName , String CoulmName){
+ public static String getSumOnDay(String tableName , String CoulmName , String date){
     try{
        String sum = null;
        SetConnection();
        stmt = (Statement) con.createStatement();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String date = format.format(new Date());
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        String date = format.format(new Date());
        stmt.executeQuery("SELECT SUM("+CoulmName+") AS sum FROM "+tableName+" WHERE date_"+tableName+" = '"+date+"' ; ");
        ResultSet rst = stmt.getResultSet();
        while(rst.next()){
