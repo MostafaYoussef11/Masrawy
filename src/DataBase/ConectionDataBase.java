@@ -222,11 +222,6 @@ public static String getSum(String sql ){
    
  }
    public static ImageIcon getImageImport(String id){
-        //       imagebytes = rs.getBytes("images");
-        //image=getToolkit().createImage(imageBytes);
-        //Image img = image.getScaledInstance(100,100,Image.SCALE_SMOOTH);
-        //ImageIcon icon=new ImageIcon(img);
-        //jLabel6.setIcon(icon);
          ImageIcon icon = null ;
         try{
             SetConnection();
@@ -252,7 +247,7 @@ public static String getSum(String sql ){
         
    
    } 
-   //220 h = 180
+ 
    private static  Image getSizeImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = resizedImg.createGraphics();

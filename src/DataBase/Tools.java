@@ -5,7 +5,14 @@
  */
 package DataBase;
 
+import gold.account.MainFrame;
+import java.awt.Color;
 import java.awt.Component;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -18,6 +25,15 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -77,6 +93,57 @@ public class Tools {
         });
     
     }
+    
+    public static void PrintRebort(String date ,InputStream stream){
+        String imports = ConectionDataBase.getSumOnDay("imports", "amount_imports" , date);
+        
+        try {
+           // InputStream stream =getClass().getResourceAsStream("/Rebort/dayReport.jrxml"); 
+            JasperDesign jd = JRXmlLoader.load(stream); 
+            String sql = "SELECT * FROM daily WHERE date_day='"+date+"';";
+            JRDesignQuery designQuery = new JRDesignQuery();
+            designQuery.setText(sql);
+            jd.setQuery(designQuery);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            HashMap para = new HashMap();
+            para.put("date", date);
+            para.put("sumImport", Double.valueOf(imports));
+            Connection con = ConectionDataBase.getCon();
+            JasperPrint jp = JasperFillManager.fillReport(jr, para, con);
+            JasperViewer.viewReport(jp, false);
+            
+        } catch (NumberFormatException | JRException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
+    }
+    
+   public static void Printer(String sql ,InputStream stream , HashMap para){        
+        try {
+            JasperDesign jd = JRXmlLoader.load(stream); 
+            JRDesignQuery designQuery = new JRDesignQuery();
+            designQuery.setText(sql);
+            jd.setQuery(designQuery);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            Connection con = ConectionDataBase.getCon();
+            JasperPrint jp = JasperFillManager.fillReport(jr, para, con);
+            JasperViewer.viewReport(jp, false);
+            
+        } catch (NumberFormatException | JRException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    
+    }
+    
+    public static Color hex2Rgb(String colorStr) {
+      return new Color(
+            Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
+            Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
+            Integer.valueOf( colorStr.substring( 5, 7 ), 16 ) );
+    }
+    
 }
 //class HeaderRender implements TableCellRenderer{
 //    DefaultTableCellRenderer renderer;
