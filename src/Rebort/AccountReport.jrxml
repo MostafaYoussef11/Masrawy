@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fec96b00-9c69-4d42-97ae-6a00d69b1721">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="179"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="id_account" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -12,7 +12,9 @@
 	<parameter name="SumCridet" class="java.lang.Double">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="SunExport" class="java.lang.String"/>
+	<parameter name="SunExport" class="java.lang.Double"/>
+	<parameter name="nowBalance" class="java.lang.Double"/>
+	<parameter name="oldBalance" class="java.lang.Double"/>
 	<queryString>
 		<![CDATA[SELECT
 *
@@ -43,7 +45,7 @@ where id_account = $P{id_account}]]>
 		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
 	</variable>
 	<variable name="exp_balance" class="java.lang.Double">
-		<variableExpression><![CDATA[$F{balance_account}]]></variableExpression>
+		<variableExpression><![CDATA[$F{balance_account}.doubleValue()]]></variableExpression>
 		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
 	</variable>
 	<background>
@@ -367,6 +369,12 @@ where id_account = $P{id_account}]]>
 				<subreportParameter name="id_account">
 					<subreportParameterExpression><![CDATA[$P{id_account}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="SunExport">
+					<subreportParameterExpression><![CDATA[$P{SunExport}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SumCridet">
+					<subreportParameterExpression><![CDATA[$P{SumCridet}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -412,6 +420,12 @@ where id_account = $P{id_account}]]>
 				<subreportParameter name="id_account">
 					<subreportParameterExpression><![CDATA[$P{id_account}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="SunExport">
+					<subreportParameterExpression><![CDATA[$P{SunExport}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SumCridet">
+					<subreportParameterExpression><![CDATA[$P{SumCridet}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -420,74 +434,6 @@ where id_account = $P{id_account}]]>
 			</subreport>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="30" splitType="Stretch">
-			<frame>
-				<reportElement x="280" y="2" width="274" height="25" uuid="6d0241fc-0774-442a-ad81-a5270fe29fe6"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<staticText>
-					<reportElement x="124" y="0" width="150" height="25" uuid="8ce51336-cedf-4b42-93af-be62bf8586ab"/>
-					<box>
-						<pen lineWidth="1.0"/>
-						<topPen lineWidth="1.0"/>
-						<leftPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-						<rightPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[الاجمالي]]></text>
-				</staticText>
-				<textField>
-					<reportElement mode="Transparent" x="1" y="0" width="123" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="9dcdff66-8953-474b-9a0a-76f81a100305"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{SumCridet}]]></textFieldExpression>
-				</textField>
-			</frame>
-			<frame>
-				<reportElement x="0" y="2" width="274" height="25" uuid="0dc2eb95-7df5-48d6-a175-4b39fe4f4aac"/>
-				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<staticText>
-					<reportElement x="124" y="0" width="150" height="25" uuid="bfdadb58-0dc6-4b31-a052-ee32d6e0f717"/>
-					<box>
-						<pen lineWidth="1.0"/>
-						<topPen lineWidth="1.0"/>
-						<leftPen lineWidth="1.0"/>
-						<bottomPen lineWidth="1.0"/>
-						<rightPen lineWidth="1.0"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="14" isBold="true"/>
-					</textElement>
-					<text><![CDATA[الاجمالي]]></text>
-				</staticText>
-				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="0" y="0" width="124" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="e0c3eb2d-96e0-4856-bfcb-cb1d09593e8d"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
-						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-						<paragraph lineSpacing="Single"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{SunExport}]]></textFieldExpression>
-				</textField>
-			</frame>
-		</band>
-	</columnFooter>
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<textField>
@@ -503,9 +449,9 @@ where id_account = $P{id_account}]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="86" splitType="Stretch">
+		<band height="161" splitType="Stretch">
 			<frame>
-				<reportElement x="281" y="0" width="274" height="86" uuid="c47dd77d-7c32-40bc-bf27-c2633842be8b"/>
+				<reportElement x="280" y="0" width="275" height="120" uuid="c47dd77d-7c32-40bc-bf27-c2633842be8b"/>
 				<box>
 					<pen lineWidth="2.0"/>
 					<topPen lineWidth="2.0"/>
@@ -514,7 +460,7 @@ where id_account = $P{id_account}]]>
 					<rightPen lineWidth="2.0"/>
 				</box>
 				<staticText>
-					<reportElement x="171" y="3" width="98" height="25" uuid="b4476677-d359-476a-a43a-3fe95eb92e4d"/>
+					<reportElement x="172" y="35" width="98" height="25" uuid="b4476677-d359-476a-a43a-3fe95eb92e4d"/>
 					<box>
 						<pen lineWidth="1.0"/>
 						<topPen lineWidth="1.0"/>
@@ -528,7 +474,7 @@ where id_account = $P{id_account}]]>
 					<text><![CDATA[اجمالي الوارد]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="171" y="28" width="98" height="25" uuid="b1a4a78f-0da3-4378-bea8-df7ec84869f2"/>
+					<reportElement x="172" y="60" width="98" height="25" uuid="b1a4a78f-0da3-4378-bea8-df7ec84869f2"/>
 					<box>
 						<pen lineWidth="1.0"/>
 						<topPen lineWidth="1.0"/>
@@ -542,7 +488,14 @@ where id_account = $P{id_account}]]>
 					<text><![CDATA[اجمالي الصادر]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Transparent" x="11" y="3" width="160" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="6638b254-5657-4926-acfb-277e13e58487"/>
+					<reportElement mode="Transparent" x="12" y="35" width="160" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="6638b254-5657-4926-acfb-277e13e58487"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
@@ -550,12 +503,77 @@ where id_account = $P{id_account}]]>
 					<textFieldExpression><![CDATA[$P{SumCridet}]]></textFieldExpression>
 				</textField>
 				<textField pattern="" isBlankWhenNull="false">
-					<reportElement mode="Transparent" x="11" y="28" width="160" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="df07d1b1-1833-46d0-b82f-0ec7313dc11d"/>
+					<reportElement mode="Transparent" x="12" y="60" width="160" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="df07d1b1-1833-46d0-b82f-0ec7313dc11d"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$P{SunExport}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="172" y="85" width="98" height="25" uuid="f4769d8b-34c0-4684-be51-d734bb04e57d"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[الرصيد]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="12" y="85" width="160" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="4968bdb7-f0e9-4df2-a799-423fd0c90cc0"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{nowBalance}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="172" y="10" width="98" height="25" uuid="4470a18f-b868-485d-9459-21b1c3401005"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[رصيد سابق]]></text>
+				</staticText>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="12" y="10" width="160" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="090688fd-ca3e-4349-a7d9-3cd0b4082879"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{oldBalance}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

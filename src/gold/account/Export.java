@@ -347,7 +347,7 @@ public class Export extends javax.swing.JFrame {
             Tools.ErorBox("المبلغ غير مكتوب");
         }
         else{
-            String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"' ) ;";
+            String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"',0 ) ;";
             boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
             if(isSaved){
                 Tools.MasgBox("تم الحفظ بنجاح");

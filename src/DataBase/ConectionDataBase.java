@@ -415,7 +415,7 @@ public static String getSum(String sql ){
                  idAccount = rst.getString("id");
                  id_cred = AutoId("creditors", "id_credit");
                  // id_credit , date_credit , amount , id_account , id_clear , note
-                 ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+","+id_clear+",'"+note+"');");
+                 ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+","+id_clear+",'"+note+"',0);");
                  newBalance(idAccount);
                  String nameACount = getSum("Select name_account as sum from account where id_account= "+idAccount +";");
                  names[i] = nameACount;
@@ -423,14 +423,14 @@ public static String getSum(String sql ){
            }
 
         id_cred = AutoId("creditors", "id_credit");
-        String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,"+id_clear+",'"+note+"');";
+        String SqlInsert_creidet ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,"+id_clear+",'"+note+"',0);";
         ExecuteAnyQuery(SqlInsert_creidet);
         newBalance("24");
         names[count] = "عرفه";
       if(isSelect){
         id_cred = AutoId("creditors", "id_credit");
         String idAcountJachamer = getIdFrmName("account", JacHamer);
-        String SqlInsert_creidetJackHamer ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+amount+","+idAcountJachamer+","+id_clear+",'"+note+"');";
+        String SqlInsert_creidetJackHamer ="INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+amount+","+idAcountJachamer+","+id_clear+",'"+note+"',0);";
         ExecuteAnyQuery(SqlInsert_creidetJackHamer);
         newBalance(idAcountJachamer);
         count = count + 1;
@@ -464,7 +464,7 @@ public static String getSum(String sql ){
          idAccount = rst.getString("id");
          id_cred = AutoId("creditors", "id_credit");
          //INSERT INTO creditors VALUES("+id_cred+",'"+date+"',"+txtClear+",24,'"+note+"');"
-         ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+","+id_clear+",'"+note+"');");
+         ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+date+"',"+amount + ","+idAccount+","+id_clear+",'"+note+"',0);");
          newBalance(idAccount);
          String nameACount = getSum("Select name_account as sum from account where id_account= "+idAccount +";");
          names[i] = nameACount;
@@ -482,8 +482,8 @@ public static String getSum(String sql ){
  
 public static void newBalance(String id_accoun ){
     String old_balance = getSum("SELECT balance_account AS sum FROM account WHERE id_account="+id_accoun+";");
-    String sumExpoort = getSum("SELECT SUM(price_export) AS sum FROM exports WHERE id_account="+id_accoun+";");
-    String sumCreditors = getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+id_accoun+";");
+    String sumExpoort = getSum("SELECT SUM(price_export) AS sum FROM exports WHERE id_account="+id_accoun+" AND isFiltering = 0;");
+    String sumCreditors = getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+id_accoun+" AND isFiltering = 0;");
     double oBalance = Double.valueOf(old_balance);
     double export = Double.valueOf(sumExpoort);
     double credit = Double.valueOf(sumCreditors);

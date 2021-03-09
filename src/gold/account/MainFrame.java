@@ -572,6 +572,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+//        String[] option = ConectionDataBase.fill("SELECT name_account FROM account;");
+//        ImageIcon icon = new ImageIcon("src/icons/account.png");
+//        JOptionPane.showInputDialog(null,"اختر الحساب ", "كشف حساب",JOptionPane.QUESTION_MESSAGE,icon,option,option[2]);
+//        
+       chooseAccount c = new chooseAccount();
+       c.setLocationRelativeTo(null);
+       c.setBackground(Color.magenta);
+       c.setVisible(true);
+        
     }//GEN-LAST:event_jButton10ActionPerformed
    
     

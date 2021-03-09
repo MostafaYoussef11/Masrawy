@@ -770,7 +770,7 @@ public class Clearing extends javax.swing.JFrame {
                          String[] cars = ConectionDataBase.setClearGhorbal(id_work, "1", txtCar.getText(), id_Clear, note);
                          // insert into my Account
                          String id_cred = AutoId("creditors", "id_credit");
-                         boolean upLoder = ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+Sdate+"',"+txtLoder.getText() + ",24,"+id_Clear+",'"+note+"');");
+                         boolean upLoder = ExecuteAnyQuery("INSERT INTO creditors VALUES("+id_cred +",'"+Sdate+"',"+txtLoder.getText() + ",24,"+id_Clear+",'"+note+"',0);");
                          if(upLoder){
                            ConectionDataBase.newBalance("24");
                            Tools.MasgBox("تم ترحيل التصفية الي حساب " + "عرفه");

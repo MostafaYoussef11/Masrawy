@@ -5,6 +5,7 @@
  */
 package gold.account;
 
+
 /**
  *
  * @author mosta
@@ -14,8 +15,12 @@ public class GoldAccount {
     /**
      * @param args the command line arguments
      */
+    
+ //   imge = new ImageIcon(Toolkit.getToolkit().getClass().getResource("/icons/laptop.png")).getImage(); 
     public static void main(String[] args) {
         // TODO code application logic here
+       //     imge = new ImageIcon(Toolkit.getToolkit().getClass().getResource("/icons/laptop.png")).getImage(); 
+
         Login l = new Login();
         l.setLocationRelativeTo(null);
         l.setVisible(true);
