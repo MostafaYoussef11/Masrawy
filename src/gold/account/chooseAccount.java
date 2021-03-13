@@ -7,7 +7,7 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
-import com.sun.jmx.snmp.SnmpDataTypeEnums;
+//import com.sun.jmx.snmp.SnmpDataTypeEnums;
 import java.awt.Color;
 import java.io.InputStream;
 import java.util.HashMap;

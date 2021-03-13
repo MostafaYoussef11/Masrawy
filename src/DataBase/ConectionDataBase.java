@@ -36,6 +36,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -308,7 +309,11 @@ public static String getSum(String sql ){
            SetConnection();
            stmt = (Statement) con.createStatement();
            ResultSet rst;
+           
            String sql = "SELECT "+coulmName+" FROM "+tableName+";";
+           if(tableName.equals("account")){
+              sql =  "SELECT "+coulmName+" FROM "+tableName+" WHERE isEnable = 0;";
+           }
            rst = stmt.executeQuery(sql);
            rst.last();
            int c = rst.getRow();

@@ -324,7 +324,7 @@ public class Accounts extends javax.swing.JFrame {
          String[] coulmnName =  new String [] {
                 "النوع", "الرصيد الحالي", "رصيد اول المدة", "المجموعة", "اسم الحساب", "رقم "
             };
-       String sql = "SELECT  _type.name_type , account.now_balance , account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup INNER JOIN _type ON account.id_type = _type.id_type ORDER BY account.id_account DESC;  ";
+       String sql = "SELECT  _type.name_type , account.now_balance , account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup INNER JOIN _type ON account.id_type = _type.id_type  WHERE account.isEnable = 0  ORDER BY account.id_account DESC;  ";
       //  String sql = "SELECT account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup ;  ";
         ConectionDataBase.fillAndCenterTable(sql, AccontTable, coulmnName);
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", comWorkgroup);
@@ -363,7 +363,7 @@ public class Accounts extends javax.swing.JFrame {
         String balance = txtBalance.getText();
         String nameType = jComboBox1.getSelectedItem().toString();
         String id_type = ConectionDataBase.getIdFromName("_type",nameType );
-        String sql = "INSERT INTO account VALUES("+id+",'"+name+"',"+id_workgroup+","+balance+","+id_type+","+balance+");";
+        String sql = "INSERT INTO account VALUES("+id+",'"+name+"',"+id_workgroup+","+balance+","+id_type+","+balance+",0);";
         
         // isSaved 
         boolean is_Save = ConectionDataBase.ExecuteAnyQuery(sql);

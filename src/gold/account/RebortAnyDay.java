@@ -9,8 +9,7 @@ import DataBase.Tools;
 import java.awt.Color;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import static javafx.scene.paint.Color.rgb;
-import sun.java2d.pipe.SpanShapeRenderer;
+
 
 /**
  *

@@ -5,6 +5,9 @@
  */
 package gold.account;
 
+import DataBase.ConectionDataBase;
+import javax.swing.JTable;
+
 /**
  *
  * @author Masrawy
@@ -14,6 +17,7 @@ public class Filttering extends javax.swing.JFrame {
     /**
      * Creates new form Filttering
      */
+    String nameAccount , IdAccount;
     public Filttering() {
         initComponents();
     }
@@ -27,21 +31,559 @@ public class Filttering extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        SelectType = new javax.swing.ButtonGroup();
+        jSeparator1 = new javax.swing.JSeparator();
+        Detiles = new javax.swing.JTabbedPane();
+        pan1 = new javax.swing.JPanel();
+        panlDetiels = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        accountBalance = new javax.swing.JLabel();
+        nowBalance = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        sumCredit = new javax.swing.JLabel();
+        SumExport = new javax.swing.JLabel();
+        DebtorOrCredit = new javax.swing.JLabel();
+        labSelect = new javax.swing.JLabel();
+        pTable = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        exportTable = new javax.swing.JTable();
+        cpanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableCriedit = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        comAcount = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
+        RBMony = new javax.swing.JRadioButton();
+        RBFinsh = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+        allData = new javax.swing.JCheckBox();
+        allData1 = new javax.swing.JCheckBox();
+        comAcount2 = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        txtNB = new javax.swing.JLabel();
+        txtCorD = new javax.swing.JLabel();
+        txtAmount = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("تصفية حساب ");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+
+        pan1.setLayout(null);
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("رصيد أول المدة");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("رصيد اخر المدة");
+        jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        accountBalance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        accountBalance.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        nowBalance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nowBalance.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("اجمالي المسحوبات");
+        jLabel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("اجمالي المستحق");
+        jLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        sumCredit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sumCredit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        SumExport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SumExport.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        DebtorOrCredit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        DebtorOrCredit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout panlDetielsLayout = new javax.swing.GroupLayout(panlDetiels);
+        panlDetiels.setLayout(panlDetielsLayout);
+        panlDetielsLayout.setHorizontalGroup(
+            panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panlDetielsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SumExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sumCredit, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panlDetielsLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(DebtorOrCredit, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panlDetielsLayout.createSequentialGroup()
+                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panlDetielsLayout.createSequentialGroup()
+                                .addComponent(nowBalance, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panlDetielsLayout.createSequentialGroup()
+                                .addComponent(accountBalance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26))))
+        );
+        panlDetielsLayout.setVerticalGroup(
+            panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panlDetielsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panlDetielsLayout.createSequentialGroup()
+                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SumExport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sumCredit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panlDetielsLayout.createSequentialGroup()
+                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(accountBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nowBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(DebtorOrCredit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pan1.add(panlDetiels);
+        panlDetiels.setBounds(30, 20, 640, 130);
+
+        labSelect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labSelect.setText("اختر الحساب اولا.......");
+        labSelect.setToolTipText("");
+        pan1.add(labSelect);
+        labSelect.setBounds(75, 8, 540, 149);
+
+        Detiles.addTab("ملخص", new javax.swing.ImageIcon(getClass().getResource("/icons/sreport.png")), pan1); // NOI18N
+
+        exportTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "التصفية", "البيــــــــان", "المبلغ", "التاريخ", "رقم"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(exportTable);
+        if (exportTable.getColumnModel().getColumnCount() > 0) {
+            exportTable.getColumnModel().getColumn(0).setResizable(false);
+            exportTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            exportTable.getColumnModel().getColumn(1).setResizable(false);
+            exportTable.getColumnModel().getColumn(2).setResizable(false);
+            exportTable.getColumnModel().getColumn(2).setPreferredWidth(75);
+            exportTable.getColumnModel().getColumn(3).setResizable(false);
+            exportTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+            exportTable.getColumnModel().getColumn(4).setResizable(false);
+            exportTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+        }
+
+        javax.swing.GroupLayout pTableLayout = new javax.swing.GroupLayout(pTable);
+        pTable.setLayout(pTableLayout);
+        pTableLayout.setHorizontalGroup(
+            pTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+        );
+        pTableLayout.setVerticalGroup(
+            pTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pTableLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        Detiles.addTab("المسحوبات", new javax.swing.ImageIcon(getClass().getResource("/icons/money.png")), pTable); // NOI18N
+
+        tableCriedit.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "التصفية", "البيان", "المبلغ", "تاريخ", "رقم"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableCriedit);
+        if (tableCriedit.getColumnModel().getColumnCount() > 0) {
+            tableCriedit.getColumnModel().getColumn(0).setResizable(false);
+            tableCriedit.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tableCriedit.getColumnModel().getColumn(1).setResizable(false);
+            tableCriedit.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tableCriedit.getColumnModel().getColumn(2).setResizable(false);
+            tableCriedit.getColumnModel().getColumn(2).setPreferredWidth(75);
+            tableCriedit.getColumnModel().getColumn(3).setResizable(false);
+            tableCriedit.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tableCriedit.getColumnModel().getColumn(4).setResizable(false);
+            tableCriedit.getColumnModel().getColumn(4).setPreferredWidth(50);
+        }
+
+        javax.swing.GroupLayout cpanelLayout = new javax.swing.GroupLayout(cpanel);
+        cpanel.setLayout(cpanelLayout);
+        cpanelLayout.setHorizontalGroup(
+            cpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+        );
+        cpanelLayout.setVerticalGroup(
+            cpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cpanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+
+        Detiles.addTab("المستحق", new javax.swing.ImageIcon(getClass().getResource("/icons/money.png")), cpanel); // NOI18N
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
+        jButton2.setText("خروج");
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/navigation.png"))); // NOI18N
+        jButton3.setText("تصفية الحساب");
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("الحساب");
+        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        comAcount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        RBMony.setText("تصفية نقدية");
+        RBMony.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        RBMony.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        RBFinsh.setText("تصفية نهائي");
+        RBFinsh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        RBFinsh.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RBFinsh)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RBMony)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(RBFinsh)
+                .addComponent(RBMony))
+        );
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/seo.png"))); // NOI18N
+        jButton1.setText("عرض البيانات");
+        jButton1.setToolTipText("");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        allData.setText("عرض البيانات كاملة");
+        allData.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        allData1.setText("ترحيل الي حساب اخر");
+        allData1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        allData1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allData1ActionPerformed(evt);
+            }
+        });
+
+        comAcount2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("المبلغ");
+        jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtNB.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtCorD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtCorD.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtAmount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtAmount.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtAmount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(txtCorD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comAcount2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(allData1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(allData)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comAcount, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comAcount)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(allData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(allData1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comAcount2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCorD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtAmount))
+                .addGap(5, 5, 5))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Detiles, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Detiles, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        SetNew();
+        
+    }//GEN-LAST:event_formWindowOpened
+   double nB = 0.00;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+      nameAccount = comAcount.getSelectedItem().toString();
+      IdAccount = ConectionDataBase.getIdFrmName("account", nameAccount);
+      labSelect.setVisible(false);
+      panlDetiels.setVisible(true);
+      Detiles.setEnabledAt(0, true);
+      Detiles.setEnabledAt(1, true);
+      Detiles.setEnabledAt(2, true);
+      Detiles.setEnabled(true);
+      Detiles.setSelectedIndex(0); 
+       String sqlEX , sqlCridet , accountbalance , Smexport ,SCredit ;
+       if(allData.isSelected()){
+          sqlEX = "SELECT isFiltering , note , price_export , date_exports , id_exports  FROM exports WHERE id_account="+IdAccount+";";
+          sqlCridet = "SELECT isFiltering , note , amount , date_credit ,id_credit  FROM creditors WHERE id_account="+IdAccount+";";
+          
+          Smexport = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports  WHERE id_account="+IdAccount+";");
+          SCredit = ConectionDataBase.getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+IdAccount+";");
+       }else{
+          sqlEX = "SELECT isFiltering , note , price_export , date_exports , id_exports  FROM exports WHERE id_account="+IdAccount+" and isFiltering = 0 ;";
+          sqlCridet = "SELECT isFiltering , note , amount , date_credit ,id_credit  FROM creditors WHERE id_account="+IdAccount+" and isFiltering = 0 ;";
+          Smexport = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports  WHERE id_account="+IdAccount+" and isFiltering = 0 ;");
+          SCredit = ConectionDataBase.getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+IdAccount+" and isFiltering = 0 ;");
+       }
+       accountbalance = ConectionDataBase.getSum("SELECT balance_account AS sum FROM account WHERE id_account="+IdAccount+";");
+       String nBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+IdAccount+";");
+       nowBalance.setText(nBalance);
+       accountBalance.setText(accountbalance);
+       SumExport.setText(Smexport);
+       sumCredit.setText(SCredit);
+       double sExp = Double.parseDouble(Smexport);
+       double scer = Double.parseDouble(SCredit);
+       double fBalance = Double.parseDouble(accountbalance);
+       nB = fBalance + scer - sExp;
+       double nowB = Double.parseDouble(nBalance);
+       if(nB == nowB){
+           DebtorOrCredit.setText("Ok ");
+       }else{
+           DebtorOrCredit.setText("Filed");
+       }
+       if(nB < 0){
+           DebtorOrCredit.setText(DebtorOrCredit.getText()+"  " + "مدين");
+       }else{
+            DebtorOrCredit.setText(DebtorOrCredit.getText()+"  " + "دائن");
+       }
+       String[] coulmnName = new String [] { "التصفية", "البيــــــــان", "المبلغ", "التاريخ", "رقم" };
+       String [] coluNameCredit = new String [] {"التصفية", "البيان", "المبلغ", "تاريخ", "رقم"};
+       ConectionDataBase.fillAndCenterTable(sqlEX, exportTable, coulmnName);
+       ConectionDataBase.fillAndCenterTable(sqlCridet, tableCriedit, coluNameCredit);
+
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void SetNew(){
+        SelectType.add(RBMony);
+        SelectType.add(RBFinsh);
+        ConectionDataBase.fillCombo("account", "name_account", comAcount);
+        comAcount.addItem("اختر الحساب...");
+        comAcount.setSelectedItem("اختر الحساب...");
+        ConectionDataBase.fillCombo("account", "name_account", comAcount2);
+        comAcount2.setSelectedItem("عرفه");
+        comAcount2.setEnabled(false);
+        Detiles.setEnabledAt(0, true);
+        panlDetiels.setVisible(false);
+        Detiles.setEnabledAt(1, false);
+        Detiles.setEnabledAt(2, false);
+        
+    }
+    
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void allData1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allData1ActionPerformed
+        // TODO add your handling code here:
+        if(allData1.isSelected()){
+            comAcount2.setEnabled(true);
+        }else{
+            comAcount2.setEnabled(false);
+        }
+    }//GEN-LAST:event_allData1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        txtNB.setText(nB+"");
+        txtAmount.setText(nB+"");
+        if(nB < 0){
+            txtCorD.setText("مدين");
+            txtAmount.setEnabled(true);
+        }else if(nB == 0){
+            txtCorD.setText("خالص");
+            txtAmount.setEnabled(false);
+        }else{
+             txtCorD.setText("دائن");
+             txtAmount.setEnabled(true);
+        }
+        
+        
+         
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +621,43 @@ public class Filttering extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel DebtorOrCredit;
+    private javax.swing.JTabbedPane Detiles;
+    private javax.swing.JRadioButton RBFinsh;
+    private javax.swing.JRadioButton RBMony;
+    private javax.swing.ButtonGroup SelectType;
+    private javax.swing.JLabel SumExport;
+    private javax.swing.JLabel accountBalance;
+    private javax.swing.JCheckBox allData;
+    private javax.swing.JCheckBox allData1;
+    private javax.swing.JComboBox comAcount;
+    private javax.swing.JComboBox comAcount2;
+    private javax.swing.JPanel cpanel;
+    private javax.swing.JTable exportTable;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labSelect;
+    private javax.swing.JLabel nowBalance;
+    private javax.swing.JPanel pTable;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel panlDetiels;
+    private javax.swing.JLabel sumCredit;
+    private javax.swing.JTable tableCriedit;
+    private javax.swing.JTextField txtAmount;
+    private javax.swing.JLabel txtCorD;
+    private javax.swing.JLabel txtNB;
     // End of variables declaration//GEN-END:variables
 }

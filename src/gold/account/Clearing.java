@@ -8,18 +8,12 @@ package gold.account;
 import DataBase.ConectionDataBase;
 import static DataBase.ConectionDataBase.AutoId;
 import static DataBase.ConectionDataBase.ExecuteAnyQuery;
-import static DataBase.ConectionDataBase.newBalance;
 import DataBase.Tools;
-import com.sun.org.apache.xerces.internal.parsers.IntegratedParserConfiguration;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -648,7 +642,7 @@ public class Clearing extends javax.swing.JFrame {
                     txt4.setText("التلتين");//التلتين
                     txt5.setText("العربية");//العربية
                     txt6.setText("العامل الواحد");//العامل الواحد           
-                    String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
+                    String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+" AND isEnable=0;";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     txtCount.setText(counWorker);
                     amount = Double.valueOf(txtAmount.getText());
@@ -663,7 +657,7 @@ public class Clearing extends javax.swing.JFrame {
                      workerCount = Integer.valueOf(txtCount.getText());
                     int OneWorker = oneThird / workerCount;
                     txtoneWork.setText(String.valueOf(OneWorker));
-                    int GhorbalAndCar = oneThird - OneWorker;
+                    int GhorbalAndCar = oneThird - OneWorker ;
                     txtGhorbal.setText(String.valueOf(GhorbalAndCar));
                     txtCar.setText(String.valueOf(GhorbalAndCar));
                     break;
@@ -676,7 +670,7 @@ public class Clearing extends javax.swing.JFrame {
                     tabPanel.setEnabledAt(0, false);
                     tabPanel.setEnabledAt(1, true);
                     Ston.setEnabled(true);
-                    sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+";";
+                    sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+" AND isEnable=0;;";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     machin.setSelected(true);
                     
@@ -714,7 +708,7 @@ public class Clearing extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(machin.isSelected()){
            comAccount.setEnabled(true);
-           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 ;";
+           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0;;";
            String counWorker = ConectionDataBase.getSum(sqlCountWorker);
            int countWrker = Integer.parseInt(counWorker)+1;
            double tow = Double.valueOf(txtHtow.getText());
@@ -725,7 +719,7 @@ public class Clearing extends javax.swing.JFrame {
         }
         else{
            comAccount.setEnabled(false);
-           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 ;";
+           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0; ;";
            String counWorker = ConectionDataBase.getSum(sqlCountWorker);
            int countWrker = Integer.parseInt(counWorker);
            double tow = Double.valueOf(txtHtow.getText());
@@ -739,9 +733,8 @@ public class Clearing extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        String Sql , SqlUpdateImport , SqlUpdateExpens , SqlUpdateAssets ;
-        boolean isInsert , UpImp ,UpExp ,isUpdate ,UpAst ;
-        
+      String Sql , SqlUpdateImport , SqlUpdateExpens , SqlUpdateAssets ;
+      boolean isInsert , UpImp ,UpExp ,isUpdate ,UpAst ;
       String id_Clear = ConectionDataBase.AutoId("clear", "id_clear");
       SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
       Date date = new Date();
