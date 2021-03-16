@@ -7,6 +7,7 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
+import DataBase.savedData;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
@@ -38,12 +39,15 @@ public class Accounts extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        comWorkgroup = new javax.swing.JComboBox<>();
+        comWorkgroup = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
-        txtBalance = new javax.swing.JTextField();
+        txtOBalance = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtNBalance = new javax.swing.JTextField();
+        addGroup = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         AccontTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -83,25 +87,40 @@ public class Accounts extends javax.swing.JFrame {
         jLabel4.setText("المجموعة");
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        comWorkgroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comWorkgroup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("النوع");
         jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtBalance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtBalance.setText("0.00");
+        txtOBalance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtOBalance.setText("0.00");
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("الرصيد");
+        jLabel6.setText("رصيد اول المدة");
         jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("اضافة نوع");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("رصيد اخر المدة");
+        jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtNBalance.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNBalance.setText("0.00");
+
+        addGroup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add_1.png"))); // NOI18N
+        addGroup.setText("مجموعة اخري");
+        addGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addGroupActionPerformed(evt);
             }
         });
 
@@ -110,53 +129,63 @@ public class Accounts extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBalance)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
+                    .addComponent(txtNBalance)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtOBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comWorkgroup, 0, 106, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comWorkgroup, 0, 231, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtOBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comWorkgroup)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(addGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comWorkgroup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         AccontTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -246,10 +275,10 @@ public class Accounts extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                    .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                    .addComponent(btnEx, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -279,21 +308,21 @@ public class Accounts extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(txtSearch))))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSearch)
+                            .addComponent(jScrollPane1))))
+                .addGap(3, 3, 3))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -324,17 +353,23 @@ public class Accounts extends javax.swing.JFrame {
          String[] coulmnName =  new String [] {
                 "النوع", "الرصيد الحالي", "رصيد اول المدة", "المجموعة", "اسم الحساب", "رقم "
             };
-       String sql = "SELECT  _type.name_type , account.now_balance , account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup INNER JOIN _type ON account.id_type = _type.id_type  WHERE account.isEnable = 0  ORDER BY account.id_account DESC;  ";
-      //  String sql = "SELECT account.balance_account , workgroup.name_workgroup , account.name_account , account.id_account FROM account INNER JOIN workgroup ON account.id_workgroup = workgroup.id_workgroup ;  ";
+       String sql =
+                " SELECT t.name_type , ac.now_balance, ac.balance_account, w.name_workgroup, ac.name_account, ac.id_account"
+                +" FROM account ac"
+                +" JOIN accountworkgroup aw ON ac.id_account = aw.id_account"
+                +" JOIN _type t ON ac.id_type = t.id_type"
+                +" JOIN workgroup w ON aw.id_workgroup = w.id_workgroup"
+                +" ORDER BY ac.id_account DESC ;";
         ConectionDataBase.fillAndCenterTable(sql, AccontTable, coulmnName);
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", comWorkgroup);
         ConectionDataBase.fillCombo("_type", "name_type", jComboBox1);
        //btn disable
+       addGroup.setEnabled(false);
        btnDel.setEnabled(false);
        btnEdit.setEnabled(false);
        btnSave.setEnabled(false);
        //label and textsiled disable
-       txtBalance.setEnabled(false);
+       txtOBalance.setEnabled(false);
        txtId.setEnabled(false);
        txtName.setEnabled(false);
        comWorkgroup.setEnabled(false);
@@ -343,13 +378,12 @@ public class Accounts extends javax.swing.JFrame {
         String id = ConectionDataBase.AutoId("account", "id_account");
         txtId.setEnabled(true);
         txtId.setText(id);
-        txtBalance.setEnabled(true);
-        txtBalance.setText("0.00");
+        txtOBalance.setEnabled(true);
+        txtOBalance.setText("0.00");
         txtName.setEnabled(true);
         txtName.setText("");
         btnSave.setEnabled(true);
-        btnDel.setEnabled(false);
-       
+        btnDel.setEnabled(false); 
         comWorkgroup.setEnabled(true);
         jComboBox1.setEnabled(true);
     }
@@ -360,23 +394,29 @@ public class Accounts extends javax.swing.JFrame {
         String name = txtName.getText();
         String name_workgroup = comWorkgroup.getSelectedItem().toString();
         String id_workgroup = ConectionDataBase.getIdFrmName("workgroup", name_workgroup);
-        String balance = txtBalance.getText();
+        String Obalance = txtOBalance.getText();
+        String nBalance = txtNBalance.getText();
         String nameType = jComboBox1.getSelectedItem().toString();
         String id_type = ConectionDataBase.getIdFromName("_type",nameType );
-        String sql = "INSERT INTO account VALUES("+id+",'"+name+"',"+id_workgroup+","+balance+","+id_type+","+balance+",0);";
-        
+        String sql = "INSERT INTO account VALUES("+id+",'"+name+"',"+Obalance+","+id_type+","+nBalance+",0);";
+        String sql_acwork = "INSERT INTO accountworkgroup VALUES("+id+","+id_workgroup+");";
         // isSaved 
         boolean is_Save = ConectionDataBase.ExecuteAnyQuery(sql);
         if(is_Save){
-            Tools.MasgBox("تم الحفظ بنجاح");
-            txtBalance.setText("0.00");
-            txtBalance.setEnabled(false);
-            txtId.setText("");
-            txtId.setEnabled(false);
-            txtName.setText("");
-            txtName.setEnabled(false); 
-            SetNew();
-            btnNew.setEnabled(is_Save);
+            if(ConectionDataBase.ExecuteAnyQuery(sql_acwork)){
+                Tools.MasgBox("تم الحفظ بنجاح");
+                txtOBalance.setText("0.00");
+                txtOBalance.setEnabled(false);
+                txtId.setText("");
+                txtId.setEnabled(false);
+                txtName.setText("");
+                txtName.setEnabled(false); 
+                SetNew();
+                btnNew.setEnabled(is_Save); 
+            }else{
+                Tools.ErorBox("خطا");
+            }
+
         }else{
             Tools.MasgBox("خطـأ");
         }
@@ -386,18 +426,21 @@ public class Accounts extends javax.swing.JFrame {
     private void AccontTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AccontTableMouseClicked
         // TODO add your handling code here:
         int row = AccontTable.getSelectedRow();
-        txtBalance.setText(AccontTable.getValueAt(row, 1).toString());
-        txtName.setText(AccontTable.getValueAt(row, 4).toString());
         txtId.setText(AccontTable.getValueAt(row, 5).toString());
+        txtName.setText(AccontTable.getValueAt(row, 4).toString());
         comWorkgroup.setSelectedItem(AccontTable.getValueAt(row, 3));
+        txtNBalance.setText(AccontTable.getValueAt(row, 2).toString());
+        txtOBalance.setText(AccontTable.getValueAt(row, 1).toString());
         jComboBox1.setSelectedItem(AccontTable.getValueAt(row, 0));
         //btns is True
+        addGroup.setEnabled(true);
         btnEdit.setEnabled(true);
         btnDel.setEnabled(true);
         btnSave.setEnabled(false);
         btnNew.setEnabled(true);
         //txt disable
-        txtBalance.setEnabled(false);
+        txtOBalance.setEnabled(false);
+        txtNBalance.setEnabled(false);
         txtId.setEnabled(false);
         txtName.setEnabled(false);
         comWorkgroup.setEnabled(false);
@@ -410,17 +453,18 @@ public class Accounts extends javax.swing.JFrame {
         
         switch (nameBtn){
             case "تعديل":
-                txtBalance.setEnabled(true);
+                txtOBalance.setEnabled(true);
                // txtId.setEnabled(true);
                 txtName.setEnabled(true);
                 comWorkgroup.setEnabled(true);
-                jComboBox1.setEnabled(true);
+                //jComboBox1.setEnabled(true);
+                addGroup.setEnabled(true);
                 btnEdit.setText("تحديث");
                 break;
             case "تحديث":
                 String id_workGroup = ConectionDataBase.getIdFrmName("workgroup",comWorkgroup.getSelectedItem().toString());
                 String id_type = ConectionDataBase.getIdFromName("_type", jComboBox1.getSelectedItem().toString());
-                String Sql_update = "UPDATE account SET name_account='"+txtName.getText()+"', balance_account="+txtBalance.getText()+" , id_workgroup = "+id_workGroup+", id_type ="+id_type+" where id_account = "+txtId.getText()+";";
+                String Sql_update = "UPDATE account SET name_account='"+txtName.getText()+"', balance_account="+txtOBalance.getText()+" , id_workgroup = "+id_workGroup+", id_type ="+id_type+" where id_account = "+txtId.getText()+";";
                 boolean is_UpDate = ConectionDataBase.ExecuteAnyQuery(Sql_update);
                 if(is_UpDate){
                     btnEdit.setText("تعديل");
@@ -437,8 +481,9 @@ public class Accounts extends javax.swing.JFrame {
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
         String id = txtId.getText();
-        String Sql = "DELETE FROM account WHERE id_account="+id+";";
-        boolean is_Del = ConectionDataBase.ExecuteAnyQuery(Sql);
+        String wg = ConectionDataBase.getIdFrmName("workgroup",comWorkgroup.getSelectedItem().toString());
+        //String Sql = "DELETE FROM account WHERE id_account="+id+";";ConectionDataBase.ExecuteAnyQuery(Sql);
+        boolean is_Del =ConectionDataBase.ExecuteAnyQuery("DELETE FROM accountworkgroup WHERE id_account="+id+" AND id_workgroup="+wg+";");
         if(is_Del){
             Tools.MasgBox("تم الحذف");
             SetNew();
@@ -455,6 +500,18 @@ public class Accounts extends javax.swing.JFrame {
         t.setVisible(true);
         ConectionDataBase.fillCombo("_type","name_type", jComboBox1);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void addGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupActionPerformed
+        // TODO add your handling code here:
+         String id = txtId.getText();
+        String name = txtName.getText();
+        savedData.setName_account(name);
+        savedData.setId_account(id);
+        newGroupForAccount nfa = new newGroupForAccount();
+        nfa.setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/calculator.png")).getImage());
+        nfa.setLocationRelativeTo(null);
+        nfa.setVisible(true);
+    }//GEN-LAST:event_addGroupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,6 +550,7 @@ public class Accounts extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AccontTable;
+    private javax.swing.JButton addGroup;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEx;
@@ -506,12 +564,14 @@ public class Accounts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtBalance;
     private javax.swing.JLabel txtId;
+    private javax.swing.JTextField txtNBalance;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtOBalance;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

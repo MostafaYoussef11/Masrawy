@@ -67,6 +67,9 @@ public class ConectionDataBase {
               case "41.38.1.120" :
                  con = (Connection) DriverManager.getConnection("jdbc:mysql://41.38.1.120/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
                  break;
+              case "Internet" :
+                 con = (Connection) DriverManager.getConnection("jdbc:mysql://mysql-22347-0.cloudclusters.net:22347/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+                  break;
               default:
                  con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
                  break;
@@ -310,10 +313,11 @@ public static String getSum(String sql ){
            stmt = (Statement) con.createStatement();
            ResultSet rst;
            
-           String sql = "SELECT "+coulmName+" FROM "+tableName+";";
+           String sql = "SELECT "+coulmName+" FROM "+tableName +";";
            if(tableName.equals("account")){
-              sql =  "SELECT "+coulmName+" FROM "+tableName+" WHERE isEnable = 0;";
+              sql =  "SELECT "+coulmName+" FROM "+tableName+" WHERE isEnable = 0 ;";
            }
+//           sql = sql+" ORDER BY "+tableName+" DESC ;";
            rst = stmt.executeQuery(sql);
            rst.last();
            int c = rst.getRow();

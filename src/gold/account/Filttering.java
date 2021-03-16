@@ -6,6 +6,9 @@
 package gold.account;
 
 import DataBase.ConectionDataBase;
+import DataBase.Tools;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JTable;
 
 /**
@@ -54,7 +57,7 @@ public class Filttering extends javax.swing.JFrame {
         tableCriedit = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnFilter = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         comAcount = new javax.swing.JComboBox();
@@ -148,9 +151,9 @@ public class Filttering extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panlDetielsLayout.createSequentialGroup()
-                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SumExport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SumExport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panlDetielsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,12 +296,12 @@ public class Filttering extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/navigation.png"))); // NOI18N
-        jButton3.setText("تصفية الحساب");
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/navigation.png"))); // NOI18N
+        btnFilter.setText("تصفية الحساب");
+        btnFilter.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnFilterActionPerformed(evt);
             }
         });
 
@@ -310,7 +313,7 @@ public class Filttering extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btnFilter)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -319,7 +322,7 @@ public class Filttering extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5))
         );
 
@@ -331,7 +334,7 @@ public class Filttering extends javax.swing.JFrame {
 
         comAcount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.RIGHT, javax.swing.border.TitledBorder.TOP));
 
         RBMony.setText("تصفية نقدية");
         RBMony.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -482,58 +485,75 @@ public class Filttering extends javax.swing.JFrame {
         SetNew();
         
     }//GEN-LAST:event_formWindowOpened
-   double nB = 0.00;
+    private double nB = 0.00;
+    private int length;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-      nameAccount = comAcount.getSelectedItem().toString();
-      IdAccount = ConectionDataBase.getIdFrmName("account", nameAccount);
-      labSelect.setVisible(false);
-      panlDetiels.setVisible(true);
-      Detiles.setEnabledAt(0, true);
-      Detiles.setEnabledAt(1, true);
-      Detiles.setEnabledAt(2, true);
-      Detiles.setEnabled(true);
-      Detiles.setSelectedIndex(0); 
-       String sqlEX , sqlCridet , accountbalance , Smexport ,SCredit ;
-       if(allData.isSelected()){
-          sqlEX = "SELECT isFiltering , note , price_export , date_exports , id_exports  FROM exports WHERE id_account="+IdAccount+";";
-          sqlCridet = "SELECT isFiltering , note , amount , date_credit ,id_credit  FROM creditors WHERE id_account="+IdAccount+";";
-          
-          Smexport = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports  WHERE id_account="+IdAccount+";");
-          SCredit = ConectionDataBase.getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+IdAccount+";");
-       }else{
-          sqlEX = "SELECT isFiltering , note , price_export , date_exports , id_exports  FROM exports WHERE id_account="+IdAccount+" and isFiltering = 0 ;";
-          sqlCridet = "SELECT isFiltering , note , amount , date_credit ,id_credit  FROM creditors WHERE id_account="+IdAccount+" and isFiltering = 0 ;";
-          Smexport = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports  WHERE id_account="+IdAccount+" and isFiltering = 0 ;");
-          SCredit = ConectionDataBase.getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+IdAccount+" and isFiltering = 0 ;");
-       }
-       accountbalance = ConectionDataBase.getSum("SELECT balance_account AS sum FROM account WHERE id_account="+IdAccount+";");
-       String nBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+IdAccount+";");
-       nowBalance.setText(nBalance);
-       accountBalance.setText(accountbalance);
-       SumExport.setText(Smexport);
-       sumCredit.setText(SCredit);
-       double sExp = Double.parseDouble(Smexport);
-       double scer = Double.parseDouble(SCredit);
-       double fBalance = Double.parseDouble(accountbalance);
-       nB = fBalance + scer - sExp;
-       double nowB = Double.parseDouble(nBalance);
-       if(nB == nowB){
-           DebtorOrCredit.setText("Ok ");
-       }else{
-           DebtorOrCredit.setText("Filed");
-       }
-       if(nB < 0){
-           DebtorOrCredit.setText(DebtorOrCredit.getText()+"  " + "مدين");
-       }else{
-            DebtorOrCredit.setText(DebtorOrCredit.getText()+"  " + "دائن");
-       }
-       String[] coulmnName = new String [] { "التصفية", "البيــــــــان", "المبلغ", "التاريخ", "رقم" };
-       String [] coluNameCredit = new String [] {"التصفية", "البيان", "المبلغ", "تاريخ", "رقم"};
-       ConectionDataBase.fillAndCenterTable(sqlEX, exportTable, coulmnName);
-       ConectionDataBase.fillAndCenterTable(sqlCridet, tableCriedit, coluNameCredit);
+      if(comAcount.getSelectedIndex()== length){
+          Tools.ErorBox("لم يتم اختيار اسم الحساب");
+      }
+      else{  
+          nameAccount = comAcount.getSelectedItem().toString();
+          IdAccount = ConectionDataBase.getIdFrmName("account", nameAccount);
+          labSelect.setVisible(false);
+          panlDetiels.setVisible(true);
+          Detiles.setEnabledAt(0, true);
+          Detiles.setEnabledAt(1, true);
+          Detiles.setEnabledAt(2, true);
+          Detiles.setEnabled(true);
+          Detiles.setSelectedIndex(0); 
+           String sqlEX , sqlCridet , accountbalance , Smexport ,SCredit ;
+           if(allData.isSelected()){
+              sqlEX = "SELECT isFiltering , note , price_export , date_exports , id_exports  FROM exports WHERE id_account="+IdAccount+";";
+              sqlCridet = "SELECT isFiltering , note , amount , date_credit ,id_credit  FROM creditors WHERE id_account="+IdAccount+";";
 
-       
+              Smexport = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports  WHERE id_account="+IdAccount+";");
+              SCredit = ConectionDataBase.getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+IdAccount+";");
+           }else{
+              sqlEX = "SELECT isFiltering , note , price_export , date_exports , id_exports  FROM exports WHERE id_account="+IdAccount+" and isFiltering = 0 ;";
+              sqlCridet = "SELECT isFiltering , note , amount , date_credit ,id_credit  FROM creditors WHERE id_account="+IdAccount+" and isFiltering = 0 ;";
+              Smexport = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports  WHERE id_account="+IdAccount+" and isFiltering = 0 ;");
+              SCredit = ConectionDataBase.getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+IdAccount+" and isFiltering = 0 ;");
+           }
+           accountbalance = ConectionDataBase.getSum("SELECT balance_account AS sum FROM account WHERE id_account="+IdAccount+";");
+           String nBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+IdAccount+";");
+           nowBalance.setText(nBalance);
+           accountBalance.setText(accountbalance);
+           SumExport.setText(Smexport);
+           sumCredit.setText(SCredit);
+           double sExp = Double.parseDouble(Smexport);
+           double scer = Double.parseDouble(SCredit);
+           double fBalance = Double.parseDouble(accountbalance);
+           nB = fBalance + scer - sExp;
+           double nowB = Double.parseDouble(nBalance);
+           if(nB == nowB){
+               DebtorOrCredit.setText("Ok ");
+           }else{
+               DebtorOrCredit.setText("Filed");
+           }
+           if(nB < 0){
+               DebtorOrCredit.setText(DebtorOrCredit.getText()+"  " + "مدين");
+           }else{
+                DebtorOrCredit.setText(DebtorOrCredit.getText()+"  " + "دائن");
+           }
+           String[] coulmnName = new String [] { "التصفية", "البيــــــــان", "المبلغ", "التاريخ", "رقم" };
+           String [] coluNameCredit = new String [] {"التصفية", "البيان", "المبلغ", "تاريخ", "رقم"};
+           ConectionDataBase.fillAndCenterTable(sqlEX, exportTable, coulmnName);
+           ConectionDataBase.fillAndCenterTable(sqlCridet, tableCriedit, coluNameCredit);
+           btnFilter.setEnabled(true);
+           txtNB.setText(nB+"");
+           txtAmount.setText(nB+"");
+           if(nB < 0){
+                txtCorD.setText("مدين");
+                txtAmount.setEnabled(true);
+           }else if(nB == 0){
+                txtCorD.setText("خالص");
+                txtAmount.setEnabled(false);
+           }else{
+                 txtCorD.setText("دائن");
+                 txtAmount.setEnabled(true);
+           }
+      }
     }//GEN-LAST:event_jButton1ActionPerformed
     private void SetNew(){
         SelectType.add(RBMony);
@@ -541,6 +561,7 @@ public class Filttering extends javax.swing.JFrame {
         ConectionDataBase.fillCombo("account", "name_account", comAcount);
         comAcount.addItem("اختر الحساب...");
         comAcount.setSelectedItem("اختر الحساب...");
+        length = comAcount.getItemCount() - 1;
         ConectionDataBase.fillCombo("account", "name_account", comAcount2);
         comAcount2.setSelectedItem("عرفه");
         comAcount2.setEnabled(false);
@@ -548,6 +569,7 @@ public class Filttering extends javax.swing.JFrame {
         panlDetiels.setVisible(false);
         Detiles.setEnabledAt(1, false);
         Detiles.setEnabledAt(2, false);
+        btnFilter.setEnabled(false);
         
     }
     
@@ -566,24 +588,50 @@ public class Filttering extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_allData1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
         // TODO add your handling code here:
-        txtNB.setText(nB+"");
-        txtAmount.setText(nB+"");
-        if(nB < 0){
-            txtCorD.setText("مدين");
-            txtAmount.setEnabled(true);
-        }else if(nB == 0){
-            txtCorD.setText("خالص");
-            txtAmount.setEnabled(false);
-        }else{
-             txtCorD.setText("دائن");
-             txtAmount.setEnabled(true);
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+        String date = format.format(new Date());
+        if(RBMony.isSelected()){
+            
+            double nbalnc = Double.parseDouble(txtNB.getText());
+            String price_export = txtAmount.getText();
+            double price = Double.parseDouble(price_export);
+            double divPrice = price - nbalnc;
+            
+            String id_account = ConectionDataBase.getIdFrmName("account", comAcount.getSelectedItem().toString());
+            String note = "تصفية حساب" + comAcount.getSelectedItem().toString();
+            if(nB > 0){
+                // insert amount to export and diley
+                String id_exports = ConectionDataBase.AutoId("exports", "id_exports");
+                String sql = "INSERT INTO exports VALUES("+id_exports+",'"+date+"',"+price_export+","+id_account+",'"+note+"',0);";
+                boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
+                if(isSaved){
+                    // daily
+                    String id_daily = ConectionDataBase.AutoId("daily", "id");
+                    String tabName = "حساب"+" "+comAcount.getSelectedItem().toString();
+                    String sqlDay = "INSERT INTO daily VALUES("+id_daily+",'"+date+"',"+price_export+",'"+note+"','"+tabName+"');";
+                    ConectionDataBase.ExecuteAnyQuery(sqlDay);
+                    if(divPrice != 0){
+                        String id_discount = ConectionDataBase.getIdFrmName("discount", "id_discount");
+                        String Sqldiscond = "INSERT INTO discount VALUES("+id_discount+",'"+date+"',"+divPrice+",'"+tabName+"');";
+                        ConectionDataBase.ExecuteAnyQuery(Sqldiscond);
+                    }
+                }
+                        
+            }
+            
+            
         }
+        else if(RBFinsh.isSelected()){
         
         
+        }
+        else{
+            Tools.ErorBox("اختر نوع التصفية");
+        }
          
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnFilterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -630,13 +678,13 @@ public class Filttering extends javax.swing.JFrame {
     private javax.swing.JLabel accountBalance;
     private javax.swing.JCheckBox allData;
     private javax.swing.JCheckBox allData1;
+    private javax.swing.JButton btnFilter;
     private javax.swing.JComboBox comAcount;
     private javax.swing.JComboBox comAcount2;
     private javax.swing.JPanel cpanel;
     private javax.swing.JTable exportTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

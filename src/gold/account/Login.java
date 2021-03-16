@@ -9,6 +9,7 @@ package gold.account;
 import DataBase.ConectionDataBase;
 import DataBase.savedData;
 import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -90,7 +91,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("السيرفر");
 
-        comServer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "المحلي", "41.38.1.120" }));
+        comServer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "المحلي", "41.38.1.120", "Internet" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,6 +160,8 @@ public class Login extends javax.swing.JFrame {
            // JOptionPane.showMessageDialog(null, "تم الدخول");
             MainFrame mf = new MainFrame(userName , Server);
             mf.setLocationRelativeTo(null);
+            mf.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+            //mf.setUndecorated(true);
             mf.setVisible(true);
             dispose();
             

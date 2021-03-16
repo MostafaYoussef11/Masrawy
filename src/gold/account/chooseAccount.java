@@ -7,6 +7,7 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
+import DataBase.savedData;
 //import com.sun.jmx.snmp.SnmpDataTypeEnums;
 import java.awt.Color;
 import java.io.InputStream;
@@ -141,12 +142,25 @@ public class chooseAccount extends javax.swing.JFrame {
         double sum_cridet = Double.valueOf(SumCridet);
         double Sum_export = Double.valueOf(SunExport);
         double nowBalance = nBalance + sum_cridet -Sum_export;
+        String[] groups = ConectionDataBase.fill("select id_workgroup from accountworkgroup where id_account="+id);
         HashMap para = new HashMap();
+//        String group = "";
+//        int length = groups.length;
+//        if(length == 1){
+//            group = groups[0];
+//        }
+//        else{
+//            for(int i = 0 ; i < length ; i++){
+//                group = group + ","+groups[i];
+//            }        
+//        }
+
         para.put("id_account", id_account);//id_account
         para.put("SumCridet" , sum_cridet); //SumCridet
         para.put("SunExport", Sum_export); //SunExport
         para.put("nowBalance", nowBalance);
         para.put("oldBalance", nBalance);//oldBalance
+        para.put("server", savedData.getServer());
         Tools.Printer(sql, stream, para);
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -10,7 +10,15 @@ package DataBase;
  * @author Masrawy
  */
 public class savedData {
-    private static String userName , Server;
+    private static String userName , Server , id_account , name_account;
+
+    public static String getName_account() {
+        return name_account;
+    }
+
+    public static void setName_account(String name_account) {
+        savedData.name_account = name_account;
+    }
 
     public static String getUserName() {
         return userName;
@@ -26,6 +34,14 @@ public class savedData {
 
     public static void setServer(String Server) {
         savedData.Server = Server;
+    }
+
+    public static String getId_account() {
+        return id_account;
+    }
+
+    public static void setId_account(String aId_account) {
+        id_account = aId_account;
     }
 
 

@@ -642,7 +642,8 @@ public class Clearing extends javax.swing.JFrame {
                     txt4.setText("التلتين");//التلتين
                     txt5.setText("العربية");//العربية
                     txt6.setText("العامل الواحد");//العامل الواحد           
-                    String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+" AND isEnable=0;";
+                    //String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+" AND isEnable=0;";
+                    String sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type ="+id_type+" AND ac.isEnable = 0;";
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     txtCount.setText(counWorker);
                     amount = Double.valueOf(txtAmount.getText());
@@ -670,7 +671,8 @@ public class Clearing extends javax.swing.JFrame {
                     tabPanel.setEnabledAt(0, false);
                     tabPanel.setEnabledAt(1, true);
                     Ston.setEnabled(true);
-                    sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+" AND isEnable=0;;";
+                   // sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+" AND isEnable=0;;";
+                    sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type ="+id_type+" AND ac.isEnable = 0;";  
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     machin.setSelected(true);
                     

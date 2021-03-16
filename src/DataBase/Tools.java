@@ -108,6 +108,7 @@ public class Tools {
             HashMap para = new HashMap();
             para.put("date", date);
             para.put("sumImport", Double.valueOf(imports));
+            para.put("server", savedData.getServer());
             Connection con = ConectionDataBase.getCon();
             JasperPrint jp = JasperFillManager.fillReport(jr, para, con);
             JasperViewer.viewReport(jp, false);
