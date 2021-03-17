@@ -43,7 +43,7 @@ public class Accounts extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtOBalance = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        comType = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtNBalance = new javax.swing.JTextField();
@@ -100,7 +100,7 @@ public class Accounts extends javax.swing.JFrame {
         jLabel6.setText("رصيد اول المدة");
         jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +148,7 @@ public class Accounts extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comType, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -182,7 +182,7 @@ public class Accounts extends javax.swing.JFrame {
                         .addComponent(comWorkgroup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comType, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -362,7 +362,7 @@ public class Accounts extends javax.swing.JFrame {
                 +" ORDER BY ac.id_account DESC ;";
         ConectionDataBase.fillAndCenterTable(sql, AccontTable, coulmnName);
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", comWorkgroup);
-        ConectionDataBase.fillCombo("_type", "name_type", jComboBox1);
+        ConectionDataBase.fillCombo("_type", "name_type", comType);
        //btn disable
        addGroup.setEnabled(false);
        btnDel.setEnabled(false);
@@ -380,12 +380,19 @@ public class Accounts extends javax.swing.JFrame {
         txtId.setText(id);
         txtOBalance.setEnabled(true);
         txtOBalance.setText("0.00");
+        txtNBalance.setText("0.00");
+        txtNBalance.setEnabled(false);
         txtName.setEnabled(true);
-        txtName.setText("");
+        txtNBalance.setEnabled(true);
         btnSave.setEnabled(true);
         btnDel.setEnabled(false); 
         comWorkgroup.setEnabled(true);
-        jComboBox1.setEnabled(true);
+        comType.setEnabled(true);
+        //txtName.setFocusable(true);
+        
+//        txtName.setRequestFocusEnabled(true);
+        txtName.setText("");
+//        this.setAutoRequestFocus(true);
     }
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
@@ -396,7 +403,7 @@ public class Accounts extends javax.swing.JFrame {
         String id_workgroup = ConectionDataBase.getIdFrmName("workgroup", name_workgroup);
         String Obalance = txtOBalance.getText();
         String nBalance = txtNBalance.getText();
-        String nameType = jComboBox1.getSelectedItem().toString();
+        String nameType = comType.getSelectedItem().toString();
         String id_type = ConectionDataBase.getIdFromName("_type",nameType );
         String sql = "INSERT INTO account VALUES("+id+",'"+name+"',"+Obalance+","+id_type+","+nBalance+",0);";
         String sql_acwork = "INSERT INTO accountworkgroup VALUES("+id+","+id_workgroup+");";
@@ -429,9 +436,9 @@ public class Accounts extends javax.swing.JFrame {
         txtId.setText(AccontTable.getValueAt(row, 5).toString());
         txtName.setText(AccontTable.getValueAt(row, 4).toString());
         comWorkgroup.setSelectedItem(AccontTable.getValueAt(row, 3));
-        txtNBalance.setText(AccontTable.getValueAt(row, 2).toString());
-        txtOBalance.setText(AccontTable.getValueAt(row, 1).toString());
-        jComboBox1.setSelectedItem(AccontTable.getValueAt(row, 0));
+        txtNBalance.setText(AccontTable.getValueAt(row,1).toString());
+        txtOBalance.setText(AccontTable.getValueAt(row, 2).toString());
+        comType.setSelectedItem(AccontTable.getValueAt(row, 0));
         //btns is True
         addGroup.setEnabled(true);
         btnEdit.setEnabled(true);
@@ -444,7 +451,7 @@ public class Accounts extends javax.swing.JFrame {
         txtId.setEnabled(false);
         txtName.setEnabled(false);
         comWorkgroup.setEnabled(false);
-        jComboBox1.setEnabled(false);
+        comType.setEnabled(false);
     }//GEN-LAST:event_AccontTableMouseClicked
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -454,17 +461,17 @@ public class Accounts extends javax.swing.JFrame {
         switch (nameBtn){
             case "تعديل":
                 txtOBalance.setEnabled(true);
-               // txtId.setEnabled(true);
+                txtNBalance.setEnabled(true);
                 txtName.setEnabled(true);
                 comWorkgroup.setEnabled(true);
-                //jComboBox1.setEnabled(true);
+                comType.setEnabled(true);
                 addGroup.setEnabled(true);
                 btnEdit.setText("تحديث");
                 break;
             case "تحديث":
-                String id_workGroup = ConectionDataBase.getIdFrmName("workgroup",comWorkgroup.getSelectedItem().toString());
-                String id_type = ConectionDataBase.getIdFromName("_type", jComboBox1.getSelectedItem().toString());
-                String Sql_update = "UPDATE account SET name_account='"+txtName.getText()+"', balance_account="+txtOBalance.getText()+" , id_workgroup = "+id_workGroup+", id_type ="+id_type+" where id_account = "+txtId.getText()+";";
+                String id_workGroup = txtNBalance.getText();
+                String id_type = ConectionDataBase.getIdFromName("_type", comType.getSelectedItem().toString());
+                String Sql_update = "UPDATE account SET name_account='"+txtName.getText()+"', balance_account="+txtOBalance.getText()+" , now_balance = "+id_workGroup+", id_type ="+id_type+" where id_account = "+txtId.getText()+";";
                 boolean is_UpDate = ConectionDataBase.ExecuteAnyQuery(Sql_update);
                 if(is_UpDate){
                     btnEdit.setText("تعديل");
@@ -498,7 +505,7 @@ public class Accounts extends javax.swing.JFrame {
         type t = new type();
         t.setLocationRelativeTo(null);
         t.setVisible(true);
-        ConectionDataBase.fillCombo("_type","name_type", jComboBox1);
+        ConectionDataBase.fillCombo("_type","name_type", comType);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void addGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupActionPerformed
@@ -556,9 +563,9 @@ public class Accounts extends javax.swing.JFrame {
     private javax.swing.JButton btnEx;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox comType;
     private javax.swing.JComboBox<String> comWorkgroup;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

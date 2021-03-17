@@ -409,7 +409,9 @@ public static String getSum(String sql ){
       String date = format.format(new Date());
      try{ 
          SetConnection();
-         stmt = (Statement) con.createStatement();         String sql = "select id_account AS id from account where id_workgroup = "+id_work+" and id_type="+id_type+" ;";
+         stmt = (Statement) con.createStatement();  
+    //SELECT a.id_account , a.name_account FROM account a LEFT JOIN accountworkgroup aw ON a.id_account = aw.id_account WHERE aw.id_workgroup = 1 AND a.id_type =2
+         String sql = "SELECT a.id_account AS id FROM account a LEFT JOIN accountworkgroup aw ON a.id_account = aw.id_account WHERE aw.id_workgroup ="+id_work+" and id_type="+id_type+" AND a.isEnable = 0 ;";
          ResultSet rst = stmt.executeQuery(sql);
          rst.last();
          int count = rst.getRow();
@@ -462,7 +464,8 @@ public static String getSum(String sql ){
      try{ 
      SetConnection();
      stmt = (Statement) con.createStatement();
-     String sql = "select id_account AS id from account where id_workgroup = "+id_work+" and id_type="+id_type+" ;";
+     //SELECT a.id_account , a.name_account FROM account a LEFT JOIN accountworkgroup aw ON a.id_account = aw.id_account WHERE aw.id_workgroup = 1 AND a.id_type =2
+     String sql = "SELECT a.id_account AS id FROM account a LEFT JOIN accountworkgroup aw ON a.id_account = aw.id_account WHERE aw.id_workgroup ="+id_work+" and id_type="+id_type+" AND a.isEnable = 0 ;";
      ResultSet rst = stmt.executeQuery(sql);
      rst.last();
      int count = rst.getRow();

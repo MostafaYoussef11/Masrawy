@@ -535,7 +535,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="comAcount2" min="-2" pref="160" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="allData1" min="-2" max="-2" attributes="0"/>
+                          <Component id="goToAccount" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="allData" min="-2" max="-2" attributes="0"/>
@@ -565,7 +565,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="allData1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="goToAccount" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="comAcount2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel3" max="32767" attributes="0"/>
@@ -667,13 +667,13 @@
             <Property name="horizontalTextPosition" type="int" value="2"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="allData1">
+        <Component class="javax.swing.JCheckBox" name="goToAccount">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x62a;&#x631;&#x62d;&#x64a;&#x644; &#x627;&#x644;&#x64a; &#x62d;&#x633;&#x627;&#x628; &#x627;&#x62e;&#x631;"/>
             <Property name="horizontalTextPosition" type="int" value="2"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="allData1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="goToAccountActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="comAcount2">

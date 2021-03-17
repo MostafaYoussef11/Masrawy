@@ -12,7 +12,8 @@
 *
 FROM
      `exports` exports
-where id_account = $P{id_account}]]>
+where id_account = $P{id_account}
+AND isFiltering = 0]]>
 	</queryString>
 	<field name="id_exports" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -27,6 +28,9 @@ where id_account = $P{id_account}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="note" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="isFiltering" class="java.lang.Boolean">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>

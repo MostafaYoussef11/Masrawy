@@ -710,7 +710,8 @@ public class Clearing extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(machin.isSelected()){
            comAccount.setEnabled(true);
-           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0;;";
+           String  sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type = 8 AND ac.isEnable = 0;";
+        //   String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0;;";
            String counWorker = ConectionDataBase.getSum(sqlCountWorker);
            int countWrker = Integer.parseInt(counWorker)+1;
            double tow = Double.valueOf(txtHtow.getText());
@@ -721,7 +722,8 @@ public class Clearing extends javax.swing.JFrame {
         }
         else{
            comAccount.setEnabled(false);
-           String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0; ;";
+           String  sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type = 8 AND ac.isEnable = 0;";
+           //String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0; ;";
            String counWorker = ConectionDataBase.getSum(sqlCountWorker);
            int countWrker = Integer.parseInt(counWorker);
            double tow = Double.valueOf(txtHtow.getText());

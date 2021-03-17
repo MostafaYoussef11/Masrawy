@@ -66,7 +66,7 @@ public class Filttering extends javax.swing.JFrame {
         RBFinsh = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         allData = new javax.swing.JCheckBox();
-        allData1 = new javax.swing.JCheckBox();
+        goToAccount = new javax.swing.JCheckBox();
         comAcount2 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         txtNB = new javax.swing.JLabel();
@@ -374,11 +374,11 @@ public class Filttering extends javax.swing.JFrame {
         allData.setText("عرض البيانات كاملة");
         allData.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        allData1.setText("ترحيل الي حساب اخر");
-        allData1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        allData1.addActionListener(new java.awt.event.ActionListener() {
+        goToAccount.setText("ترحيل الي حساب اخر");
+        goToAccount.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        goToAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                allData1ActionPerformed(evt);
+                goToAccountActionPerformed(evt);
             }
         });
 
@@ -417,7 +417,7 @@ public class Filttering extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comAcount2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(allData1))
+                        .addComponent(goToAccount))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(allData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -441,7 +441,7 @@ public class Filttering extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(allData1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(goToAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(comAcount2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtNB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -570,6 +570,11 @@ public class Filttering extends javax.swing.JFrame {
         Detiles.setEnabledAt(1, false);
         Detiles.setEnabledAt(2, false);
         btnFilter.setEnabled(false);
+        txtNB.setText(null);
+        txtCorD.setText(null);
+        txtAmount.setText(null);
+        RBFinsh.setSelected(false);
+        RBMony.setSelected(false);
         
     }
     
@@ -579,58 +584,78 @@ public class Filttering extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void allData1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allData1ActionPerformed
+    private void goToAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToAccountActionPerformed
         // TODO add your handling code here:
-        if(allData1.isSelected()){
+        if(goToAccount.isSelected()){
             comAcount2.setEnabled(true);
         }else{
             comAcount2.setEnabled(false);
         }
-    }//GEN-LAST:event_allData1ActionPerformed
+    }//GEN-LAST:event_goToAccountActionPerformed
+    private void MonyFiltter (){
+       SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+      String date = format.format(new Date());
+       double nbalnc = Double.parseDouble(txtNB.getText());
+       String price_export = txtAmount.getText();
+       double price = Double.parseDouble(price_export);
+       double divPrice = price - nbalnc;       
+       String id_account = ConectionDataBase.getIdFrmName("account", comAcount.getSelectedItem().toString());
+       String note = "تصفية حساب " + comAcount.getSelectedItem().toString();
+        if(nB >= 0){
+            // insert amount to export and diley
+            String id_exports = ConectionDataBase.AutoId("exports", "id_exports");
+            String sql = "INSERT INTO exports VALUES("+id_exports+",'"+date+"',"+price_export+","+id_account+",'"+note+"',0);";
+            boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
+            if(isSaved){
+                // daily
+                String id_daily = ConectionDataBase.AutoId("daily", "id");
+                String tabName = "حساب "+" "+comAcount.getSelectedItem().toString();
+                String sqlDay = "INSERT INTO daily VALUES("+id_daily+",'"+date+"',"+price_export+",'"+note+"','"+tabName+"');";
+                ConectionDataBase.ExecuteAnyQuery(sqlDay);
+                if(divPrice != 0){
+                    String id_discount = ConectionDataBase.AutoId("discount", "id_discount");
+                    String Sqldiscond = "INSERT INTO discount VALUES("+id_discount+",'"+date+"',"+divPrice+",'"+tabName+"');";
+                    ConectionDataBase.ExecuteAnyQuery(Sqldiscond);
+                }
+                ConectionDataBase.newBalance(id_account);
+                String getNowBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account ="+id_account+";");
+                ConectionDataBase.ExecuteAnyQuery("UPDATE account SET balance_account = "+getNowBalance +" WHERE id_account="+id_account+";");
+                //Update export isFilltering = 1 and Cridet
+                String sql_UpdateExport = "UPDATE exports SET isFiltering = 1 WHERE id_account ="+id_account+";";
+                String sql_Updatecreditors = "UPDATE creditors SET isFiltering = 1 WHERE id_account ="+id_account+";";
+                boolean upex = ConectionDataBase.ExecuteAnyQuery(sql_UpdateExport);
+                boolean upCre = ConectionDataBase.ExecuteAnyQuery(sql_Updatecreditors);
+                boolean Updated = upex && upCre; 
+                getNowBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account ="+id_account+";");
+                if(Updated){
+                    Tools.MasgBox("تم التصفية بنجاح و الرصيد الحالي  = "+getNowBalance);
+                }
 
+            }
+
+        }
+
+    }
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
         // TODO add your handling code here:
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-        String date = format.format(new Date());
+      String id_account = ConectionDataBase.getIdFrmName("account", comAcount.getSelectedItem().toString());
+
         if(RBMony.isSelected()){
-            
-            double nbalnc = Double.parseDouble(txtNB.getText());
-            String price_export = txtAmount.getText();
-            double price = Double.parseDouble(price_export);
-            double divPrice = price - nbalnc;
-            
-            String id_account = ConectionDataBase.getIdFrmName("account", comAcount.getSelectedItem().toString());
-            String note = "تصفية حساب" + comAcount.getSelectedItem().toString();
-            if(nB > 0){
-                // insert amount to export and diley
-                String id_exports = ConectionDataBase.AutoId("exports", "id_exports");
-                String sql = "INSERT INTO exports VALUES("+id_exports+",'"+date+"',"+price_export+","+id_account+",'"+note+"',0);";
-                boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
-                if(isSaved){
-                    // daily
-                    String id_daily = ConectionDataBase.AutoId("daily", "id");
-                    String tabName = "حساب"+" "+comAcount.getSelectedItem().toString();
-                    String sqlDay = "INSERT INTO daily VALUES("+id_daily+",'"+date+"',"+price_export+",'"+note+"','"+tabName+"');";
-                    ConectionDataBase.ExecuteAnyQuery(sqlDay);
-                    if(divPrice != 0){
-                        String id_discount = ConectionDataBase.getIdFrmName("discount", "id_discount");
-                        String Sqldiscond = "INSERT INTO discount VALUES("+id_discount+",'"+date+"',"+divPrice+",'"+tabName+"');";
-                        ConectionDataBase.ExecuteAnyQuery(Sqldiscond);
-                    }
-                }
-                        
-            }
-            
-            
+          MonyFiltter();
+          SetNew();
         }
         else if(RBFinsh.isSelected()){
-        
-        
+          MonyFiltter();
+          String Sql_updaet = "UPDATE account SET isEnable = 1 WHERE id_account="+id_account+";";
+          boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(Sql_updaet);
+         if(isUpdate){
+           Tools.MasgBox("تمت تصيفة حساب  "+comAcount.getSelectedItem().toString() +" نهائيا");
+           SetNew();
+         }
         }
         else{
-            Tools.ErorBox("اختر نوع التصفية");
-        }
-         
+          Tools.ErorBox("اختر نوع التصفية");
+        }     
     }//GEN-LAST:event_btnFilterActionPerformed
 
     /**
@@ -677,12 +702,12 @@ public class Filttering extends javax.swing.JFrame {
     private javax.swing.JLabel SumExport;
     private javax.swing.JLabel accountBalance;
     private javax.swing.JCheckBox allData;
-    private javax.swing.JCheckBox allData1;
     private javax.swing.JButton btnFilter;
     private javax.swing.JComboBox comAcount;
     private javax.swing.JComboBox comAcount2;
     private javax.swing.JPanel cpanel;
     private javax.swing.JTable exportTable;
+    private javax.swing.JCheckBox goToAccount;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
