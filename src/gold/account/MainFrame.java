@@ -10,6 +10,7 @@ import DataBase.Tools;
 import DataBase.savedData;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     private final String userName;
     private final String Server;
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     public MainFrame(String userName , String Server) {
         initComponents();
         this.userName = userName;
@@ -93,7 +95,6 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("برنامج ادارة الحسابات");
         setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/calculator.png")).getImage());
-        setPreferredSize(new java.awt.Dimension(1024, 768));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -106,6 +107,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "شغل الجبل", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanel1.setOpaque(false);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/hierarchy.png"))); // NOI18N
         jButton1.setText("مجموعات العمل");
@@ -203,9 +205,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(txtServer, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
         );
 
@@ -214,6 +214,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel3.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "مدفوعات", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanel3.setOpaque(false);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/wallet.png"))); // NOI18N
         jButton3.setText("صادر للحسابات");
@@ -273,6 +274,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel4.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "تقارير", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanel4.setOpaque(false);
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/business-report.png"))); // NOI18N
         jButton7.setText("تقرير مصروفات اليوم");
@@ -337,6 +339,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel5.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "الواردات", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanel5.setOpaque(false);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ingots.png"))); // NOI18N
         jButton6.setText("الوارد");
@@ -469,13 +472,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel13.setBounds(390, 220, 110, 25);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gold/account/Backaground.jpg"))); // NOI18N
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel4.setMaximumSize(new java.awt.Dimension(1024, 640));
         jLabel4.setMinimumSize(new java.awt.Dimension(1024, 640));
-        jLabel4.setPreferredSize(new java.awt.Dimension(1024, 768));
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(0, -70, 1030, 768);
+        jLabel4.setBounds(0, 0, 0, 0);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -526,6 +527,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+        
         new MyThread("upGrasd").start();
         
     }//GEN-LAST:event_formWindowActivated
@@ -533,8 +535,19 @@ public class MainFrame extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         txtServer.setText(savedData.getServer());
         txtUser.setText(savedData.getUserName());
+        jPanel2.setSize(dim.width,34);
         jLabel4.setSize(dim);
-//     Tools.MasgBox(dim.height + "  "+dim.width);
+        jLabel4.setPreferredSize(dim);
+        ImageIcon icon = new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/bgr.jpg")).getImage().getScaledInstance(dim.width, dim.height, Image.SCALE_DEFAULT));
+        jLabel4.setLocation(0, 0); 
+        jLabel4.setIcon(icon);
+        int x = dim.width - 195;
+        jPanel1.setLocation(x, 10);
+        jPanel3.setLocation(x, 180);
+        jPanel5.setLocation(x, 350);
+        jPanel4.setLocation(x-190, 10);
+       
+        
 //        ImageIcon image = new ImageIcon(getClass().getResource("icons/calculator.png"));
 //       MainFrame.setIconImage(image.getImage());
 //       this.setIconImage(Toolkit.getDefaultToolkit().getClass().getResource("icons/calculator.png"));
@@ -678,7 +691,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
 //frame.setSize(dim.width / 2, dim.height / 2);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
