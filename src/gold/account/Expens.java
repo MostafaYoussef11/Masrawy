@@ -369,7 +369,7 @@ public class Expens extends javax.swing.JFrame {
         price = txtPrice.getText();
         id_work = ConectionDataBase.getIdFrmName("workgroup", txtWorkGroup.getSelectedItem().toString());
         note = txtNote.getText();
-        id_Suppliers = ConectionDataBase.getIdFrmName("Suppliers", suppCombo.getSelectedItem().toString());
+        id_Suppliers = ConectionDataBase.getIdFrmName("suppliers", suppCombo.getSelectedItem().toString());
         int supplier = Integer.parseInt(id_Suppliers);
         id_dai = id_daily.getText();
 
@@ -386,7 +386,7 @@ public class Expens extends javax.swing.JFrame {
                 ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             }else{
                 String id_imSupplier = id_daily.getText();
-                String id_Supplier = ConectionDataBase.getIdFrmName("Suppliers", suppCombo.getSelectedItem().toString());
+                String id_Supplier = ConectionDataBase.getIdFrmName("suppliers", suppCombo.getSelectedItem().toString());
                 String sqlImSupplier = "INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_Supplier+","+id+",0);";
                 ConectionDataBase.ExecuteAnyQuery(sqlImSupplier);
                 String now_balance = ""+ConectionDataBase.SetNBalanceSuppliers(id_Supplier);
@@ -492,7 +492,7 @@ public class Expens extends javax.swing.JFrame {
                  
              }else if(supplier == 1){
                  //DELETE ImSupp
-                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM ImSuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
+                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM imSuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
                  //Insert into daily
                   String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
                   String sqlDaily = "INSERT INTO daily VALUES("+id_daily.getText()+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"');";
@@ -539,7 +539,7 @@ public class Expens extends javax.swing.JFrame {
         if(suppCombo.getSelectedItem().toString().equals("نقدي")){
             id_daily.setText(ConectionDataBase.AutoId("daily", "id_daily"));
         }else{
-            id_daily.setText(ConectionDataBase.AutoId("Imsuppliers", "id_Imsuppliers"));
+            id_daily.setText(ConectionDataBase.AutoId("imsuppliers", "id_Imsuppliers"));
         }
     }//GEN-LAST:event_suppComboItemStateChanged
     private void SetNew(){
@@ -552,10 +552,10 @@ public class Expens extends javax.swing.JFrame {
         //Set Table and Text Feild 
         Tools.SearchField(tableExpens, txtSearch);
         ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
-        ConectionDataBase.fillCombo("Suppliers", "name_Suppliers", suppCombo);
-        String sql = "SELECT expens.id_daily ,Suppliers.name_Suppliers, expens.note , workgroup.name_workgroup , expens.price_expens , expens.date_expens , expens.id_expens FROM expens"
+        ConectionDataBase.fillCombo("suppliers", "name_Suppliers", suppCombo);
+        String sql = "SELECT expens.id_daily ,suppliers.name_Suppliers, expens.note , workgroup.name_workgroup , expens.price_expens , expens.date_expens , expens.id_expens FROM expens"
                 + " INNER JOIN workgroup ON expens.id_workgroup = workgroup.id_workgroup "
-                +"  INNER JOIN Suppliers ON expens.id_Suppliers = Suppliers.id_Suppliers "
+                +"  INNER JOIN suppliers ON expens.id_Suppliers = suppliers.id_Suppliers "
                 + "ORDER BY id_expens DESC ;";
         String[] coulmnName = new String [] { "قيد", "المورد", "البيان", "المجموعة", "المبلغ", "التاريخ", "رقم"};
         ConectionDataBase.fillAndCenterTable(sql, tableExpens, coulmnName);

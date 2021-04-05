@@ -92,6 +92,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("السيرفر");
 
         comServer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "المحلي", "41.38.1.120", "Internet" }));
+        comServer.setSelectedIndex(1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -474,7 +474,7 @@ public class ConectionDataBase {
       double nBalance = 0.00;
       String sqOlBa = "SELECT old_Balance AS sum FROM suppliers WHERE id_Suppliers = " + id_supplier+";";
       String oldBalance = getSum(sqOlBa);
-      String sqlPay = "SELECT SUM(price_exSuppliers) AS sum FROM exSuppliers WHERE IsActive = 0 AND id_Suppliers ="+id_supplier+";";
+      String sqlPay = "SELECT SUM(price_exSuppliers) AS sum FROM exsuppliers WHERE IsActive = 0 AND id_Suppliers ="+id_supplier+";";
       String sqlCrid ="SELECT SUM(price_expens) AS sum FROM expens INNER JOIN imsuppliers ON expens.id_expens = imsuppliers.id_expens WHERE expens.id_Suppliers ="+id_supplier+" and imsuppliers.IsActive = 0;" ;
       String Creditor = getSum(sqlCrid);
       String paySupplier = getSum(sqlPay);

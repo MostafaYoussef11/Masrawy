@@ -757,7 +757,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void doDBProcessing() throws InterruptedException {
         
-        Thread.sleep(1000);
+        Thread.sleep(2000);
             SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
             Date day = new Date();
             String date = format.format(day);
