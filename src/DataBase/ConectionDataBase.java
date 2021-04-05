@@ -472,11 +472,16 @@ public class ConectionDataBase {
 }
   public static double SetNBalanceSuppliers(String id_supplier){
       double nBalance = 0.00;
-      String oldBalance = getSum("SELECT old_Balance AS sum FROM suppliers WHERE id_Suppliers = " + id_supplier+";");
-      String Creditor = getSum("SELECT SUM(price_expens) AS sum FROM expens WHERE id_Suppliers ="+id_supplier+";");
+      String sqOlBa = "SELECT old_Balance AS sum FROM suppliers WHERE id_Suppliers = " + id_supplier+";";
+      String oldBalance = getSum(sqOlBa);
+      String sqlPay = "SELECT SUM(price_exSuppliers) AS sum FROM exSuppliers WHERE IsActive = 0 AND id_Suppliers ="+id_supplier+";";
+      String sqlCrid ="SELECT SUM(price_expens) AS sum FROM expens INNER JOIN imsuppliers ON expens.id_expens = imsuppliers.id_expens WHERE expens.id_Suppliers ="+id_supplier+" and imsuppliers.IsActive = 0;" ;
+      String Creditor = getSum(sqlCrid);
+      String paySupplier = getSum(sqlPay);
       double ob = Double.parseDouble(oldBalance);
       double cr = Double.parseDouble(Creditor);
-      nBalance = ob + cr;
+      double pay = Double.parseDouble(paySupplier);
+      nBalance = ob + cr - pay;
       ExecuteAnyQuery("UPDATE suppliers SET now_balance = " + nBalance + " WHERE id_Suppliers = "+id_supplier+";");
       return nBalance;
   }

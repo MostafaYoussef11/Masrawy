@@ -8,6 +8,7 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
  * @author mosta
  */
 public class exSuppliers extends javax.swing.JFrame {
-
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     /** Creates new form exSuppliers */
     public exSuppliers() {
         initComponents();
@@ -377,13 +378,43 @@ public class exSuppliers extends javax.swing.JFrame {
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
         // TODO add your handling code here:
+        String name_Supp = comSuppliers.getSelectedItem().toString();
+        String id_supp = ConectionDataBase.getIdFrmName("suppliers", name_Supp);
         double price = Double.parseDouble(txtPrice.getText());
         if(price == 0){
               Tools.ErorBox("خطأ");
         }
         else{
-           
+            Date date = txtdate.getDate();
+            String id_daily = txtdaily.getText();
+            String note = txtNote.getText();
+            String txtDate = format.format(date);
+            String sqlClear = "UPDATE exsuppliers SET IsActive = 1 WHERE id_Suppliers = "+id_supp+";";
+            String sqlexpClear = "UPDATE imsuppliers SET IsActive = 1 WHERE id_Suppliers = "+id_supp+";";
+           // insert into exsuppliers                note += + name_Supp  ;
+           String table_name = "الصادر للموردين";
+           String sqlDaily = "INSERT INTO daily VALUES("+id_daily+","+txtId.getText()+",'"+txtDate+"',"+price+",' الي حساب "+ name_Supp+"','"+table_name+"');";
+           boolean is_saved = ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+           String sql = "INSERT INTO exsuppliers VALUES("+txtId.getText()+",'"+txtDate+"',"+id_supp+","+price+",'"+note+"',"+id_daily+",0);";
+           if(is_saved){
+               ConectionDataBase.ExecuteAnyQuery(sql);
+               if(chClaer.isSelected()){
+                   ConectionDataBase.SetNBalanceSuppliers(id_supp);
+                   String getBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers = "+id_supp+";");
+                   ConectionDataBase.ExecuteAnyQuery("UPDATE suppliers SET old_Balance = "+getBalance+" WHERE id_Suppliers = "+id_supp+";");
+                   ConectionDataBase.ExecuteAnyQuery(sqlClear);
+                   ConectionDataBase.ExecuteAnyQuery(sqlexpClear);
+                   ConectionDataBase.SetNBalanceSuppliers(id_supp);
+                   Tools.MasgBox("تم تصفية الحساب و الرصيد الحالي هو " + ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers = "+id_supp+";"));
+                   
+               }
+               
+               
+               
+               
+           }
         }
+        SetNew();
         
     }//GEN-LAST:event_btnsaveActionPerformed
     private void SetNew(){
