@@ -572,7 +572,7 @@ public class Clearing extends javax.swing.JFrame {
     private double  total , Expens , amount , expens;
     private int workerCount;
     private void setNew(){
-        ConectionDataBase.fillCombo("workgroup", "name_workgroup", comWork);
+        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comWork);
         comWork.addItem("اختر اسم المجموعة");
         comWork.setSelectedItem("اختر اسم المجموعة");
         tabPanel.setEnabled(false);

@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.lucene.queryparser.surround.query.TooManyBasicQueries;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Expens extends javax.swing.JFrame {
     /**
      * Creates new form Expens
      */
+    SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     public Expens() {
         initComponents();
     }
@@ -46,6 +48,8 @@ public class Expens extends javax.swing.JFrame {
         txtWorkGroup = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtNote = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        suppCombo = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableExpens = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
@@ -57,6 +61,8 @@ public class Expens extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        id_daily = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("مصروفات التشغيل");
@@ -98,54 +104,70 @@ public class Expens extends javax.swing.JFrame {
 
         txtNote.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("المورد");
+        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        suppCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        suppCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                suppComboItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPrice)
+                        .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNote))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtWorkGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtWorkGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(suppCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(5, 5, 5))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPrice))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(suppCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(txtWorkGroup, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNote))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtWorkGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -154,11 +176,11 @@ public class Expens extends javax.swing.JFrame {
 
             },
             new String [] {
-                "البيان", "المجموعة", "المبلغ", "التاريخ", "رقم"
+                "قيد", "المورد", "البيان", "المجموعة", "المبلغ", "التاريخ", "رقم"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -173,15 +195,19 @@ public class Expens extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tableExpens);
         if (tableExpens.getColumnModel().getColumnCount() > 0) {
             tableExpens.getColumnModel().getColumn(0).setResizable(false);
-            tableExpens.getColumnModel().getColumn(0).setPreferredWidth(250);
+            tableExpens.getColumnModel().getColumn(0).setPreferredWidth(50);
             tableExpens.getColumnModel().getColumn(1).setResizable(false);
-            tableExpens.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tableExpens.getColumnModel().getColumn(1).setPreferredWidth(100);
             tableExpens.getColumnModel().getColumn(2).setResizable(false);
-            tableExpens.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tableExpens.getColumnModel().getColumn(2).setPreferredWidth(250);
             tableExpens.getColumnModel().getColumn(3).setResizable(false);
-            tableExpens.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tableExpens.getColumnModel().getColumn(3).setPreferredWidth(150);
             tableExpens.getColumnModel().getColumn(4).setResizable(false);
-            tableExpens.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tableExpens.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tableExpens.getColumnModel().getColumn(5).setResizable(false);
+            tableExpens.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tableExpens.getColumnModel().getColumn(6).setResizable(false);
+            tableExpens.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -246,47 +272,58 @@ public class Expens extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3))
         );
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("قيد اليومية");
+        jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        id_daily.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        id_daily.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(id_daily, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -296,12 +333,15 @@ public class Expens extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(id_daily, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -322,22 +362,37 @@ public class Expens extends javax.swing.JFrame {
         // TODO add your handling code here:
    
         //Definition Variables
-        String id , date , price , id_work , note;
+        String id , date , price , id_work , note , id_dai , id_Suppliers;
         id = txtId.getText();
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-        date = format.format(txtDate.getDate());
+       // SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+        date = SDF.format(txtDate.getDate());
         price = txtPrice.getText();
         id_work = ConectionDataBase.getIdFrmName("workgroup", txtWorkGroup.getSelectedItem().toString());
         note = txtNote.getText();
+        id_Suppliers = ConectionDataBase.getIdFrmName("Suppliers", suppCombo.getSelectedItem().toString());
+        int supplier = Integer.parseInt(id_Suppliers);
+        id_dai = id_daily.getText();
+
         // the Sql Statement 
-        String sql = "INSERT INTO expens VALUES("+id+", '"+date+"',"+price+","+id_work+",'"+note+"',0,null);";
+        String sql = "INSERT INTO expens VALUES("+id+", '"+date+"',"+price+","+id_work+",'"+note+"',"+id_Suppliers+",0,null,"+id_dai+");";
         // If Condetion
         boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isSaved){
             Tools.MasgBox("تم الحفظ بنجاح");
-            String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
-            String sqlDaily = "INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"');";
-            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+//            int supplier = Integer.getInteger(id_Suppliers);
+            if(supplier == 1){
+                String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+                String sqlDaily = "INSERT INTO daily VALUES("+id_dai+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"');";
+                ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+            }else{
+                String id_imSupplier = id_daily.getText();
+                String id_Supplier = ConectionDataBase.getIdFrmName("Suppliers", suppCombo.getSelectedItem().toString());
+                String sqlImSupplier = "INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_Supplier+","+id+",0);";
+                ConectionDataBase.ExecuteAnyQuery(sqlImSupplier);
+                String now_balance = ""+ConectionDataBase.SetNBalanceSuppliers(id_Supplier);
+                Tools.MasgBox(now_balance);
+            
+            }
             SetNew();
         }else{
             Tools.ErorBox("خطأ");
@@ -360,22 +415,22 @@ public class Expens extends javax.swing.JFrame {
         txtNote.setEnabled(false);
         txtPrice.setEnabled(false);
         txtWorkGroup.setEnabled(false);
+        suppCombo.setEnabled(false);
 //Fill Text
-    int row = tableExpens.getSelectedRow();
-    txtId.setText(tableExpens.getValueAt(row, 4).toString());
-    SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-        try {
-            Date date = format.parse(tableExpens.getValueAt(row, 3).toString());
-        } catch (ParseException ex) {
-            Logger.getLogger(Expens.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    txtPrice.setText(tableExpens.getValueAt(row, 2).toString());
-    txtWorkGroup.setSelectedItem(tableExpens.getValueAt(row, 1));
-    txtNote.setText(tableExpens.getValueAt(row, 0).toString());
-    
-        
-        
-        
+        int row = tableExpens.getSelectedRow();
+        txtId.setText(tableExpens.getValueAt(row, 6).toString());
+
+            try {
+                Date date = SDF.parse(tableExpens.getValueAt(row, 5).toString());
+                txtDate.setDate(date);
+            } catch (ParseException ex) {
+                Logger.getLogger(Expens.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        txtPrice.setText(tableExpens.getValueAt(row, 4).toString());
+        txtWorkGroup.setSelectedItem(tableExpens.getValueAt(row, 3));
+        txtNote.setText(tableExpens.getValueAt(row, 2).toString());
+        suppCombo.setSelectedItem(tableExpens.getValueAt(row, 1));
+        id_daily.setText(tableExpens.getValueAt(row, 0).toString()); 
     }//GEN-LAST:event_tableExpensMouseClicked
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
@@ -397,28 +452,56 @@ public class Expens extends javax.swing.JFrame {
         txtNote.setEnabled(true);
         txtPrice.setEnabled(true);
         txtWorkGroup.setEnabled(true);
+        suppCombo.setEnabled(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        
       // Definition All Variable
       String id = txtId.getText();
       String note = txtNote.getText();
       String price = txtPrice.getText();
       String id_work = ConectionDataBase.getIdFrmName("workgroup", txtWorkGroup.getSelectedItem().toString());
-      SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-      String date = format.format(txtDate.getDate());
-      
+      //SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+      String date = SDF.format(txtDate.getDate());
+      String id_day = id_daily.getText();
+      String oldIdDaily = ConectionDataBase.getSum("SELECT id_daily AS sum FROM expens WHERE id_expens ="+id+";");
+      String id_Suppliers = ConectionDataBase.getIdFrmName("suppliers", suppCombo.getSelectedItem().toString());
+      int supplier = Integer.parseInt(id_Suppliers);
+      String idOldSupplier = ConectionDataBase.getSum("SELECT id_Suppliers AS sum FROM expens WHERE id_expens ="+id+";");
+      int oldSupplier = Integer.parseInt(idOldSupplier);
       // Sql Statment
-      String sql = "UPDATE expens SET date_expens='"+date+"' , price_expens="+price+" , id_workgroup="+id_work + " , note='"+note+"' WHERE id_expens="+id+";";
-      
+      String sql = "UPDATE expens SET date_expens='"+date+"' , price_expens="+price+" , id_workgroup="+id_work + " , note='"+note+"' , id_Suppliers = "+id_Suppliers+" , id_daily = "+id_daily.getText()+" WHERE id_expens="+id+";";
       boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sql);
+      
       if(isUpdate){
           Tools.MasgBox("تم تحديث البيانات");
-          String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
-          String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+note+"' WHERE id = "+id+" AND name_table = '"+tableName+"';";
-          ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+         if(supplier == oldSupplier){ 
+              if(supplier == 1){
+                 String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+                 String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+note+"'"+", "+" id = "+id+" ,name_table = '"+tableName+"' WHERE id_daily="+id_daily.getText()+";";
+                 ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+              }
+         }
+         else{
+             if(oldSupplier == 1){
+                 //DELETE FROM dailay Table
+                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM daily WHERE id_daily="+oldIdDaily+";");
+                 // insert into imsuppliers
+                 ConectionDataBase.ExecuteAnyQuery("INSERT INTO imsuppliers VALUES("+id_day+","+id_Suppliers+","+id+",0);");
+                 
+             }else if(supplier == 1){
+                 //DELETE ImSupp
+                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM ImSuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
+                 //Insert into daily
+                  String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+                  String sqlDaily = "INSERT INTO daily VALUES("+id_daily.getText()+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"');";
+                  ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+             }
+            String now_balance = ""+ConectionDataBase.SetNBalanceSuppliers(id_Suppliers);
+            Tools.MasgBox(now_balance);
+         
+         }
           SetNew();
       }else{
           Tools.ErorBox("خطأ");
@@ -429,43 +512,65 @@ public class Expens extends javax.swing.JFrame {
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
         String id = txtId.getText();
-        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-        String date = format.format(txtDate.getDate());
+        String id_day = id_daily.getText();
+        String id_Suppler = ConectionDataBase.getIdFrmName("suppliers", suppCombo.getSelectedItem().toString());
+        int suppliers = Integer.parseInt(id_Suppler);
+        if(suppliers == 1){
+            ConectionDataBase.ExecuteAnyQuery("DELETE FROM daily WHERE id_daily = " + id_day +";");
+        }
+        else{
+            ConectionDataBase.ExecuteAnyQuery("DELETE FROM imsuppliers WHERE id_imSuppliers = "+ id_day +";" );
+             String now_balance = ""+ConectionDataBase.SetNBalanceSuppliers(id_Suppler);
+             Tools.MasgBox(now_balance);
+        } 
         String sql = "DELETE FROM expens WHERE id_expens="+id;
         boolean isDel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isDel){
             Tools.MasgBox("تم الحذف بنجاح");
-            String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
-            String sqlDaily ="delete FROM daily WHERE date_day='"+date+"'AND name_table = '"+tableName+"' AND id= "+id+";";
-            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
-        }else{
+        }
+        else{
             Tools.ErorBox("خطأ");
         }
-        
     }//GEN-LAST:event_btnDelActionPerformed
+
+    private void suppComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_suppComboItemStateChanged
+        // TODO add your handling code here:
+        if(suppCombo.getSelectedItem().toString().equals("نقدي")){
+            id_daily.setText(ConectionDataBase.AutoId("daily", "id_daily"));
+        }else{
+            id_daily.setText(ConectionDataBase.AutoId("Imsuppliers", "id_Imsuppliers"));
+        }
+    }//GEN-LAST:event_suppComboItemStateChanged
     private void SetNew(){
         // disable Buttn
         btnDel.setEnabled(false);
         btnEdit.setEnabled(false);
         btnNew.setEnabled(false);
         btnUpdate.setEnabled(false);
+        btnSave.setEnabled(true);
         //Set Table and Text Feild 
         Tools.SearchField(tableExpens, txtSearch);
-        ConectionDataBase.fillCombo("workgroup", "name_workgroup", txtWorkGroup);
-        String sql = "SELECT expens.note , workgroup.name_workgroup , expens.price_expens , expens.date_expens , expens.id_expens FROM expens INNER JOIN workgroup ON expens.id_workgroup = workgroup.id_workgroup ORDER BY id_expens DESC ;";
-        String[] coulmnName = new String [] { "البيان", "المجموعة", "المبلغ", "التاريخ", "رقم"};
+        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
+        ConectionDataBase.fillCombo("Suppliers", "name_Suppliers", suppCombo);
+        String sql = "SELECT expens.id_daily ,Suppliers.name_Suppliers, expens.note , workgroup.name_workgroup , expens.price_expens , expens.date_expens , expens.id_expens FROM expens"
+                + " INNER JOIN workgroup ON expens.id_workgroup = workgroup.id_workgroup "
+                +"  INNER JOIN Suppliers ON expens.id_Suppliers = Suppliers.id_Suppliers "
+                + "ORDER BY id_expens DESC ;";
+        String[] coulmnName = new String [] { "قيد", "المورد", "البيان", "المجموعة", "المبلغ", "التاريخ", "رقم"};
         ConectionDataBase.fillAndCenterTable(sql, tableExpens, coulmnName);
         String id = ConectionDataBase.AutoId("expens", "id_expens");
         txtId.setText(id);
         txtPrice.setText("0.00");
         txtNote.setText("");
         txtDate.setDate(new Date());
+        id_daily.setText(ConectionDataBase.AutoId("daily", "id_daily"));
         //Enable TxtFeild
         txtDate.setEnabled(true);
         txtNote.setEnabled(true);
         txtPrice.setEnabled(true);
         txtWorkGroup.setEnabled(true);
+        suppCombo.setEnabled(true);
     }
     /**
      * @param args the command line arguments
@@ -509,15 +614,19 @@ public class Expens extends javax.swing.JFrame {
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel id_daily;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> suppCombo;
     private javax.swing.JTable tableExpens;
     private com.toedter.calendar.JDateChooser txtDate;
     private javax.swing.JLabel txtId;

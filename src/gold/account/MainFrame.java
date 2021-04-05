@@ -35,6 +35,21 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         this.userName = userName;
         this.Server = Server;
+        //
+        txtServer.setText(savedData.getServer());
+        txtUser.setText(savedData.getUserName());
+        jPanel2.setSize(dim.width,34);
+        jLabel4.setSize(dim);
+        jLabel4.setPreferredSize(dim);
+        ImageIcon icon = new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/bgr.jpg")).getImage().getScaledInstance(dim.width, dim.height, Image.SCALE_DEFAULT));
+        jLabel4.setLocation(0, 0); 
+        jLabel4.setIcon(icon);
+        int x = dim.width - 190;
+        jPanel1.setLocation(x, 10);
+        jPanel3.setLocation(x, 200);
+        jPanel5.setLocation(x, 390);
+        jPanel4.setLocation(x-190, 10);
+        jPanel6.setLocation(5, 5);
         
     }
 
@@ -55,6 +70,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txtLastUpdate = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -66,6 +82,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
@@ -73,6 +90,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
         txtImport1 = new javax.swing.JLabel();
         txtImport = new javax.swing.JLabel();
         txtexport = new javax.swing.JLabel();
@@ -90,6 +108,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtASuppliers = new javax.swing.JLabel();
+        txtDSuplier = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -134,6 +155,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/supplier.png"))); // NOI18N
+        jButton12.setText("موردين");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -142,25 +171,28 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(830, 10, 189, 162);
+        jPanel1.setBounds(830, 10, 189, 190);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
@@ -240,6 +272,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/payment.png"))); // NOI18N
+        jButton13.setText("مدفوعات الموردين");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -247,30 +287,30 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(830, 180, 189, 162);
+        jPanel3.setBounds(830, 200, 189, 190);
 
         jPanel4.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "تقارير", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
@@ -362,114 +402,202 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addGap(0, 53, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel5);
-        jPanel5.setBounds(830, 340, 189, 115);
+        jPanel5.setBounds(830, 400, 189, 115);
+
+        jPanel6.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.00f));
+        jPanel6.setOpaque(false);
 
         txtImport1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtImport1.setText("كامل");
         txtImport1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtImport1);
-        txtImport1.setBounds(270, 70, 110, 25);
 
+        txtImport.setBackground(java.awt.Color.white);
         txtImport.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtImport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtImport.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtImport);
-        txtImport.setBounds(270, 100, 110, 25);
 
+        txtexport.setBackground(java.awt.Color.white);
         txtexport.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtexport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtexport.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtexport);
-        txtexport.setBounds(270, 130, 110, 25);
 
+        txtexpen.setBackground(java.awt.Color.white);
         txtexpen.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtexpen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtexpen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtexpen);
-        txtexpen.setBounds(270, 160, 110, 25);
 
+        txtassition.setBackground(java.awt.Color.white);
         txtassition.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtassition.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtassition.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtassition);
-        txtassition.setBounds(270, 190, 110, 25);
 
+        total.setBackground(java.awt.Color.white);
         total.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         total.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(total);
-        total.setBounds(270, 220, 110, 25);
 
+        totalD.setBackground(java.awt.Color.white);
         totalD.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         totalD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totalD.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(totalD);
-        totalD.setBounds(150, 220, 110, 25);
 
+        txtDassition.setBackground(java.awt.Color.white);
         txtDassition.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtDassition.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDassition.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtDassition);
-        txtDassition.setBounds(150, 190, 110, 25);
 
+        txtDexpen.setBackground(java.awt.Color.white);
         txtDexpen.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtDexpen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDexpen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtDexpen);
-        txtDexpen.setBounds(150, 160, 110, 25);
 
+        txtDexport.setBackground(java.awt.Color.white);
         txtDexport.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtDexport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDexport.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtDexport);
-        txtDexport.setBounds(150, 130, 110, 25);
 
         txtDImport.setBackground(java.awt.Color.white);
         txtDImport.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         txtDImport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDImport.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtDImport);
-        txtDImport.setBounds(150, 100, 110, 25);
 
         txtImportD1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtImportD1.setText("اليوم");
         txtImportD1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(txtImportD1);
-        txtImportD1.setBounds(150, 70, 110, 25);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("اجمالي الوارد");
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(390, 100, 110, 25);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("الصادر");
         jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(390, 130, 110, 25);
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("مصروفات");
         jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(390, 160, 110, 25);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("تجهيزات");
+        jLabel12.setText("موردين");
         jLabel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel12);
-        jLabel12.setBounds(390, 190, 110, 25);
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("الاجمالي");
         jLabel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(jLabel13);
-        jLabel13.setBounds(390, 220, 110, 25);
+
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("تجهيزات");
+        jLabel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtASuppliers.setBackground(java.awt.Color.white);
+        txtASuppliers.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtASuppliers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtASuppliers.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtDSuplier.setBackground(java.awt.Color.white);
+        txtDSuplier.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtDSuplier.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtDSuplier.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtImportD1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtImport1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(131, 131, 131))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtDImport, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtImport, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(txtDexport, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(txtexport, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(txtDexpen, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(txtexpen, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(txtDassition, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(txtassition, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(txtDSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(txtASuppliers, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(totalD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtImport1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtImportD1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDImport, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtImport, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDexport, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtexport, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDexpen, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtexpen, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDassition, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtassition, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtASuppliers, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalD, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel6);
+        jPanel6.setBounds(10, 10, 370, 229);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -533,20 +661,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        txtServer.setText(savedData.getServer());
-        txtUser.setText(savedData.getUserName());
-        jPanel2.setSize(dim.width,34);
-        jLabel4.setSize(dim);
-        jLabel4.setPreferredSize(dim);
-        ImageIcon icon = new ImageIcon(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/bgr.jpg")).getImage().getScaledInstance(dim.width, dim.height, Image.SCALE_DEFAULT));
-        jLabel4.setLocation(0, 0); 
-        jLabel4.setIcon(icon);
-        int x = dim.width - 195;
-        jPanel1.setLocation(x, 10);
-        jPanel3.setLocation(x, 180);
-        jPanel5.setLocation(x, 350);
-        jPanel4.setLocation(x-190, 10);
-       
+
         
 //        ImageIcon image = new ImageIcon(getClass().getResource("icons/calculator.png"));
 //       MainFrame.setIconImage(image.getImage());
@@ -595,6 +710,24 @@ public class MainFrame extends javax.swing.JFrame {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        suppliers sp = new suppliers();
+        sp.setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/supplier.png")).getImage());
+        sp.setLocationRelativeTo(null);
+        sp.setVisible(true);
+        
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        exSuppliers esp = new exSuppliers();
+        esp.setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/payment.png")).getImage());
+        esp.setTitle("مدفوعات الموردين");
+        esp.setLocationRelativeTo(null);
+        esp.setVisible(true);
+    }//GEN-LAST:event_jButton13ActionPerformed
    
     
    public class MyThread extends Thread {
@@ -630,25 +763,33 @@ public class MainFrame extends javax.swing.JFrame {
             String date = format.format(day);
             String assets = ConectionDataBase.getSum("assets", "price_assets");
             txtassition.setText(assets);
-            String expens = ConectionDataBase.getSum("expens", "price_expens");
+            String expens = ConectionDataBase.getSum("expens WHERE id_Suppliers = 1 ", "price_expens");
             txtexpen.setText(expens);
             String exports = ConectionDataBase.getSum("exports", "price_export");
             txtexport.setText(exports);
             String imports = ConectionDataBase.getSum("imports", "amount_imports");
             txtImport.setText(imports);
-            double Sumtotal = Double.valueOf(imports) - Double.valueOf(expens) - Double.valueOf(exports) - Double.valueOf(assets);
+            String exSuppliers = ConectionDataBase.getSum("exsuppliers", "price_exSuppliers");
+            txtASuppliers.setText(exSuppliers);
+            double Sumtotal = Double.valueOf(imports) - Double.valueOf(expens) - Double.valueOf(exports) - Double.valueOf(assets) - Double.parseDouble(exSuppliers);
             total.setText(String.valueOf(Sumtotal));
-
+            
+            
+            
             String assetsD = ConectionDataBase.getSumOnDay("assets", "price_assets",date);
             txtDassition.setText(assetsD);
-            String expensD = ConectionDataBase.getSumOnDay("expens", "price_expens",date);
-            txtDexpen.setText(expensD);
+           // String expensD = ConectionDataBase.getSumOnDay("expens", "price_expens",date);
+            String expensDay = ConectionDataBase.getSum("SELECT SUM(price_expens) AS sum FROM expens WHERE date_expens='"+date+"' AND id_Suppliers = 1 ;");
+            txtDexpen.setText(expensDay);
             String exportsD = ConectionDataBase.getSumOnDay("exports", "price_export",date);
             txtDexport.setText(exportsD);
             String importsD = ConectionDataBase.getSumOnDay("imports", "amount_imports",date);
             txtDImport.setText(importsD);
-            double SumtotalD = Double.valueOf(importsD) - Double.valueOf(expensD) - Double.valueOf(exportsD) - Double.valueOf(assetsD);
+            String exSupplierD = ConectionDataBase.getSumOnDay("exsuppliers", "price_exSuppliers", date);
+            txtDSuplier.setText(exSupplierD);
+            double SumtotalD = Double.valueOf(importsD) - Double.valueOf(expensDay) - Double.valueOf(exportsD) - Double.valueOf(assetsD) - Double.parseDouble(exSupplierD);
             totalD.setText(String.valueOf(SumtotalD)); 
+            
         
         
     }
@@ -697,6 +838,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -710,6 +853,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -719,9 +863,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel total;
     private javax.swing.JLabel totalD;
+    private javax.swing.JLabel txtASuppliers;
     private javax.swing.JLabel txtDImport;
+    private javax.swing.JLabel txtDSuplier;
     private javax.swing.JLabel txtDassition;
     private javax.swing.JLabel txtDexpen;
     private javax.swing.JLabel txtDexport;

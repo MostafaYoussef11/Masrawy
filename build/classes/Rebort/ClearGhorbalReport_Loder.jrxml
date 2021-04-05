@@ -10,22 +10,24 @@
 		<![CDATA[SELECT
      account.`id_account` AS account_id_account,
      account.`name_account` AS account_name_account,
-     account.`id_workgroup` AS account_id_workgroup,
      account.`balance_account` AS account_balance_account,
      account.`id_type` AS account_id_type,
-     account.`now_balance` AS account_now_balance
+     account.`now_balance` AS account_now_balance,
+     account.`isEnable` AS account_isEnable,
+     accountworkgroup.`id_account` AS accountworkgroup_id_account,
+     accountworkgroup.`id_workgroup` AS accountworkgroup_id_workgroup
 FROM
-     `account` account
-where
-id_workgroup=$P{id_workgroup}
-and id_type=3]]>
+     `account` account INNER JOIN `accountworkgroup` accountworkgroup ON account.`id_account` = accountworkgroup.`id_account`
+WHERE  account.`id_type` = 3 AND accountworkgroup.`id_workgroup` = $P{id_workgroup}]]>
 	</queryString>
 	<field name="account_id_account" class="java.lang.Integer"/>
 	<field name="account_name_account" class="java.lang.String"/>
-	<field name="account_id_workgroup" class="java.lang.Integer"/>
 	<field name="account_balance_account" class="java.lang.Double"/>
 	<field name="account_id_type" class="java.lang.Integer"/>
 	<field name="account_now_balance" class="java.lang.Double"/>
+	<field name="account_isEnable" class="java.lang.Boolean"/>
+	<field name="accountworkgroup_id_account" class="java.lang.Integer"/>
+	<field name="accountworkgroup_id_workgroup" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>

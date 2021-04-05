@@ -22,6 +22,7 @@ public class assets extends javax.swing.JFrame {
     /**
      * Creates new form assets
      */
+    private String id_daily;
     public assets() {
         initComponents();
     }
@@ -46,6 +47,7 @@ public class assets extends javax.swing.JFrame {
         txtnote = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         comwork = new javax.swing.JComboBox();
+        txtDaily = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableAssets = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -99,6 +101,9 @@ public class assets extends javax.swing.JFrame {
 
         comwork.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        txtDaily.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtDaily.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -107,10 +112,13 @@ public class assets extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtprice, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                        .addComponent(txtprice)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(comwork, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtDaily, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comwork, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtdate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
@@ -141,10 +149,11 @@ public class assets extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtnote, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comwork, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(txtnote, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(comwork, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(txtDaily, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -153,11 +162,11 @@ public class assets extends javax.swing.JFrame {
 
             },
             new String [] {
-                "المجموعة", "البيان", "المبلغ", "التاريخ", "رقم"
+                "المجموعة", "البيان", "المبلغ", "التاريخ", "رقم", "قيد اليومية"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -181,10 +190,13 @@ public class assets extends javax.swing.JFrame {
             tableAssets.getColumnModel().getColumn(3).setPreferredWidth(100);
             tableAssets.getColumnModel().getColumn(4).setResizable(false);
             tableAssets.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tableAssets.getColumnModel().getColumn(5).setResizable(false);
+            tableAssets.getColumnModel().getColumn(5).setPreferredWidth(70);
         }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add_1.png"))); // NOI18N
         btnNew.setText("جديد");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,6 +204,7 @@ public class assets extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
         btnSave.setText("حفظ");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,6 +212,7 @@ public class assets extends javax.swing.JFrame {
             }
         });
 
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil (1).png"))); // NOI18N
         btnEdit.setText("تعديل");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +220,7 @@ public class assets extends javax.swing.JFrame {
             }
         });
 
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exchange.png"))); // NOI18N
         btnUpdate.setText("تحديث");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,6 +228,7 @@ public class assets extends javax.swing.JFrame {
             }
         });
 
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
         btnDel.setText("حذف");
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,8 +236,10 @@ public class assets extends javax.swing.JFrame {
             }
         });
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/printer.png"))); // NOI18N
         btnPrint.setText("طباعة");
 
+        btnEixt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         btnEixt.setText("خروج");
         btnEixt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,20 +252,20 @@ public class assets extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(btnEixt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(btnEixt, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -319,12 +337,12 @@ public class assets extends javax.swing.JFrame {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         date = format.format(txtdate.getDate());
         String id_work = ConectionDataBase.getIdFrmName("workgroup", comwork.getSelectedItem().toString());
-        Sql = "INSERT INTO assets VALUES("+id+","+price+",'"+notes+"','"+date+"',"+id_work+",0,null);";
+        Sql = "INSERT INTO assets VALUES("+id+","+price+",'"+notes+"','"+date+"',"+id_work+",0,null,"+id_daily+");";
         boolean isSaved = ConectionDataBase.ExecuteAnyQuery(Sql);
         if(isSaved){
             Tools.MasgBox("تم الحفظ");
             String tableName = "تجهيزات"+" "+comwork.getSelectedItem().toString();
-            String sqlDaily ="INSERT INTO daily VALUES("+id+",'"+date+"',"+price+",'"+notes+"','"+tableName+"');";
+            String sqlDaily ="INSERT INTO daily VALUES("+id_daily+","+id+",'"+date+"',"+price+",'"+notes+"','"+tableName+"');";
             ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{
@@ -359,6 +377,7 @@ public class assets extends javax.swing.JFrame {
         txtnote.setText(tableAssets.getValueAt(row, 1).toString());
         txtprice.setText(tableAssets.getValueAt(row, 2).toString());
         txtid.setText(tableAssets.getValueAt(row, 4).toString());
+        txtDaily.setText(tableAssets.getValueAt(row, 5).toString());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = format.parse(tableAssets.getValueAt(row, 3).toString());
@@ -384,16 +403,14 @@ public class assets extends javax.swing.JFrame {
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
-        String id , sql , date;
+        String id , sql ;
         id = txtid.getText();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        date = format.format(txtdate.getDate());
+        id_daily = txtDaily.getText();
         sql = "DELETE FROM assets WHERE id_assets="+id+";";
         boolean isDel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isDel){
             Tools.MasgBox("تم الحذف ");
-            String tableName = "تجهيزات"+" "+comwork.getSelectedItem().toString();
-            String sqlDaily ="delete FROM daily WHERE date_day='"+date+"'AND name_table = '"+tableName+"' AND id= "+id+";";
+            String sqlDaily ="delete FROM daily WHERE id_daily = "+id_daily+";";
             ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }
@@ -408,6 +425,7 @@ public class assets extends javax.swing.JFrame {
         id = txtid.getText();
         notes = txtnote.getText();
         price = txtprice.getText();
+        id_daily = txtDaily.getText();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         date = format.format(txtdate.getDate());
         String id_wg = ConectionDataBase.getIdFrmName("workgroup", comwork.getSelectedItem().toString());
@@ -416,7 +434,7 @@ public class assets extends javax.swing.JFrame {
         if(isUpdate){
             Tools.MasgBox("تم تحديث البيانات");
             String tableName = "تجهيزات"+" "+comwork.getSelectedItem().toString();
-            String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+notes+"' WHERE id = "+id+" AND name_table = '"+tableName+"';";
+            String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+notes+"' , name_table = '"+tableName+"' WHERE id_daily = "+id_daily+";";
             ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             SetNew();
         }else{
@@ -431,7 +449,7 @@ public class assets extends javax.swing.JFrame {
         btnPrint.setEnabled(false);
         btnSave.setEnabled(true);
         btnUpdate.setEnabled(false);
-        
+        id_daily = ConectionDataBase.AutoId("daily", "id_daily");
         txtdate.setEnabled(true);
         txtid.setEnabled(false);
         txtnote.setEnabled(true);
@@ -439,12 +457,13 @@ public class assets extends javax.swing.JFrame {
         // txt set
         txtid.setText(ConectionDataBase.AutoId("assets", "id_assets"));
         txtdate.setDate(new Date());
+        txtDaily.setText(id_daily);
         txtnote.setText("");
         txtprice.setText("0.00");
         ConectionDataBase.fillCombo("workgroup", "name_workgroup", comwork);
-        String sql ="SELECT workgroup.name_workgroup , assets.notes , assets.price_assets , assets.date_assets , assets.id_assets FROM assets INNER JOIN workgroup ON assets.id_workgroup = workgroup.id_workgroup ORDER BY id_assets DESC ;";
+        String sql ="SELECT workgroup.name_workgroup , assets.notes , assets.price_assets , assets.date_assets , assets.id_assets , assets.id_daily FROM assets INNER JOIN workgroup ON assets.id_workgroup = workgroup.id_workgroup ORDER BY id_assets DESC ;";
         String[]coulmnName =   new String [] {
-                "المجموعة", "البيان", "المبلغ", "التاريخ", "رقم"
+                "المجموعة", "البيان", "المبلغ", "التاريخ", "رقم", "قيد اليومية"
             };
         ConectionDataBase.fillAndCenterTable(sql, tableAssets, coulmnName);
     
@@ -502,6 +521,7 @@ public class assets extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableAssets;
+    private javax.swing.JLabel txtDaily;
     private com.toedter.calendar.JDateChooser txtdate;
     private javax.swing.JLabel txtid;
     private javax.swing.JTextField txtnote;

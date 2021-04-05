@@ -361,7 +361,7 @@ public class Accounts extends javax.swing.JFrame {
                 +" JOIN workgroup w ON aw.id_workgroup = w.id_workgroup"
                 +" ORDER BY ac.id_account DESC ;";
         ConectionDataBase.fillAndCenterTable(sql, AccontTable, coulmnName);
-        ConectionDataBase.fillCombo("workgroup", "name_workgroup", comWorkgroup);
+        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comWorkgroup);
         ConectionDataBase.fillCombo("_type", "name_type", comType);
        //btn disable
        addGroup.setEnabled(false);

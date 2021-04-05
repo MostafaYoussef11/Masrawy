@@ -115,3 +115,48 @@ UPDATE account SET now_balance =(SELECT balance_account FROM account WHERE id_ac
 	amount_discount double(10,2),
 	note varchar(255)
   );
+  
+				  =========================
+				  |   //ALTER 02-04-2021  |
+				  =========================
+  
+  ALTER TABLE `daily` DROP PRIMARY KEY;
+  ALTER TABLE `daily` ADD `id_daily` INT PRIMARY KEY  NOT NULL AUTO_INCREMENT FIRST;
+  ALTER TABLE `expens` ADD `id_daily` INT NOT NULL ;
+  
+  CREATE TABLE Suppliers(
+	id_Suppliers int(11) PRIMARY KEY,
+	name_Suppliers VARCHAR(255) NOT NULL,
+	old_Balance double(10,2),
+	now_balance double(10,2)
+  );
+  
+  INSERT INTO Suppliers VALUES(1,'نقدي',0.0,0.0);
+  INSERT INTO Suppliers VALUES(2,'شعبان مضان',0.0,0.0);
+  
+  ALTER TABLE `expens` ADD `id_Suppliers` INT NOT NULL DEFAULT '1' AFTER `note`;
+  ALTER TABLE `expens` ADD CONSTRAINT `fk_supplierExpens` FOREIGN KEY (`id_Suppliers`) REFERENCES `suppliers`(`id_Suppliers`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+CREATE TABLE ImSuppliers(
+	id_ImSuppliers int PRIMARY KEY,
+    id_Suppliers int not null,
+    id_expens int not null,
+    IsActive bit,
+    FOREIGN KEY (id_Suppliers) REFERENCES suppliers(id_Suppliers),
+	FOREIGN key (id_expens) REFERENCES expens(id_expens)
+);
+   ALTER TABLE workgroup ADD COLUMN isActive bit NOT NULL DEFAULT 0 ;
+   ALTER TABLE `exports` ADD `id_daily` INT NOT NULL ;
+   ALTER TABLE `assets` ADD `id_daily` INT NOT NULL ;
+   
+CREATE TABLE exSuppliers(
+	id_exSuppliers int PRIMARY KEY,
+	date_exSuppliers date not null,
+	id_Suppliers int not null,
+	price_exSuppliers double(10,2) not null,
+	note varchar(512) not null,
+	id_daily int not null,
+	IsActive bit ,
+	FOREIGN KEY (id_Suppliers) REFERENCES suppliers(id_Suppliers),
+	FOREIGN KEY (id_daily) REFERENCES daily(id_daily)
+);

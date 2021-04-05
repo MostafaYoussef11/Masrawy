@@ -8,14 +8,10 @@ package DataBase;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
-import com.sun.javafx.iio.common.ImageTools;
-import com.sun.javafx.tk.Toolkit;
-import gold.account.Login;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -26,8 +22,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,16 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
-import net.sf.jasperreports.export.SimpleDocxReportConfiguration;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+
 
 /**
  *
@@ -55,7 +40,6 @@ public class ConectionDataBase {
     private static Connection con;
     private static Statement stmt;
     private static String server ;
-
   private static void SetConnection(){
       server = savedData.getServer();
       try{
@@ -80,12 +64,10 @@ public class ConectionDataBase {
       }
   
   }
-
-    public static Connection getCon() {
+  public static Connection getCon() {
         SetConnection();
         return con;
-    }
-    
+    } 
   public static boolean CheckUesrName(String userName , String Password){
      try{
            boolean isTrue = false;
@@ -105,7 +87,7 @@ public class ConectionDataBase {
        }
   
   }
-      public static void fillAndCenterTable(String sql , JTable table , String[] coulmnName){
+  public static void fillAndCenterTable(String sql , JTable table , String[] coulmnName){
        try{
            SetConnection();
            stmt = (Statement) con.createStatement();
@@ -128,7 +110,7 @@ public class ConectionDataBase {
            Tools.ErorBox(ex.getMessage());
        }
    } 
-      public static String AutoId(String tableName,String CoulmName){
+  public static String AutoId(String tableName,String CoulmName){
        try{
            String Id = null;
            SetConnection();
@@ -150,8 +132,7 @@ public class ConectionDataBase {
            return null;
        }
    }
-   // String sql_assets = "SELECT SUM(price_assets) FROM assets;";
-   public static String getSum(String tableName , String CoulmName){
+  public static String getSum(String tableName , String CoulmName){
     try{
        String sum = null;
        SetConnection();
@@ -174,8 +155,7 @@ public class ConectionDataBase {
     } 
    
  }
-   
-public static String getSum(String sql ){
+  public static String getSum(String sql ){
     try{
        String sum = null;
        SetConnection();
@@ -198,9 +178,7 @@ public static String getSum(String sql ){
     } 
    
  }
-   
-   
- public static String getSumOnDay(String tableName , String CoulmName , String date){
+  public static String getSumOnDay(String tableName , String CoulmName , String date){
     try{
        String sum = null;
        SetConnection();
@@ -225,7 +203,7 @@ public static String getSum(String sql ){
     } 
    
  }
-   public static ImageIcon getImageImport(String id){
+  public static ImageIcon getImageImport(String id){
          ImageIcon icon = null ;
         try{
             SetConnection();
@@ -251,8 +229,7 @@ public static String getSum(String sql ){
         
    
    } 
- 
-   private static  Image getSizeImage(Image srcImg, int w, int h){
+  private static  Image getSizeImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = resizedImg.createGraphics();
 
@@ -262,8 +239,7 @@ public static String getSum(String sql ){
 
         return resizedImg;
     }   
-   
-   public static boolean SaveImportTable(String id ,String date ,String wight , String caliber , String price , String amount , String id_wg ,String path){
+  public static boolean SaveImportTable(String id ,String date ,String wight , String caliber , String price , String amount , String id_wg ,String path){
        try{
            SetConnection();
            PreparedStatement pstm = (PreparedStatement) con.prepareStatement("INSERT INTO imports VALUES(?,?,?,?,?,?,?,?,0,null)");
@@ -289,10 +265,8 @@ public static String getSum(String sql ){
         }
    
    
-   }
-      
-      
-    public static boolean ExecuteAnyQuery(String sql){
+   }    
+  public static boolean ExecuteAnyQuery(String sql){
        try{
          
            SetConnection();
@@ -307,7 +281,7 @@ public static String getSum(String sql ){
        }
        
    } 
-   public static void fillCombo(String tableName , String coulmName , JComboBox combo){
+  public static void fillCombo(String tableName , String coulmName , JComboBox combo){
        try{
            SetConnection();
            stmt = (Statement) con.createStatement();
@@ -317,7 +291,6 @@ public static String getSum(String sql ){
            if(tableName.equals("account")){
               sql =  "SELECT "+coulmName+" FROM "+tableName+" WHERE isEnable = 0 ;";
            }
-//           sql = sql+" ORDER BY "+tableName+" DESC ;";
            rst = stmt.executeQuery(sql);
            rst.last();
            int c = rst.getRow();
@@ -336,7 +309,7 @@ public static String getSum(String sql ){
        }
    
    }
-      public static String[] fill(String sql){
+  public static String[] fill(String sql){
        try{
            SetConnection();
            stmt = (Statement) con.createStatement();
@@ -361,7 +334,7 @@ public static String getSum(String sql ){
        }
    
    }
-   public static String getIdFrmName(String tablename , String name){
+  public static String getIdFrmName(String tablename , String name){
        try{
            String id = "";
            SetConnection();
@@ -379,8 +352,7 @@ public static String getSum(String sql ){
        }
    
    }
-
-      public static String getIdFromName(String tablename , String name){
+  public static String getIdFromName(String tablename , String name){
        try{
            String id = "";
            SetConnection();
@@ -397,11 +369,8 @@ public static String getSum(String sql ){
            return "";
        }
    
-   }
-      
-      
-      
- public static String[] setClear(String id_work , String id_type , String amount ,String note ,String id_clear , String txtClear ,boolean isSelect , String JacHamer){
+   }    
+  public static String[] setClear(String id_work , String id_type , String amount ,String note ,String id_clear , String txtClear ,boolean isSelect , String JacHamer){
       String idAccount = "";
       String id_cred = "";
       String[] names ;
@@ -454,7 +423,6 @@ public static String getSum(String sql ){
         return null;
     }
  }
- 
   public static String[] setClearGhorbal(String id_work , String id_type , String amount ,String id_clear ,String note){
       String idAccount = "";
       String id_cred = "";
@@ -491,8 +459,7 @@ public static String getSum(String sql ){
        
     }
  }
- 
-public static void newBalance(String id_accoun ){
+  public static void newBalance(String id_accoun ){
     String old_balance = getSum("SELECT balance_account AS sum FROM account WHERE id_account="+id_accoun+";");
     String sumExpoort = getSum("SELECT SUM(price_export) AS sum FROM exports WHERE id_account="+id_accoun+" AND isFiltering = 0;");
     String sumCreditors = getSum("SELECT SUM(amount) AS sum FROM creditors WHERE id_account="+id_accoun+" AND isFiltering = 0;");
@@ -503,5 +470,15 @@ public static void newBalance(String id_accoun ){
     String setBalance = "UPDATE account SET now_balance="+NewBalance+" WHERE id_account="+id_accoun+";";
     ExecuteAnyQuery(setBalance);
 }
+  public static double SetNBalanceSuppliers(String id_supplier){
+      double nBalance = 0.00;
+      String oldBalance = getSum("SELECT old_Balance AS sum FROM suppliers WHERE id_Suppliers = " + id_supplier+";");
+      String Creditor = getSum("SELECT SUM(price_expens) AS sum FROM expens WHERE id_Suppliers ="+id_supplier+";");
+      double ob = Double.parseDouble(oldBalance);
+      double cr = Double.parseDouble(Creditor);
+      nBalance = ob + cr;
+      ExecuteAnyQuery("UPDATE suppliers SET now_balance = " + nBalance + " WHERE id_Suppliers = "+id_supplier+";");
+      return nBalance;
+  }
  
 }

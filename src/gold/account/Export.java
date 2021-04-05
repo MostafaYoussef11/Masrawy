@@ -23,19 +23,23 @@ public class Export extends javax.swing.JFrame {
     /**
      * Creates new form Export
      */
+    private String id_daily; 
     public Export() {
         initComponents();
     }
+     
     private void SetNew(){
         Tools.SearchField(table_export, txtSearch);
         // table 
-        String sql = "SELECT exports.note , exports.price_export , account.name_account , exports.date_exports , exports.id_exports FROM exports INNER JOIN account ON exports.id_account = account.id_account ORDER BY id_exports DESC  ; ";
+        String sql = "SELECT exports.note , exports.price_export , account.name_account , exports.date_exports , exports.id_exports , exports.id_daily FROM exports INNER JOIN account ON exports.id_account = account.id_account ORDER BY id_exports DESC  ; ";
         String[] coulmnName = new String [] {
-                "البيان", "المبلغ", "الحساب", "التاريخ", "رقم"
+                "البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"
             };
         ConectionDataBase.fillAndCenterTable(sql, table_export, coulmnName);
         //txt
         txtDate.setEnabled(true);
+        id_daily = ConectionDataBase.AutoId("daily", "id_daily");
+        txtDaily.setText(id_daily);
        // Date d = new Date();
         //txtDate.setDateFormatString("dd/MM/YYYY");
         txtDate.setDate(new Date());
@@ -76,6 +80,7 @@ public class Export extends javax.swing.JFrame {
         comAccount = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtNote = new javax.swing.JTextField();
+        txtDaily = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_export = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -99,27 +104,35 @@ public class Export extends javax.swing.JFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("رقم الصادر");
+        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtId.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("التاريخ");
+        jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("المبلغ");
+        jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("الحساب");
+        jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         comAccount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("البيان");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txtNote.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        txtDaily.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtDaily.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,7 +145,10 @@ public class Export extends javax.swing.JFrame {
                         .addComponent(txtPrice)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtNote))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtDaily, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,7 +184,8 @@ public class Export extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNote))
+                    .addComponent(txtNote)
+                    .addComponent(txtDaily, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -177,14 +194,14 @@ public class Export extends javax.swing.JFrame {
 
             },
             new String [] {
-                "البيان", "المبلغ", "الحساب", "التاريخ", "رقم"
+                "البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -211,8 +228,14 @@ public class Export extends javax.swing.JFrame {
             table_export.getColumnModel().getColumn(4).setMinWidth(50);
             table_export.getColumnModel().getColumn(4).setPreferredWidth(50);
             table_export.getColumnModel().getColumn(4).setMaxWidth(50);
+            table_export.getColumnModel().getColumn(5).setMinWidth(60);
+            table_export.getColumnModel().getColumn(5).setPreferredWidth(60);
+            table_export.getColumnModel().getColumn(5).setMaxWidth(60);
         }
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus.png"))); // NOI18N
         btnNew.setText("جديد");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,6 +243,7 @@ public class Export extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette (1).png"))); // NOI18N
         btnSave.setText("حفظ");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +251,7 @@ public class Export extends javax.swing.JFrame {
             }
         });
 
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil (1).png"))); // NOI18N
         btnEdit.setText("تعديل");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,6 +259,7 @@ public class Export extends javax.swing.JFrame {
             }
         });
 
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exchange.png"))); // NOI18N
         btnUpdate.setText("تحديث");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +267,7 @@ public class Export extends javax.swing.JFrame {
             }
         });
 
+        btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
         btnDel.setText("حذف");
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +275,7 @@ public class Export extends javax.swing.JFrame {
             }
         });
 
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         btnExit.setText("خروج");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,8 +363,7 @@ public class Export extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:  
         String id = txtId.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
         String date = sdf.format(txtDate.getDate());
@@ -347,19 +374,17 @@ public class Export extends javax.swing.JFrame {
             Tools.ErorBox("المبلغ غير مكتوب");
         }
         else{
-            String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"',0 ) ;";
+            String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"',0,"+id_daily+" ) ;";
             boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
             if(isSaved){
-                Tools.MasgBox("تم الحفظ بنجاح");
+                
                 String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
-//                String now_balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
-//                double nBalance = Double.valueOf(now_balance);
-//                double UpBalance = nBalance - price_ex;
-//                String upDateNowBalance = "UPDATE account SET now_balance="+UpBalance+" WHERE id_account="+id_account+";";
-//                ConectionDataBase.ExecuteAnyQuery(upDateNowBalance);
-                String sqlDaily = "INSERT INTO daily VALUES("+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
+                ConectionDataBase.newBalance(id_account);
+                String sqlDaily = "INSERT INTO daily VALUES("+id_daily+","+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
                 ConectionDataBase.ExecuteAnyQuery(sqlDaily);
                 ConectionDataBase.newBalance(id_account);
+                String newBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
+                Tools.MasgBox("تم الحفظ بنجاح" + "  والرصيد الحالي " + newBalance);
                 SetNew();
                 btnNew.setEnabled(false);
                // btnSave.setEnabled(false);
@@ -372,6 +397,7 @@ public class Export extends javax.swing.JFrame {
     private void table_exportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_exportMouseClicked
         // TODO add your handling code here:
         int row = table_export.getSelectedRow();
+        txtDaily.setText(table_export.getValueAt(row, 5).toString());
         txtId.setText(table_export.getValueAt(row, 4).toString());
         String date = table_export.getValueAt(row, 3).toString();
         SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
@@ -405,18 +431,17 @@ public class Export extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        // Enable TheTxtJfeled
-//        txtDate.setEnabled(true);
-//        txtNote.setEnabled(true);
-//        txtPrice.setEnabled(true);
-//        comAccount.setEnabled(true);
-//        // Buttuns Enable and Disable
-//        btnDel.setEnabled(false);
-//        btnEdit.setEnabled(false);
-//        btnNew.setEnabled(false);
-//        btnSave.setEnabled(false);
-//        btnUpdate.setEnabled(true);
+        // TODO add your handling code here:  
+        txtDate.setEnabled(true);
+        txtNote.setEnabled(true);
+        txtPrice.setEnabled(true);
+        comAccount.setEnabled(true);
+        // Buttuns Enable and Disable
+        btnDel.setEnabled(false);
+        btnEdit.setEnabled(false);
+        btnNew.setEnabled(false);
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
         
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -435,12 +460,13 @@ public class Export extends javax.swing.JFrame {
         
         boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isUpdate){
-          Tools.MasgBox("تم تحديث البيانات بنجاح");
+          
           String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
-          String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+nots+"' WHERE id = "+id+" AND name_table = '"+tabName+"';";
+          String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+nots+"' , name_table = '"+tabName+"' WHERE id_daily = "+txtDaily.getText() +";";
           ConectionDataBase.ExecuteAnyQuery(sqlDaily);
-          String UpDateBalance = "UPDATE account SET now_balance =(SELECT balance_account FROM account WHERE id_account = "+id_account+")-(SELECT SUM(price_export) FROM exports WHERE id_account ="+id_account+" ) WHERE id_account ="+id_account +";";
-          ConectionDataBase.ExecuteAnyQuery(UpDateBalance);
+          ConectionDataBase.newBalance(id_account);
+          String newBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
+          Tools.MasgBox("تم تحديث البيانات بنجاح" + "  والرصيد الحالي " + newBalance);
           SetNew();
         }else{
             Tools.ErorBox("خطأ");
@@ -452,19 +478,16 @@ public class Export extends javax.swing.JFrame {
         String id = txtId.getText();
         String sql = "DELETE FROM exports WHERE id_exports="+id+";";
         String id_acount = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
-//        String balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_acount+";");
-//        double price = Double.valueOf(txtPrice.getText());
-//        double newBalance = Double.valueOf(balance) - price;
         boolean isdel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isdel){
-            Tools.MasgBox("تم الحذف بنجاح");
-           // ConectionDataBase.ExecuteAnyQuery("UPDATE account SET now_balance="+newBalance+" WHERE id_account="+id_acount+";");
             ConectionDataBase.newBalance(id_acount);
             SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
             String date = sdf.format(txtDate.getDate());
             String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
-            String sqlDaily ="delete FROM daily WHERE date_day='"+date+"'AND name_table = '"+tabName+"' AND id= "+id+";";
+            String sqlDaily ="delete FROM daily WHERE id_daily ="+txtDaily.getText()+";";
             ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+            String newBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_acount+";");
+            Tools.MasgBox("تم الحذف بنجاح" + "  والرصيد الحالي " + newBalance);
             SetNew();
         }else{
             Tools.ErorBox("خطأ");
@@ -523,6 +546,7 @@ public class Export extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table_export;
+    private javax.swing.JLabel txtDaily;
     private com.toedter.calendar.JDateChooser txtDate;
     private javax.swing.JLabel txtId;
     private javax.swing.JTextField txtNote;
