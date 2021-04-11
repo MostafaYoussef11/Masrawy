@@ -160,3 +160,23 @@ CREATE TABLE exSuppliers(
 	FOREIGN KEY (id_Suppliers) REFERENCES suppliers(id_Suppliers),
 	FOREIGN KEY (id_daily) REFERENCES daily(id_daily)
 );
+
+ CREATE TABLE cirky(
+    id_cirky int PRIMARY KEY,
+	id_account int not null,
+	fdate date not null,
+	ldate date not null,
+	isActive bit,
+	FOREIGN KEY(id_account) REFERENCES account(id_account)
+);
+
+
+CREATE TABLE hours(
+    id_hours INT PRIMARY KEY,
+    name_day VARCHAR(256) NOT NULL,
+    date_day DATE NOT NULL,
+    num_hour INT,
+    notes VARCHAR(250),
+	id_cirky int,
+    FOREIGN KEY(id_cirky) REFERENCES cirky(id_cirky)
+);

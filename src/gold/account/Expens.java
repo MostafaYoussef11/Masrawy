@@ -551,8 +551,8 @@ public class Expens extends javax.swing.JFrame {
         btnSave.setEnabled(true);
         //Set Table and Text Feild 
         Tools.SearchField(tableExpens, txtSearch);
-        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
-        ConectionDataBase.fillCombo("suppliers", "name_Suppliers", suppCombo);
+        ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
+        ConectionDataBase.NewfillCombo("suppliers", "name_Suppliers", suppCombo);
         String sql = "SELECT expens.id_daily ,suppliers.name_Suppliers, expens.note , workgroup.name_workgroup , expens.price_expens , expens.date_expens , expens.id_expens FROM expens"
                 + " INNER JOIN workgroup ON expens.id_workgroup = workgroup.id_workgroup "
                 +"  INNER JOIN suppliers ON expens.id_Suppliers = suppliers.id_Suppliers "

@@ -51,7 +51,7 @@ public class Export extends javax.swing.JFrame {
         txtPrice.setText("0.00");
         txtNote.setText("");
         comAccount.setEnabled(true);
-        ConectionDataBase.fillCombo("account","name_account", comAccount);
+        ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ","name_account", comAccount);
         //btns
         btnNew.setEnabled(false);
         btnDel.setEnabled(false);

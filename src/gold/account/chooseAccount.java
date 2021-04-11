@@ -126,7 +126,7 @@ public class chooseAccount extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        ConectionDataBase.fillCombo("account", "name_account", jComboBox1);
+        ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", jComboBox1);
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

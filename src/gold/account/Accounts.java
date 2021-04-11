@@ -361,8 +361,8 @@ public class Accounts extends javax.swing.JFrame {
                 +" JOIN workgroup w ON aw.id_workgroup = w.id_workgroup"
                 +" ORDER BY ac.id_account DESC ;";
         ConectionDataBase.fillAndCenterTable(sql, AccontTable, coulmnName);
-        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comWorkgroup);
-        ConectionDataBase.fillCombo("_type", "name_type", comType);
+        ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comWorkgroup);
+        ConectionDataBase.NewfillCombo("_type", "name_type", comType);
        //btn disable
        addGroup.setEnabled(false);
        btnDel.setEnabled(false);
@@ -504,8 +504,9 @@ public class Accounts extends javax.swing.JFrame {
         // TODO add your handling code here:
         type t = new type();
         t.setLocationRelativeTo(null);
+        t.setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/navigation.png")).getImage());
         t.setVisible(true);
-        ConectionDataBase.fillCombo("_type","name_type", comType);
+        ConectionDataBase.NewfillCombo("_type","name_type", comType);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void addGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupActionPerformed

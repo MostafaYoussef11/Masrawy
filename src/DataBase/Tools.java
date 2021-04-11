@@ -8,16 +8,20 @@ package DataBase;
 import gold.account.MainFrame;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -44,7 +48,6 @@ public class Tools {
         JOptionPane.showMessageDialog(null, masg);
     }
     public static void ErorBox(String masg){
-        //JOptionPane.show
          JOptionPane.showMessageDialog(null,
                 masg ,
                 "Error Message",
@@ -58,8 +61,6 @@ public class Tools {
         for(int i = 0 ; i< count ; i++){
             table.getColumn(coulmnName[i]).setCellRenderer(center);
         }
-//        JTableHeader header = table.getTableHeader();
-//        header.setDefaultRenderer(center);
     }
     public static void SearchField(JTable table , JTextField txtsearch){
        TableRowSorter<TableModel> rowSorter = new TableRowSorter<>(table.getModel());
@@ -93,7 +94,6 @@ public class Tools {
         });
     
     }
-    
     public static void PrintRebort(String date ,InputStream stream){
         String imports = ConectionDataBase.getSumOnDay("imports", "amount_imports" , date);
         
@@ -119,7 +119,6 @@ public class Tools {
     
     
     }
-    
    public static void Printer(String sql ,InputStream stream , HashMap para){        
         try {
             JasperDesign jd = JRXmlLoader.load(stream); 
@@ -136,26 +135,21 @@ public class Tools {
         }
     
     
-    }
-    
-    public static Color hex2Rgb(String colorStr) {
+    } 
+   public static Color hex2Rgb(String colorStr) {
       return new Color(
             Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
             Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
             Integer.valueOf( colorStr.substring( 5, 7 ), 16 ) );
     }
+   
+   public static void OpenFrame(JFrame f , String Title , String ImageName){
+        f.setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/"+ImageName+".png")).getImage());
+        f.setTitle(Title);
+        f.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+   
+   }
     
 }
-//class HeaderRender implements TableCellRenderer{
-//    DefaultTableCellRenderer renderer;
-//    public HeaderRender (JTable table){
-//        renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
-//        renderer.setHorizontalAlignment(JLabel.CENTER);
-//    }
-//    @Override
-//    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//        return renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//    
-//    }
-//}

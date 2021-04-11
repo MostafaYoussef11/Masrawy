@@ -9,6 +9,8 @@ package gold.account;
 import DataBase.ConectionDataBase;
 import DataBase.savedData;
 import java.awt.Color;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -25,7 +27,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         setUndecorated(true);
         initComponents();
-       // setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/laptop.png")).getImage());
+        setIconImage(new ImageIcon(Toolkit.getDefaultToolkit().getClass().getResource("/icons/laptop.png")).getImage());
         setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
     }
     public static String getServer(){
@@ -49,7 +51,7 @@ public class Login extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        comServer = new javax.swing.JComboBox<String>();
+        comServer = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(javax.swing.UIManager.getDefaults().getColor("Button.foreground"));
@@ -91,8 +93,8 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("السيرفر");
 
-        comServer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "المحلي", "41.38.1.120", "Internet" }));
-        comServer.setSelectedIndex(1);
+        comServer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "المحلي", "41.38.1.120", "Internet" }));
+        comServer.setSelectedIndex(2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

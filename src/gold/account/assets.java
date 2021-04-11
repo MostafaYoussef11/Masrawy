@@ -460,7 +460,7 @@ public class assets extends javax.swing.JFrame {
         txtDaily.setText(id_daily);
         txtnote.setText("");
         txtprice.setText("0.00");
-        ConectionDataBase.fillCombo("workgroup", "name_workgroup", comwork);
+        ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0", "name_workgroup", comwork);
         String sql ="SELECT workgroup.name_workgroup , assets.notes , assets.price_assets , assets.date_assets , assets.id_assets , assets.id_daily FROM assets INNER JOIN workgroup ON assets.id_workgroup = workgroup.id_workgroup ORDER BY id_assets DESC ;";
         String[]coulmnName =   new String [] {
                 "المجموعة", "البيان", "المبلغ", "التاريخ", "رقم", "قيد اليومية"

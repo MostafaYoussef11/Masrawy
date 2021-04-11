@@ -161,8 +161,8 @@ public class newGroupForAccount extends javax.swing.JFrame {
     private String groupFirstName;
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        ConectionDataBase.fillCombo("account", "name_account", comAccount);
-        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comGroup);
+        ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAccount);
+        ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comGroup);
         comAccount.setSelectedItem(savedData.getName_account());
         comAccount.setEnabled(false);
         setnew();

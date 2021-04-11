@@ -92,7 +92,7 @@ public class Imports extends javax.swing.JFrame {
         txtamount.setText("");
         txtcaliber.setText("");
         txtwight.setText("");
-        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
+        ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
         txtwight.requestFocus();
         String sql = "Select workgroup.name_workgroup , imports.amount_imports , imports.price_imports , imports.caliber , imports.wight_imports , imports.date_imports , imports.id_import FROM imports INNER JOIN workgroup ON imports.id_workgroup = workgroup.id_workgroup ORDER BY id_import DESC;";
         String[] coulmnName = new String[]{"المجموعة", "الاجمالي", "سعر الجرام", "العيار", "الوزن", "التاريخ", "رقم"};
@@ -363,6 +363,7 @@ public class Imports extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/dollar.png"))); // NOI18N
         btnNew.setText("جديد");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -370,6 +371,7 @@ public class Imports extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette (1).png"))); // NOI18N
         btnSave.setText("حفظ");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +379,7 @@ public class Imports extends javax.swing.JFrame {
             }
         });
 
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil (1).png"))); // NOI18N
         btnEdit.setText("تعديل");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,6 +387,7 @@ public class Imports extends javax.swing.JFrame {
             }
         });
 
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exchange.png"))); // NOI18N
         btnUpdate.setText("تحديث");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -391,6 +395,7 @@ public class Imports extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
         btnDelete.setText("حذف");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -398,6 +403,7 @@ public class Imports extends javax.swing.JFrame {
             }
         });
 
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         btnExit.setText("خروج");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

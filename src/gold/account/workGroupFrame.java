@@ -258,7 +258,7 @@ public class workGroupFrame extends javax.swing.JFrame {
             };
         String sql = "SELECT workgroup.isActive , deal.name_deal ,workgroup.name_workgroup , workgroup.id_workgroup FROM workgroup INNER JOIN deal ON workgroup.id_deal = deal.id_deal ORDER BY id_workgroup DESC ;";
         ConectionDataBase.fillAndCenterTable(sql, wgroupTable, coulmnName);
-        ConectionDataBase.fillCombo("deal", "name_deal", jComboBox1);
+        ConectionDataBase.NewfillCombo("deal", "name_deal", jComboBox1);
         // disActive Btns
         btnDel.setEnabled(false);
         btnEdit.setEnabled(false);

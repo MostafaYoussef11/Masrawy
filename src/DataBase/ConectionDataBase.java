@@ -37,9 +37,9 @@ import javax.swing.table.DefaultTableModel;
  * @author mosta
  */
 public class ConectionDataBase {
-    private static Connection con;
-    private static Statement stmt;
-    private static String server ;
+  private static Connection con;
+  private static Statement stmt;
+  private static String server ;
   private static void SetConnection(){
       server = savedData.getServer();
       try{
@@ -51,16 +51,17 @@ public class ConectionDataBase {
               case "41.38.1.120" :
                  con = (Connection) DriverManager.getConnection("jdbc:mysql://41.38.1.120/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
                  break;
-              case "Internet" :
-                 con = (Connection) DriverManager.getConnection("jdbc:mysql://mysql-22347-0.cloudclusters.net:22347/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
+              case "Internet" ://141.136.39.52    === 141.136.39.78     egictaco_masrawy
+                 con = (Connection) DriverManager.getConnection("jdbc:mysql://141.136.39.78:3306/egictaco_masrawy?useUnicode=yes&characterEncoding=UTF-8", "egictaco_mostafa","As@2800257");
                   break;
+
               default:
                  con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
                  break;
           }
       }catch(ClassNotFoundException | SQLException ex){
           Tools.ErorBox(ex.getMessage());
-          System.err.println(ex.getMessage());
+          //System.err.println(ex.getMessage());
       }
   
   }
@@ -229,7 +230,7 @@ public class ConectionDataBase {
         
    
    } 
-  private static  Image getSizeImage(Image srcImg, int w, int h){
+  private static Image getSizeImage(Image srcImg, int w, int h){
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = resizedImg.createGraphics();
 
@@ -281,16 +282,12 @@ public class ConectionDataBase {
        }
        
    } 
-  public static void fillCombo(String tableName , String coulmName , JComboBox combo){
+  public static void NewfillCombo(String tableName , String coulmName , JComboBox combo){
        try{
            SetConnection();
            stmt = (Statement) con.createStatement();
            ResultSet rst;
-           
            String sql = "SELECT "+coulmName+" FROM "+tableName +";";
-           if(tableName.equals("account")){
-              sql =  "SELECT "+coulmName+" FROM "+tableName+" WHERE isEnable = 0 ;";
-           }
            rst = stmt.executeQuery(sql);
            rst.last();
            int c = rst.getRow();
@@ -307,7 +304,6 @@ public class ConectionDataBase {
            Tools.ErorBox(ex.getMessage());
        
        }
-   
    }
   public static String[] fill(String sql){
        try{

@@ -10,6 +10,8 @@ import DataBase.ConectionDataBase;
 import DataBase.Tools;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -49,6 +51,7 @@ public class exSuppliers extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtBalance = new javax.swing.JLabel();
         chzero = new javax.swing.JCheckBox();
+        txtDiscond = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -88,6 +91,11 @@ public class exSuppliers extends javax.swing.JFrame {
 
         txtPrice.setEditable(false);
         txtPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPriceKeyReleased(evt);
+            }
+        });
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("المورد");
@@ -130,6 +138,11 @@ public class exSuppliers extends javax.swing.JFrame {
         chClaer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chClaer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         chClaer.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        chClaer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chClaerActionPerformed(evt);
+            }
+        });
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("الرصيد الحالي");
@@ -142,6 +155,14 @@ public class exSuppliers extends javax.swing.JFrame {
         chzero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         chzero.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         chzero.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        chzero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chzeroActionPerformed(evt);
+            }
+        });
+
+        txtDiscond.setEditable(false);
+        txtDiscond.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,9 +182,11 @@ public class exSuppliers extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNote)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtDiscond, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(chzero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(chClaer, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chClaer)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtBalance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -209,6 +232,7 @@ public class exSuppliers extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtdaily, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDiscond, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(chClaer, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(chzero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -251,6 +275,11 @@ public class exSuppliers extends javax.swing.JFrame {
 
         btnnew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus.png"))); // NOI18N
         btnnew.setText("جديد");
+        btnnew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnewActionPerformed(evt);
+            }
+        });
 
         btnsave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
         btnsave.setText("حفظ");
@@ -368,7 +397,7 @@ public class exSuppliers extends javax.swing.JFrame {
             txtPrice.setEditable(false);
             txtBalance.setText("");
         }else{
-        txtPrice.setEditable(false);
+       // txtPrice.setEditable(false);
         String id_supplier = ConectionDataBase.getIdFrmName("suppliers", comSuppliers.getSelectedItem().toString());
         String balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers ="+id_supplier+";");
         txtBalance.setText(balance);
@@ -382,7 +411,7 @@ public class exSuppliers extends javax.swing.JFrame {
         String id_supp = ConectionDataBase.getIdFrmName("suppliers", name_Supp);
         double price = Double.parseDouble(txtPrice.getText());
         if(price == 0){
-              Tools.ErorBox("خطأ");
+              Tools.ErorBox("المبلغ غير مكتوب");
         }
         else{
             Date date = txtdate.getDate();
@@ -403,22 +432,105 @@ public class exSuppliers extends javax.swing.JFrame {
                    String getBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers = "+id_supp+";");
                    ConectionDataBase.ExecuteAnyQuery("UPDATE suppliers SET old_Balance = "+getBalance+" WHERE id_Suppliers = "+id_supp+";");
                    ConectionDataBase.ExecuteAnyQuery(sqlClear);
-                   ConectionDataBase.ExecuteAnyQuery(sqlexpClear);
-                   ConectionDataBase.SetNBalanceSuppliers(id_supp);
-                   Tools.MasgBox("تم تصفية الحساب و الرصيد الحالي هو " + ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers = "+id_supp+";"));
-                   
+                   ConectionDataBase.ExecuteAnyQuery(sqlexpClear); 
                }
                
                
-               
+                ConectionDataBase.SetNBalanceSuppliers(id_supp);
+                Tools.MasgBox("تم الدفع و الرصيد الحالي هو " + ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers = "+id_supp+";"));
+                   
                
            }
         }
         SetNew();
         
     }//GEN-LAST:event_btnsaveActionPerformed
+
+    private void chClaerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chClaerActionPerformed
+        // TODO add your handling code here:
+        if(chClaer.isSelected()){
+            txtNote.setText("تصفية الحساب");
+        }else{
+            txtNote.setText("");
+        }
+    }//GEN-LAST:event_chClaerActionPerformed
+
+    private void btnnewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewActionPerformed
+        // TODO add your handling code here:
+        SetNew();
+    }//GEN-LAST:event_btnnewActionPerformed
+
+    private void chzeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chzeroActionPerformed
+        // TODO add your handling code here:
+        if(chzero.isSelected()){
+            txtDiscond.setEditable(true);
+            //txtDiscond.setText(txtBalance.getText());
+        }else{
+            txtDiscond.setEditable(false);
+        }
+    }//GEN-LAST:event_chzeroActionPerformed
+
+    private void txtPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPriceKeyReleased
+        // TODO add your handling code here:
+        if(chzero.isSelected()){
+          if( txtPrice.getText() == null){
+
+              }
+                else{
+                    txtPrice.getDocument().addDocumentListener(new DocumentListener() {
+                        @Override
+                        public void insertUpdate(DocumentEvent e) {
+                         try{
+                            double balance = Double.parseDouble(txtBalance.getText());
+                            double payPrice = Double.parseDouble(txtPrice.getText());
+                            double disc = balance - payPrice ;
+                            txtDiscond.setText(""+disc);
+                              }catch(EnumConstantNotPresentException ex){
+                                  Tools.ErorBox(ex.getMessage());
+                              }
+                          //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void removeUpdate(DocumentEvent e) {
+                         try{
+                            double balance = Double.parseDouble(txtBalance.getText());
+                            double payPrice = Double.parseDouble(txtPrice.getText());
+                            double disc = balance - payPrice ;
+                            txtDiscond.setText(""+disc);
+                              }catch(EnumConstantNotPresentException ex){
+                                  Tools.ErorBox(ex.getMessage());
+                              }
+                          //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void changedUpdate(DocumentEvent e) {
+                         try{
+                            double balance = Double.parseDouble(txtBalance.getText());
+                            double payPrice = Double.parseDouble(txtPrice.getText());
+                            double disc = balance - payPrice ;
+                            txtDiscond.setText(""+disc);
+                              }catch(EnumConstantNotPresentException ex){
+                                  Tools.ErorBox(ex.getMessage());
+                              }
+
+
+                           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    });
+                }
+        }
+
+    }//GEN-LAST:event_txtPriceKeyReleased
     private void SetNew(){
-        ConectionDataBase.fillCombo("suppliers WHERE id_Suppliers != 1 ", "name_Suppliers", comSuppliers);
+        ConectionDataBase.NewfillCombo("suppliers WHERE id_Suppliers != 1 ", "name_Suppliers", comSuppliers);
+//        if(chzero.isSelected()){
+//           txtDiscond.setVisible(true);
+//        }else{
+//          txtDiscond.setVisible(false);
+//        }
+//        //
         txtId.setText(ConectionDataBase.AutoId("exsuppliers", "id_exSuppliers"));
         txtdate.setDate(new Date());
         txtPrice.setText("0.00");
@@ -501,6 +613,7 @@ public class exSuppliers extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
     private javax.swing.JLabel txtBalance;
+    private javax.swing.JTextField txtDiscond;
     private javax.swing.JLabel txtId;
     private javax.swing.JTextField txtNote;
     private javax.swing.JTextField txtPrice;

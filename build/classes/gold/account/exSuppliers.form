@@ -79,9 +79,11 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtNote" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
+                                  <Component id="txtDiscond" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="chzero" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="chClaer" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="chClaer" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -140,8 +142,9 @@
                       <Component id="jLabel7" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="txtdaily" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="txtBalance" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="txtDiscond" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chClaer" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="chClaer" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="chzero" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -209,6 +212,9 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPriceKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -290,6 +296,9 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="horizontalTextPosition" type="int" value="2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chClaerActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
@@ -322,6 +331,15 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="horizontalTextPosition" type="int" value="2"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chzeroActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtDiscond">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -440,6 +458,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="&#x62c;&#x62f;&#x64a;&#x62f;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnnewActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnsave">
           <Properties>

@@ -558,11 +558,11 @@ public class Filttering extends javax.swing.JFrame {
     private void SetNew(){
         SelectType.add(RBMony);
         SelectType.add(RBFinsh);
-        ConectionDataBase.fillCombo("account", "name_account", comAcount);
+        ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAcount);
         comAcount.addItem("اختر الحساب...");
         comAcount.setSelectedItem("اختر الحساب...");
         length = comAcount.getItemCount() - 1;
-        ConectionDataBase.fillCombo("account", "name_account", comAcount2);
+        ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAcount2);
         comAcount2.setSelectedItem("عرفه");
         comAcount2.setEnabled(false);
         Detiles.setEnabledAt(0, true);

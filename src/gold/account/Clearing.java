@@ -42,31 +42,7 @@ public class Clearing extends javax.swing.JFrame {
     String id_deal ="";
     public Clearing() {
         initComponents();
-        txtHworker.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                double edWorker = Double.valueOf(txtHworker.getText());
-                double difr =  HworKer - edWorker;
-                double allDif = difr * Integer.parseInt(txtCount.getText());
-                double toClear =  f + allDif;
-                txtClear.setText(String.valueOf(toClear));
-            }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                double edWorker = Double.valueOf(txtHworker.getText());
-                double difr =  HworKer - edWorker;
-                double allDif = difr * Integer.parseInt(txtCount.getText());
-                double toClear =  f + allDif;
-                txtClear.setText(String.valueOf(toClear));
-
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
     }
     
 
@@ -82,7 +58,7 @@ public class Clearing extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         comWork = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        clearing = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtwight = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -121,9 +97,27 @@ public class Clearing extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         txtClear = new javax.swing.JLabel();
         edWorker = new javax.swing.JToggleButton();
+        Bocklen = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        txtBoclen = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtArea = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel11 = new javax.swing.JLabel();
+        txtBworker = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtworkerOne = new javax.swing.JTextField();
+        checkworker = new javax.swing.JCheckBox();
+        comAcount = new javax.swing.JComboBox<>();
+        checkworker1 = new javax.swing.JCheckBox();
+        comAcount1 = new javax.swing.JComboBox<>();
+        history = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btnPrint = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("تصفية الشغل");
@@ -133,9 +127,11 @@ public class Clearing extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/budget_1.png"))); // NOI18N
         jLabel1.setText("تصفية حساب مجموعة");
+        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("اختر المجموعة");
@@ -143,10 +139,14 @@ public class Clearing extends javax.swing.JFrame {
 
         comWork.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("تصفية الحساب");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        clearing.setBackground(new java.awt.Color(255, 204, 204));
+        clearing.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        clearing.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/calculator.png"))); // NOI18N
+        clearing.setText("تصفية الحساب");
+        clearing.setOpaque(false);
+        clearing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                clearingActionPerformed(evt);
             }
         });
 
@@ -273,10 +273,10 @@ public class Clearing extends javax.swing.JFrame {
                     .addComponent(txtworks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txt6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtoneWork, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabPanel.addTab("غربال", Ghorbal);
+        tabPanel.addTab("غربال", new javax.swing.ImageIcon(getClass().getResource("/icons/loader.png")), Ghorbal); // NOI18N
 
         Ston.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -314,7 +314,6 @@ public class Clearing extends javax.swing.JFrame {
         jLabel14.setText("مصروفات تشغيل");
         jLabel14.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        machin.setSelected(true);
         machin.setText("مكنة و هلتي");
         machin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         machin.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -329,12 +328,12 @@ public class Clearing extends javax.swing.JFrame {
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         comAccount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comAccount.setEnabled(false);
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("حق العامل");
         jLabel18.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtHworker.setEditable(false);
         txtHworker.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtHworker.setEnabled(false);
         txtHworker.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -370,7 +369,7 @@ public class Clearing extends javax.swing.JFrame {
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtHtow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, StonLayout.createSequentialGroup()
-                        .addComponent(edWorker, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                        .addComponent(edWorker, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtHworker, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -423,14 +422,157 @@ public class Clearing extends javax.swing.JFrame {
                     .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(edWorker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        tabPanel.addTab("حجر", Ston);
+        tabPanel.addTab("حجر", new javax.swing.ImageIcon(getClass().getResource("/icons/jackhammer.png")), Ston); // NOI18N
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("نصيب الحفار");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtBoclen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtBoclen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("ربع مكان");
+        jLabel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtArea.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtArea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("حق العمال");
+        jLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtBworker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtBworker.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("العامل الواحد");
+        jLabel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtworkerOne.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        checkworker.setText("حق مكان");
+        checkworker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        checkworker.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        comAcount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        checkworker1.setText("حق عامل");
+        checkworker1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        checkworker1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        comAcount1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout BocklenLayout = new javax.swing.GroupLayout(Bocklen);
+        Bocklen.setLayout(BocklenLayout);
+        BocklenLayout.setHorizontalGroup(
+            BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BocklenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtBworker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtworkerOne)
+                    .addComponent(comAcount1, 0, 274, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .addComponent(checkworker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtBoclen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comAcount, 0, 222, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .addComponent(checkworker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        BocklenLayout.setVerticalGroup(
+            BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
+            .addGroup(BocklenLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BocklenLayout.createSequentialGroup()
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBoclen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(BocklenLayout.createSequentialGroup()
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBworker, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtworkerOne, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BocklenLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkworker, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comAcount1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkworker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comAcount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))))
+        );
+
+        tabPanel.addTab("حفار", new javax.swing.ImageIcon(getClass().getResource("/icons/digger.png")), Bocklen); // NOI18N
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "البيان", "التاريخ", "الرقم"
+            }
+        ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
+
+        javax.swing.GroupLayout historyLayout = new javax.swing.GroupLayout(history);
+        history.setLayout(historyLayout);
+        historyLayout.setHorizontalGroup(
+            historyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historyLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        historyLayout.setVerticalGroup(
+            historyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historyLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        tabPanel.addTab("تصفيات", new javax.swing.ImageIcon(getClass().getResource("/icons/history.png")), history); // NOI18N
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/printer.png"))); // NOI18N
         btnPrint.setText("طباعة");
         btnPrint.setEnabled(false);
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
@@ -439,11 +581,20 @@ public class Clearing extends javax.swing.JFrame {
             }
         });
 
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/navigation.png"))); // NOI18N
         btnClear.setText("ترحيل التصفية");
         btnClear.setEnabled(false);
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/history.png"))); // NOI18N
+        jButton2.setText("تصفيات سابقة");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -453,6 +604,8 @@ public class Clearing extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -460,12 +613,14 @@ public class Clearing extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -477,7 +632,7 @@ public class Clearing extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(clearing, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comWork, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -527,7 +682,7 @@ public class Clearing extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clearing, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -538,33 +693,6 @@ public class Clearing extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-//    txtHworker.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                double edWorker = Double.valueOf(txtHworker.getText());
-//                double difr =  HworKer - edWorker;
-//                double allDif = difr * Integer.parseInt(txtCount.getText());
-//                String txt = txtClear.getText(); 
-//                double toClear = Double.valueOf(txt)+ allDif;
-//                txtClear.setText(String.valueOf(toClear));
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                double edWorker = Double.valueOf(txtHworker.getText());
-//                double difr =  HworKer - edWorker;
-//                double allDif = difr * Integer.parseInt(txtCount.getText());
-//                String txt = txtClear.getText(); 
-//                double toClear = Double.valueOf(txt)+ allDif;
-//                txtClear.setText(String.valueOf(toClear));
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//            }
-//        });
-    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         setNew();
@@ -572,14 +700,21 @@ public class Clearing extends javax.swing.JFrame {
     private double  total , Expens , amount , expens;
     private int workerCount;
     private void setNew(){
-        ConectionDataBase.fillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comWork);
+        ConectionDataBase.NewfillCombo("workgroup", "name_workgroup", comWork);
         comWork.addItem("اختر اسم المجموعة");
         comWork.setSelectedItem("اختر اسم المجموعة");
         tabPanel.setEnabled(false);
         Ghorbal.setEnabled(false);
         Ston.setEnabled(false);
+        Bocklen.setEnabled(false);
+        history.setEnabled(false);
         tabPanel.setTitleAt(0, null);
         tabPanel.setTitleAt(1, null);
+        tabPanel.setTitleAt(2, null);
+        tabPanel.setTitleAt(3, null);
+        Bocklen.setVisible(false);
+        Ston.setVisible(false);
+        history.setVisible(false);
         Ghorbal.setVisible(true);
         txt1.setText(null);//تلت اللودر
         txt2.setText(null);//الغربال
@@ -602,9 +737,9 @@ public class Clearing extends javax.swing.JFrame {
     }
     
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void clearingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearingActionPerformed
         // TODO add your handling code here:
-        ConectionDataBase.fillCombo("account", "name_account", comAccount);
+        ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAccount);
         comAccount.setSelectedItem("عماد");
         String nameWorkGroup = comWork.getSelectedItem().toString();
         if(nameWorkGroup.equals("اختر اسم المجموعة")){
@@ -631,7 +766,11 @@ public class Clearing extends javax.swing.JFrame {
                     tabPanel.setEnabled(true);
                     tabPanel.setTitleAt(0, "غربال");
                     tabPanel.setTitleAt(1, null);
+                    tabPanel.setTitleAt(2, null);
+                    tabPanel.setTitleAt(3, null);
                     tabPanel.setSelectedIndex(0);
+                    tabPanel.setEnabledAt(3, false);
+                    tabPanel.setEnabledAt(2, false);
                     tabPanel.setEnabledAt(1, false);
                     tabPanel.setEnabledAt(0, true);
                     //tabPanel.setTitleAt(1, null);
@@ -667,18 +806,22 @@ public class Clearing extends javax.swing.JFrame {
                     tabPanel.setEnabled(true);
                     tabPanel.setTitleAt(1, "حجر");
                     tabPanel.setTitleAt(0, null);
+                    tabPanel.setTitleAt(2, null);
+                    tabPanel.setTitleAt(3, null);
                     tabPanel.setSelectedIndex(1);
                     tabPanel.setEnabledAt(0, false);
+                    tabPanel.setEnabledAt(2, false);
+                    tabPanel.setEnabledAt(3, false);
                     tabPanel.setEnabledAt(1, true);
                     Ston.setEnabled(true);
                    // sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = "+id_type+" AND isEnable=0;;";
                     sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type ="+id_type+" AND ac.isEnable = 0;";  
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
-                    machin.setSelected(true);
+//                    machin.setSelected(true);
                     
-                    int countWrker = Integer.parseInt(counWorker)+1;
+                    int countWrker = Integer.parseInt(counWorker);
                     txtCount.setText(""+countWrker);
-                    comAccount.setEnabled(true);
+//                    comAccount.setEnabled(true);
                     
                     total = Double.valueOf(txtAmount.getText());
                     Expens = Double.valueOf(txtExpention.getText());
@@ -697,6 +840,34 @@ public class Clearing extends javax.swing.JFrame {
                     txtHworker.setText(""+hWorker);
                     
                     break;
+                case "4":
+                    ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAcount);
+                    ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAcount1);
+                    id_type = "8";
+                    tabPanel.setEnabled(true);
+                    tabPanel.setTitleAt(0,null);
+                    tabPanel.setTitleAt(1, null);
+                    tabPanel.setTitleAt(3, null);
+                    tabPanel.setTitleAt(2, "حفار");
+                    tabPanel.setSelectedIndex(2);
+                    tabPanel.setEnabledAt(3, false);
+                    tabPanel.setEnabledAt(2, true);
+                    tabPanel.setEnabledAt(1, false);
+                    tabPanel.setEnabledAt(0, false);
+                    Bocklen.setEnabled(true);
+                    sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type ="+id_type+" AND ac.isEnable = 0;";  
+                    counWorker = ConectionDataBase.getSum(sqlCountWorker);
+                    txtCount.setText(counWorker);
+                    double Half = Double.parseDouble(txtAmount.getText());
+                    Half = Half / 2 ;
+                    double HalfClaer = Half - Double.parseDouble(txtExpention.getText());
+                    txtBoclen.setText(HalfClaer+"");
+                    double HalfArea = Half / 2;
+                    txtArea.setText(HalfArea+"");
+                    txtBworker.setText(HalfArea+"");
+                    double workerOne = HalfArea / Integer.parseInt(txtCount.getText());
+                    txtworkerOne.setText(workerOne+"");
+                    break;
                 default:
                     Tools.ErorBox("الاتفاق؟؟");
                     break;
@@ -704,35 +875,31 @@ public class Clearing extends javax.swing.JFrame {
            btnClear.setEnabled(true);
            btnPrint.setEnabled(true);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_clearingActionPerformed
 
     private void machinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_machinActionPerformed
-        // TODO add your handling code here:
-        if(machin.isSelected()){
-           comAccount.setEnabled(true);
-           String  sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type = 8 AND ac.isEnable = 0;";
-        //   String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0;;";
-           String counWorker = ConectionDataBase.getSum(sqlCountWorker);
-           int countWrker = Integer.parseInt(counWorker)+1;
-           double tow = Double.valueOf(txtHtow.getText());
-           double oneWorker = tow/ countWrker;
-           txtHworker.setText(oneWorker+"");
-           txtCount.setText(""+countWrker);
-           HworKer = oneWorker;
+
+      String  sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type = 8 AND ac.isEnable = 0;";
+      String counWorker = ConectionDataBase.getSum(sqlCountWorker);   
+      double Half = Double.parseDouble(txtHtow.getText()); 
+      if(machin.isSelected()){
+          comAccount.setEnabled(true);
+          int cw = Integer.parseInt(counWorker) + 1 ;
+          txtCount.setText(cw+"");  
+          int count = Integer.parseInt(txtCount.getText());
+          double oneOfWorker = Half / count;
+          txtHworker.setText(oneOfWorker+"");
+        }else{
+            comAccount.setEnabled(false);
+            txtCount.setText(counWorker); 
+            int count = Integer.parseInt(txtCount.getText());
+            double oneOfWorker = Half / count;
+           txtHworker.setText(oneOfWorker+"");
         }
-        else{
-           comAccount.setEnabled(false);
-           String  sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type = 8 AND ac.isEnable = 0;";
-           //String sqlCountWorker = "SELECT COUNT(id_account) AS sum FROM account WHERE id_workgroup = "+id_work+" AND id_type = 8 AND isEnable=0; ;";
-           String counWorker = ConectionDataBase.getSum(sqlCountWorker);
-           int countWrker = Integer.parseInt(counWorker);
-           double tow = Double.valueOf(txtHtow.getText());
-           double oneWorker = tow/ countWrker;
-           txtHworker.setText(oneWorker+"");
-           txtCount.setText(""+countWrker);
-           HworKer = oneWorker;
-        }
+
+
         
+
     }//GEN-LAST:event_machinActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -809,80 +976,202 @@ public class Clearing extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHworkerKeyTyped
 
     private void edWorkerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edWorkerActionPerformed
-        // TODO add your handling code here:
-        if(txtHworker.isEditable()){
-            txtHworker.setEditable(false);
-        }else{
-            txtHworker.setEditable(true);
-        }
+
         if(txtHworker.isEnabled()){
             txtHworker.setEnabled(false);
+           
         }else{
+           
             txtHworker.setEnabled(true);
+            Lisenr();
         }
+         machin.setEnabled(false);
+        
+        
     }//GEN-LAST:event_edWorkerActionPerformed
+    private void Lisenr(){
+        txtHworker.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                double edWorker = Double.valueOf(txtHworker.getText());
+                double difr =  HworKer - edWorker;
+                double allDif = difr * Integer.parseInt(txtCount.getText());
+                double toClear =  f + allDif;
+                txtClear.setText(String.valueOf(toClear));
+            }
 
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                double edWorker = Double.valueOf(txtHworker.getText());
+                double difr =  HworKer - edWorker;
+                double allDif = difr * Integer.parseInt(txtCount.getText());
+                double toClear =  f + allDif;
+                txtClear.setText(String.valueOf(toClear));
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });        
+    
+    }
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
-       switch(id_deal){
-           case "1":
-               try{
-            InputStream stream = getClass().getResourceAsStream("/Rebort/ClearGhorbalReport.jrxml");
-            JasperDesign jd = JRXmlLoader.load(stream); 
-            String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
-            JRDesignQuery designQuery = new JRDesignQuery();
-            designQuery.setText(sql);
-            jd.setQuery(designQuery);
-            JasperReport jr = JasperCompileManager.compileReport(jd);
-            HashMap map = new HashMap();
-            map.put("sumImport", amount);
-            int id = Integer.parseInt(id_work);
-            map.put("id_workgroup", id);
-            map.put("SumExpen", expens);
-            map.put("CountWorker", workerCount);
-            Connection con = ConectionDataBase.getCon();
-            JasperPrint jp = JasperFillManager.fillReport(jr, map, con);
-            JasperViewer.viewReport(jp,false);
-            }catch(Exception ex){
-                Tools.ErorBox(ex.getMessage());  
-            } 
-               break;
-           case "2":
-               try{
+       if(tabPanel.isEnabledAt(3)){
+            String nameWorkGroup = comWork.getSelectedItem().toString();
+            String id_workgroup = ConectionDataBase.getIdFrmName("workgroup", comWork.getSelectedItem().toString());
+            if(nameWorkGroup.equals("اختر اسم المجموعة")){
+                 Tools.ErorBox("الرجاء اختيار اسم المجموعة");  
+            }
+            else{
+                String selectDeal = "SELECT id_deal AS sum FROM workgroup WHERE id_workgroup="+id_workgroup+";";
+                String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_workgroup+";";
+                id_deal = ConectionDataBase.getSum(selectDeal);
+                String id_type = "" ;
+                switch(id_deal){
+                   case "1":
+                       id_type = "2";
+                         try{
+                            InputStream stream = getClass().getResourceAsStream("/Rebort/ClearGhorbalReport_1.jrxml");
+                            HashMap map = new HashMap();
+                            amount = Double.parseDouble(txtAmount.getText());
+                            map.put("sumImport", amount);
+                            int id = Integer.parseInt(id_workgroup);
+                            map.put("id_workgroup", id);
+                            expens = Double.parseDouble(txtExpention.getText());
+                            map.put("SumExpen", expens);
+                            workerCount = Integer.parseInt(txtCount.getText());
+                            map.put("CountWorker", workerCount);
+                            int id_clear = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 2).toString());
+                            map.put("id_clear", id_clear);
+                            Tools.Printer(sql, stream, map);
+                        }
+                        catch(NumberFormatException ex){
+                            Tools.ErorBox(ex.getMessage());  
+                        }                        
+                       break;
+                   case "2":
+                       id_type = "8";
+                       break;
+                   case "4":
+                       id_type = "8";
+                       break;
+                   default:
+                       break;
+
+                }                
+            }
+       } 
+       else{  
+          String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
+           switch(id_deal){
+               case "1":
+                 try{
+                    InputStream stream = getClass().getResourceAsStream("/Rebort/ClearGhorbalReport.jrxml");
+                    HashMap map = new HashMap();
+                    map.put("sumImport", amount);
+                    int id = Integer.parseInt(id_work);
+                    map.put("id_workgroup", id);
+                    map.put("SumExpen", expens);
+                    map.put("CountWorker", workerCount);
+                    Tools.Printer(sql, stream, map);
+                }
+                catch(NumberFormatException ex){
+                    Tools.ErorBox(ex.getMessage());  
+                } 
+                break;
+               case "2":
+                   try{
                      InputStream stream = getClass().getResourceAsStream("/Rebort/ClearStonReport.jrxml");
-                     JasperDesign jp = JRXmlLoader.load(stream);
-                     String sql = "SELECT * FROM workgroup WHERE id_workgroup="+id_work+";";
-                     JRDesignQuery query = new JRDesignQuery();
-                     query.setText(sql);
-                     jp.setQuery(query);
-                     JasperReport jr = JasperCompileManager.compileReport(jp);
                      HashMap map = new HashMap();
                      int id = Integer.parseInt(id_work);
                      map.put("id_workgroup", id);
                      map.put("SumImport", total);
                      map.put("SumExpens", Expens);
                      map.put("CountWorker", Integer.parseInt(txtCount.getText()));
-                     Connection con = ConectionDataBase.getCon();
-                     JasperPrint print = JasperFillManager.fillReport(jr, map, con);
-                     JasperViewer.viewReport(print , false);
-                     
-                    }catch(Exception ex){
-                        Tools.ErorBox(ex.getMessage());
+                     Tools.Printer(sql, stream, map);
                     }
-                break;
+                   catch(NumberFormatException ex){
+                            Tools.ErorBox(ex.getMessage());
+                        }
+                    break;
+               default:
+                   break;
+           }
+       }
+    }//GEN-LAST:event_btnPrintActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        tabPanel.setEnabled(true);
+        tabPanel.setTitleAt(1, null);
+        tabPanel.setTitleAt(0, null);
+        tabPanel.setTitleAt(2, null);
+        tabPanel.setTitleAt(3, "السجل");
+        tabPanel.setSelectedIndex(3);
+        tabPanel.setEnabledAt(0, false);
+        tabPanel.setEnabledAt(2, false);
+        tabPanel.setEnabledAt(3, true);
+        tabPanel.setEnabledAt(1, false);
+        history.setEnabled(true);
+        btnPrint.setEnabled(true);
+        String sql = "SELECT notes ,date_clear , id_clear   FROM clear";
+        String [] coulmnName = new String[]{ "البيان", "التاريخ", "الرقم"};
+        ConectionDataBase.fillAndCenterTable(sql, table, coulmnName);
+        clearing.setEnabled(false);
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        // TODO add your handling code here:
+        int row = table.getSelectedRow();
+        String id_clear = table.getValueAt(row, 2).toString();
+        String id_workGroup = ConectionDataBase.getSum("SELECT id_workgroup AS sum FROM expens WHERE id_clear ="+id_clear+" GROUP BY id_workgroup;");
+        String nameWorkGroup = ConectionDataBase.getSum("SELECT name_workgroup AS sum FROM workgroup WHERE id_workgroup = "+id_workGroup + ";");
+        comWork.setSelectedItem(nameWorkGroup);
+        //SELECT SUM(wight_imports) as sum FROM imports WHERE id_clear = 1;
+        String wight = ConectionDataBase.getSum("SELECT SUM(wight_imports) as sum FROM imports WHERE id_clear = "+id_clear+";");
+        txtwight.setText(wight);
+        //SELECT SUM(price_expens) as sum FROM expens WHERE id_clear = 1
+        String price_expens = ConectionDataBase.getSum("SELECT SUM(price_expens) as sum FROM expens WHERE id_clear = "+id_clear+";");
+        txtExpention.setText(price_expens);
+        //SELECT SUM(amount_imports) as sum FROM imports WHERE id_clear = 1;
+        String amounts = ConectionDataBase.getSum("SELECT SUM(amount_imports) as sum FROM imports WHERE id_clear = "+id_clear+";");
+        txtAmount.setText(amounts);
+        //SELECT COUNT(aw.id_account) FROM accountworkgroup aw INNER JOIN account a on a.id_account = aw.id_account where a.id_type = 2 and aw.id_workgroup = 1
+        String selectDeal = "SELECT id_deal AS sum FROM workgroup WHERE id_workgroup="+id_workGroup+";";
+        id_deal = ConectionDataBase.getSum(selectDeal);
+        String id_type = "" ;
+        switch(id_deal){
+           case "1":
+               id_type = "2";
+               break;
+           case "2":
+               id_type = "8";
+               break;
+           case "4":
+               id_type = "8";
+               break;
            default:
                break;
-       
-       }
+        
+        }
+        
+        //SELECT COUNT(creditors.id_account) FROM creditors INNER JOIN account on creditors.id_account = account.id_account WHERE account.id_type = 8 and creditors.id_clear = 1
+        //SELECT creditors.id_account , account.name_account FROM creditors INNER JOIN account on creditors.id_account = account.id_account WHERE account.id_type = 8 and creditors.id_clear = 1
+
+        
+        String SqlcountWorker = "SELECT COUNT(creditors.id_account) AS sum FROM creditors"
+                           + " INNER JOIN account on creditors.id_account = account.id_account "
+                           + " WHERE account.id_type = "+id_type+" and creditors.id_clear = "+id_clear+";";
+        
+        String CountWorker = ConectionDataBase.getSum(SqlcountWorker);
+        txtCount.setText(CountWorker);
         
         
- 
-        
-             
-        
-        
-        
-    }//GEN-LAST:event_btnPrintActionPerformed
+    }//GEN-LAST:event_tableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -920,15 +1209,25 @@ public class Clearing extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Bocklen;
     private javax.swing.JPanel Ghorbal;
     private javax.swing.JPanel Ston;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnPrint;
+    private javax.swing.JCheckBox checkworker;
+    private javax.swing.JCheckBox checkworker1;
+    private javax.swing.JButton clearing;
     private javax.swing.JComboBox comAccount;
+    private javax.swing.JComboBox<String> comAcount;
+    private javax.swing.JComboBox<String> comAcount1;
     private javax.swing.JComboBox comWork;
     private javax.swing.JToggleButton edWorker;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel history;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
@@ -937,13 +1236,17 @@ public class Clearing extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JCheckBox machin;
     private javax.swing.JTabbedPane tabPanel;
+    private javax.swing.JTable table;
     private javax.swing.JLabel txt1;
     private javax.swing.JLabel txt2;
     private javax.swing.JLabel txt3;
@@ -951,6 +1254,9 @@ public class Clearing extends javax.swing.JFrame {
     private javax.swing.JLabel txt5;
     private javax.swing.JLabel txt6;
     private javax.swing.JLabel txtAmount;
+    private javax.swing.JLabel txtArea;
+    private javax.swing.JLabel txtBoclen;
+    private javax.swing.JLabel txtBworker;
     private javax.swing.JLabel txtCar;
     private javax.swing.JLabel txtClear;
     private javax.swing.JLabel txtCount;
@@ -963,6 +1269,7 @@ public class Clearing extends javax.swing.JFrame {
     private javax.swing.JLabel txtTthirds;
     private javax.swing.JLabel txtoneWork;
     private javax.swing.JLabel txtwight;
+    private javax.swing.JTextField txtworkerOne;
     private javax.swing.JLabel txtworks;
     private javax.swing.JLabel txxtHassets;
     // End of variables declaration//GEN-END:variables
