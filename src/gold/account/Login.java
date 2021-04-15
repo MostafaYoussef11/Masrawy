@@ -10,6 +10,7 @@ import DataBase.ConectionDataBase;
 import DataBase.savedData;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -76,6 +77,11 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 0, 51));
@@ -88,6 +94,11 @@ public class Login extends javax.swing.JFrame {
 
         txtPassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -152,28 +163,22 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
     //public static String dt,usrname;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String userName = txtUsrname.getText();
-        String Password = txtPassword.getText();
-        String Server = comServer.getSelectedItem().toString();
-        Servernum = comServer.getSelectedItem().toString();
-        savedData.setServer(Server);
-        savedData.setUserName(userName);
-        boolean isLogin = ConectionDataBase.CheckUesrName(userName, Password);
-        if(isLogin){
-           // JOptionPane.showMessageDialog(null, "تم الدخول");
-            MainFrame mf = new MainFrame(userName , Server);
-            mf.setLocationRelativeTo(null);
-            mf.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-            //mf.setUndecorated(true);
-            mf.setVisible(true);
-            dispose();
-            
-        }else{
-              JOptionPane.showMessageDialog(null, "خطأ");
-              ClearJtext();
-        }
-        
+        CheckUserAndPass();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            CheckUserAndPass();
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+                if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            CheckUserAndPass();
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
     private void ClearJtext(){
         txtPassword.setText("");
         txtUsrname.setText("");
@@ -223,4 +228,29 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsrname;
     // End of variables declaration//GEN-END:variables
+
+    private void CheckUserAndPass() {
+        String userName = txtUsrname.getText();
+        String Password = txtPassword.getText();
+        String Server = comServer.getSelectedItem().toString();
+        Servernum = comServer.getSelectedItem().toString();
+        savedData.setServer(Server);
+        savedData.setUserName(userName);
+        boolean isLogin = ConectionDataBase.CheckUesrName(userName, Password);
+        if(isLogin){
+           // JOptionPane.showMessageDialog(null, "تم الدخول");
+            MainFrame mf = new MainFrame(userName , Server);
+            mf.setLocationRelativeTo(null);
+            mf.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+            //mf.setUndecorated(true);
+            mf.setVisible(true);
+            dispose();
+            
+        }else{
+              JOptionPane.showMessageDialog(null, "خطأ");
+              ClearJtext();
+        }
+        
+        
+    }
 }

@@ -15,6 +15,8 @@ import java.awt.Toolkit;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 
@@ -50,9 +52,31 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setLocation(x, 390);
         jPanel4.setLocation(x-190, 10);
         jPanel6.setLocation(5, 5);
-        
+//        jPanel7.setLocation(5 , 368);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//                    fillDailyTable();
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//
+//            private void fillDailyTable() throws InterruptedException {
+//               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//               String[] coulunNmae = new String [] {"الجدول","البيان", "المبلغ","التاريخ","مسلسل"};
+//               String sql = "SELECT name_table , note , price , date_day ,id_daily FROM daily ORDER BY id_daily DESC;";
+//               ConectionDataBase.fillAndCenterTable(sql, jTable1, coulunNmae);
+//               Thread.sleep(5000);
+//            }
+//        }).start();
     }
-
+/*
+     SELECT name_table , note , price , date_day ,id_daily FROM daily ORDER BY id_daily DESC; 
+    
+    */
     private MainFrame() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -82,6 +106,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
@@ -213,7 +238,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(txtLastUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 442, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 638, Short.MAX_VALUE)
                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,7 +262,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 680, 1024, 34);
+        jPanel2.setBounds(0, 680, 1220, 34);
 
         jPanel3.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "مدفوعات", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
@@ -343,18 +368,31 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/seo-report.png"))); // NOI18N
+        jButton15.setText("كشف حساب مورد");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,11 +404,13 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(830, 10, 189, 190);
+        jPanel4.setBounds(830, 10, 189, 240);
 
         jPanel5.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.05f));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "الواردات", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
@@ -704,6 +744,10 @@ public class MainFrame extends javax.swing.JFrame {
         cirky c = new cirky();
         Tools.OpenFrame(c, "ساعات معدة", "loader");
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton15ActionPerformed
    
     
    public class MyThread extends Thread {
@@ -718,14 +762,14 @@ public class MainFrame extends javax.swing.JFrame {
         Date now = new Date();
         String time = TimeFormat.format(now);
         txtLastUpdate.setText("");
-        System.out.println("MyThread - START "+Thread.currentThread().getName());
+       // System.out.println("MyThread - START "+Thread.currentThread().getName());
         try {
             Thread.sleep(1000);
             doDBProcessing();
         } catch (InterruptedException e) {
             Tools.ErorBox(e.getMessage());
         }
-        System.out.println("MyThread - END "+Thread.currentThread().getName());
+       // System.out.println("MyThread - END "+Thread.currentThread().getName());
         txtLastUpdate.setText(time);
     }
 
@@ -831,6 +875,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

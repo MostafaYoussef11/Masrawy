@@ -380,16 +380,17 @@ public class Expens extends javax.swing.JFrame {
         if(isSaved){
             Tools.MasgBox("تم الحفظ بنجاح");
 //            int supplier = Integer.getInteger(id_Suppliers);
-            if(supplier == 1){
-                String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+           String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+            if(supplier == 1){ 
                 String sqlDaily = "INSERT INTO daily VALUES("+id_dai+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"');";
                 ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             }else{
                 String id_imSupplier = id_daily.getText();
                 String id_Supplier = ConectionDataBase.getIdFrmName("suppliers", suppCombo.getSelectedItem().toString());
-                String sqlImSupplier = "INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_Supplier+","+id+",0);";
+                //id_ImSuppliers`, `id_Suppliers`, `id_exp`, `date_day`, `price`, `note`, `name_table`, `IsActive`
+                String sqlImSupplier = "INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_Supplier+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"' , 0);"; 
                 ConectionDataBase.ExecuteAnyQuery(sqlImSupplier);
-                String now_balance = ""+ConectionDataBase.SetNBalanceSuppliers(id_Supplier);
+                String now_balance = "الرصيد الحالي : "+ConectionDataBase.SetNBalanceSuppliers(id_Supplier);
                 Tools.MasgBox(now_balance);
             
             }
@@ -476,25 +477,31 @@ public class Expens extends javax.swing.JFrame {
       
       if(isUpdate){
           Tools.MasgBox("تم تحديث البيانات");
+          String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
          if(supplier == oldSupplier){ 
+             
+             String sqlupdate = "";
               if(supplier == 1){
-                 String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
-                 String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+note+"'"+", "+" id = "+id+" ,name_table = '"+tableName+"' WHERE id_daily="+id_daily.getText()+";";
-                 ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+                 sqlupdate ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+note+"'"+", "+" id = "+id+" ,name_table = '"+tableName+"' WHERE id_daily="+id_daily.getText()+";";
+                 
+              }else{
+                sqlupdate ="UPDATE imsuppliers SET date_day='"+date+"', price = "+price+",note = '"+note+"'"+", "+" id_exp = "+id+" ,name_table = '"+tableName+"' WHERE id_ImSuppliers="+id_daily.getText()+";";
               }
+              ConectionDataBase.ExecuteAnyQuery(sqlupdate);
          }
          else{
              if(oldSupplier == 1){
                  //DELETE FROM dailay Table
                  ConectionDataBase.ExecuteAnyQuery("DELETE FROM daily WHERE id_daily="+oldIdDaily+";");
                  // insert into imsuppliers
-                 ConectionDataBase.ExecuteAnyQuery("INSERT INTO imsuppliers VALUES("+id_day+","+id_Suppliers+","+id+",0);");
+                 //"INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_Supplier+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"' , 0);"; 
+                 ConectionDataBase.ExecuteAnyQuery("INSERT INTO imsuppliers VALUES("+id_day+","+id_Suppliers+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"' , 0);");
                  
              }else if(supplier == 1){
                  //DELETE ImSupp
                  ConectionDataBase.ExecuteAnyQuery("DELETE FROM imSuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
                  //Insert into daily
-                  String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+                  //String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
                   String sqlDaily = "INSERT INTO daily VALUES("+id_daily.getText()+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"');";
                   ConectionDataBase.ExecuteAnyQuery(sqlDaily);
              }

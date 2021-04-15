@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SupplierReport_exp" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f2fc1d59-a4dc-4a73-9726-52a51e4529db">
+	<parameter name="id_Suppliers" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     exsuppliers.`id_exSuppliers` AS exsuppliers_id_exSuppliers,
+     exsuppliers.`date_exSuppliers` AS exsuppliers_date_exSuppliers,
+     exsuppliers.`id_Suppliers` AS exsuppliers_id_Suppliers,
+     exsuppliers.`price_exSuppliers` AS exsuppliers_price_exSuppliers,
+     exsuppliers.`note` AS exsuppliers_note,
+     exsuppliers.`id_daily` AS exsuppliers_id_daily,
+     exsuppliers.`IsActive` AS exsuppliers_IsActive
+FROM
+     `exsuppliers` exsuppliers
+WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
+	</queryString>
+	<field name="exsuppliers_id_exSuppliers" class="java.lang.Integer"/>
+	<field name="exsuppliers_date_exSuppliers" class="java.sql.Date"/>
+	<field name="exsuppliers_id_Suppliers" class="java.lang.Integer"/>
+	<field name="exsuppliers_price_exSuppliers" class="java.lang.Double"/>
+	<field name="exsuppliers_note" class="java.lang.String"/>
+	<field name="exsuppliers_id_daily" class="java.lang.Integer"/>
+	<field name="exsuppliers_IsActive" class="java.lang.Boolean"/>
+	<variable name="SUM" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{exsuppliers_price_exSuppliers}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="125" height="20" uuid="d4746ac3-2fc1-4550-ac25-8928bed120b5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{exsuppliers_note}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="125" y="0" width="50" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4cd06b8c-7694-4c38-8f71-77c314584a3c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{exsuppliers_price_exSuppliers}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="175" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="793dfdbb-9e03-408b-a50c-c5a4612db25d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($F{exsuppliers_date_exSuppliers})
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="150" y="1" width="125" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="faec7b2b-4d2a-484d-bd90-2c7cccaf2374"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[الاجمالي]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="1" width="150" height="20" uuid="ded4c24f-bc1c-4710-9cfb-f7bdf56697af"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

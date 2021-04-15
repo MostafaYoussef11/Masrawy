@@ -143,10 +143,8 @@
                       <Component id="txtdaily" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="txtBalance" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="txtDiscond" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="chClaer" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="chzero" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="chClaer" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="chzero" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
