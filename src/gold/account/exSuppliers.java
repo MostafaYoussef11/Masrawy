@@ -8,8 +8,12 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -102,19 +106,6 @@ public class exSuppliers extends javax.swing.JFrame {
         jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         comSuppliers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comSuppliers.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comSuppliersItemStateChanged(evt);
-            }
-        });
-        comSuppliers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                comSuppliersMouseEntered(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                comSuppliersMousePressed(evt);
-            }
-        });
         comSuppliers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comSuppliersActionPerformed(evt);
@@ -254,6 +245,11 @@ public class exSuppliers extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
         if (table.getColumnModel().getColumnCount() > 0) {
             table.getColumnModel().getColumn(0).setResizable(false);
@@ -290,12 +286,27 @@ public class exSuppliers extends javax.swing.JFrame {
 
         btnedit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil (1).png"))); // NOI18N
         btnedit.setText("تعديل");
+        btnedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditActionPerformed(evt);
+            }
+        });
 
         btnupdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exchange.png"))); // NOI18N
         btnupdate.setText("تحديث");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnupdateActionPerformed(evt);
+            }
+        });
 
         btndel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
         btndel.setText("حذف");
+        btndel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndelActionPerformed(evt);
+            }
+        });
 
         btnexit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit.png"))); // NOI18N
         btnexit.setText("خروج");
@@ -375,21 +386,6 @@ public class exSuppliers extends javax.swing.JFrame {
         SetNew();
     }//GEN-LAST:event_formWindowOpened
 
-    private void comSuppliersItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comSuppliersItemStateChanged
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_comSuppliersItemStateChanged
-
-    private void comSuppliersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comSuppliersMouseEntered
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_comSuppliersMouseEntered
-
-    private void comSuppliersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comSuppliersMousePressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_comSuppliersMousePressed
-
     private void comSuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comSuppliersActionPerformed
         // TODO add your handling code here:
         if(comSuppliers.getSelectedItem().equals("اختر اسم المورد")){
@@ -398,6 +394,7 @@ public class exSuppliers extends javax.swing.JFrame {
         }else{
        // txtPrice.setEditable(false);
         String id_supplier = ConectionDataBase.getIdFrmName("suppliers", comSuppliers.getSelectedItem().toString());
+        //ConectionDataBase.SetNBalanceSuppliers(id_supplier);
         String balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers ="+id_supplier+";");
         txtBalance.setText(balance);
         txtPrice.setEditable(true);
@@ -522,6 +519,97 @@ public class exSuppliers extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_txtPriceKeyReleased
+
+    private void btndelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndelActionPerformed
+        // TODO add your handling code here:
+        String id = txtId.getText();
+        int ok = JOptionPane.showConfirmDialog(this, "هل ترغب في الحذف ؟", "حذف", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if(ok == JOptionPane.YES_OPTION){
+            boolean isDel = ConectionDataBase.ExecuteAnyQuery("DELETE FROM exsuppliers WHERE id_exSuppliers = "+id+";");
+            if(isDel){
+                String id_sup = ConectionDataBase.getIdFrmName("suppliers", comSuppliers.getSelectedItem().toString());
+                ConectionDataBase.SetNBalanceSuppliers(id_sup);
+                String balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers ="+id_sup+";");
+                Tools.MasgBox("تم الحذف بنجاح و الرصيد الحالي ل "+comSuppliers.getSelectedItem().toString() +" : " + balance);
+                SetNew();
+            }
+            else{
+                Tools.ErorBox("خطأ");
+            }
+        }
+    }//GEN-LAST:event_btndelActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        // TODO add your handling code here:
+        int row = table.getSelectedRow();
+        txtNote.setText(table.getValueAt(row, 0).toString());
+        comSuppliers.setSelectedItem(table.getValueAt(row, 1));
+        txtPrice.setText(table.getValueAt(row, 2).toString());
+        SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+        String date = table.getValueAt(row, 3).toString();
+        try {
+            Date DT = SDF.parse(date);
+            txtdate.setDate(DT);
+        } catch (ParseException ex) {
+            Logger.getLogger(Export.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        txtId.setText(table.getValueAt(row, 4).toString());
+        txtdaily.setText(table.getValueAt(row, 5).toString());
+        
+        //txt Disable
+        txtdate.setEnabled(false);
+        comSuppliers.setEnabled(false);
+        txtPrice.setEnabled(false);
+        txtNote.setEnabled(false);
+        chClaer.setEnabled(false);
+        chzero.setEnabled(false);
+        
+        //Btn Disable
+        btnnew.setEnabled(true);
+        btnsave.setEnabled(false);
+        btnedit.setEnabled(true);
+        btndel.setEnabled(true);
+        btnupdate.setEnabled(false);
+        
+        
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+        // TODO add your handling code here:
+        txtNote.setEnabled(true);
+        txtdate.setEnabled(true);
+        txtPrice.setEnabled(true);
+        comSuppliers.setEnabled(true);
+        
+        
+        btnupdate.setEnabled(true);
+        btnedit.setEnabled(false);
+        btnnew.setEnabled(true);
+        btnsave.setEnabled(false);
+        btndel.setEnabled(true);
+        
+    }//GEN-LAST:event_btneditActionPerformed
+
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
+        // TODO add your handling code here:
+        String id = txtId.getText();
+        Date date = txtdate.getDate();
+        String txtDate = format.format(date);
+        String id_sup = ConectionDataBase.getIdFrmName("suppliers", comSuppliers.getSelectedItem().toString());
+        String sqlUpdate = "UPDATE exsuppliers SET date_exSuppliers = '"+txtDate+"' , id_Suppliers = "+id_sup+", price_exSuppliers = "+ txtPrice.getText() 
+                           + " , note ='"+txtNote.getText()+"' , id_daily = "+txtdaily.getText()+" WHERE id_exSuppliers = "+id +";";
+        boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sqlUpdate);
+        if(isUpdate){
+                //String id_sup = ConectionDataBase.getIdFrmName("suppliers", comSuppliers.getSelectedItem().toString());
+                ConectionDataBase.SetNBalanceSuppliers(id_sup);
+                String balance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM suppliers WHERE id_Suppliers ="+id_sup+";");
+                Tools.MasgBox("تم تحديث البيانات  بنجاح و الرصيد الحالي ل "+comSuppliers.getSelectedItem().toString() +" : " + balance);
+                SetNew();
+            }
+            else{
+                Tools.ErorBox("خطأ");
+            }
+    }//GEN-LAST:event_btnupdateActionPerformed
     private void SetNew(){
         ConectionDataBase.NewfillCombo("suppliers WHERE id_Suppliers != 1 ", "name_Suppliers", comSuppliers);
 //        if(chzero.isSelected()){

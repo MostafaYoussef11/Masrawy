@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="62ff0dab-3f1f-4924-8829-c13138d7571c">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="148"/>
 	<parameter name="id_Suppliers" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\Masrawy Account\\Masrawy\\src\\Rebort\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="sumcredit" class="java.lang.Double"/>
+	<parameter name="sumdepit" class="java.lang.Double"/>
+	<parameter name="CorD" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-     suppliers.`id_Suppliers` AS suppliers_id_Suppliers,
-     suppliers.`name_Suppliers` AS suppliers_name_Suppliers,
-     suppliers.`old_Balance` AS suppliers_old_Balance,
-     suppliers.`now_balance` AS suppliers_now_balance
+*
 FROM
      `suppliers` suppliers
 WHERE id_Suppliers = $P{id_Suppliers}]]>
 	</queryString>
-	<field name="suppliers_id_Suppliers" class="java.lang.Integer"/>
-	<field name="suppliers_name_Suppliers" class="java.lang.String"/>
-	<field name="suppliers_old_Balance" class="java.lang.Double"/>
-	<field name="suppliers_now_balance" class="java.lang.Double"/>
+	<field name="id_Suppliers" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name_Suppliers" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="debtor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="creditor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="now_balance" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="last_filter" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="ob" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{creditor}.doubleValue()-$F{debtor}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="nb" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{creditor}.doubleValue()+ $P{sumcredit}.doubleValue()- $F{debtor}.doubleValue() - $P{sumdepit}.doubleValue()]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -44,22 +64,36 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 				<text><![CDATA[شغل الجبل]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="289" y="20" width="69" height="20" uuid="12e33824-b2a2-4229-857e-7aa8eec749db"/>
+				<reportElement x="276" y="20" width="69" height="20" uuid="12e33824-b2a2-4229-857e-7aa8eec749db"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[كشف حساب]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="189" y="20" width="100" height="20" uuid="16cdf8a7-94c7-4521-9810-372f6558fa8f"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{suppliers_name_Suppliers}]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement x="0" y="52" width="550" height="2" uuid="e197668a-99f4-4781-8f53-b9ce56049e12"/>
 			</line>
+			<textField>
+				<reportElement mode="Transparent" x="176" y="20" width="113" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="8375a972-5a11-4373-8b29-acd689ae543a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name_Suppliers}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="32" width="100" height="20" uuid="e6671603-c31d-4a1c-81f4-8748dd7954c0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{now_balance}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="441" y="32" width="114" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="a658db52-4948-43ee-a4ea-d22da73811c6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("YYYY-MM-dd").format($F{last_filter})]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -69,7 +103,7 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField pattern="h.mm a">
-				<reportElement x="494" y="1" width="61" height="14" uuid="dad6ac27-777b-4ee5-84f6-c2d74f9a99ba"/>
+				<reportElement x="478" y="1" width="61" height="14" uuid="dad6ac27-777b-4ee5-84f6-c2d74f9a99ba"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -77,7 +111,7 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 	<columnHeader>
 		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="276" y="2" width="275" height="25" uuid="219481a5-da12-4c6f-bd9b-6cc908637e5e"/>
+				<reportElement x="280" y="2" width="275" height="25" uuid="219481a5-da12-4c6f-bd9b-6cc908637e5e"/>
 				<box>
 					<pen lineWidth="1.5" lineStyle="Solid"/>
 					<topPen lineWidth="1.5" lineStyle="Solid"/>
@@ -136,7 +170,7 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 				<text><![CDATA[المبلغ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="176" y="27" width="100" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="63338438-7061-4919-965b-8b9c1d8c5138"/>
+				<reportElement mode="Transparent" x="175" y="27" width="100" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="63338438-7061-4919-965b-8b9c1d8c5138"/>
 				<box>
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -151,7 +185,7 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 				<text><![CDATA[التاريخ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="400" y="27" width="50" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="b49711e6-2e44-45ee-a5a7-2b8c451a88a3"/>
+				<reportElement mode="Transparent" x="405" y="27" width="50" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="b49711e6-2e44-45ee-a5a7-2b8c451a88a3"/>
 				<box>
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -166,7 +200,7 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 				<text><![CDATA[المبلغ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="275" y="27" width="125" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="305cb05f-4529-466f-ba83-de7289841df1"/>
+				<reportElement mode="Transparent" x="280" y="27" width="125" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="305cb05f-4529-466f-ba83-de7289841df1"/>
 				<box>
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -181,7 +215,7 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 				<text><![CDATA[البيان]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="451" y="27" width="100" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="eccf277f-1516-4d1f-bc21-783e70caf309"/>
+				<reportElement mode="Transparent" x="455" y="27" width="100" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="eccf277f-1516-4d1f-bc21-783e70caf309"/>
 				<box>
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -200,7 +234,7 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 	<detail>
 		<band height="100" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="275" height="100" uuid="6476c014-d88a-46b9-af98-592b0085bbb6"/>
+				<reportElement x="0" y="21" width="275" height="79" uuid="6476c014-d88a-46b9-af98-592b0085bbb6"/>
 				<subreportParameter name="id_Suppliers">
 					<subreportParameterExpression><![CDATA[$P{id_Suppliers}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -210,10 +244,111 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SupplierReport_exp.jasper"]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement mode="Transparent" x="175" y="1" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="17d17b6e-61a6-4e23-b40b-18f3e2821ef0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("YYYY-MM-dd").format($F{last_filter})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="125" y="1" width="50" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="52be6432-c759-43d6-ab6a-eca55a504335"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{debtor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="1" width="125" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="e6907553-b162-404f-8e70-d390182962d8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[رصيد ماقبله ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="455" y="1" width="100" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="adefaf23-bda0-4b0f-a02b-2daa088764d5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("YYYY-MM-dd").format($F{last_filter})]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="405" y="1" width="50" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="57e8f347-c16f-43b3-bccb-462e0dc7aabe"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{creditor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="280" y="1" width="125" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="4deedaf6-58bd-4ffd-8c4e-f6c7e0ee44e0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[رصيد ماقبله ]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="280" y="51" width="275" height="49" uuid="53c5c9e0-fa4a-4c9d-96b4-3389691109ed"/>
+				<subreportParameter name="id_Suppliers">
+					<subreportParameterExpression><![CDATA[$P{id_Suppliers}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+ "SupplierReport_imp.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="53" splitType="Stretch"/>
+		<band height="6" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="16" splitType="Stretch">
@@ -229,6 +364,153 @@ WHERE id_Suppliers = $P{id_Suppliers}]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="156" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="5" y="21" width="545" height="97" uuid="c06465f7-2fcf-46ba-b244-64695a758174"/>
+				<box>
+					<pen lineWidth="1.75" lineStyle="Double" lineColor="#000000"/>
+					<topPen lineWidth="1.75" lineStyle="Double" lineColor="#000000"/>
+					<leftPen lineWidth="1.75" lineStyle="Double" lineColor="#000000"/>
+					<bottomPen lineWidth="1.75" lineStyle="Double" lineColor="#000000"/>
+					<rightPen lineWidth="1.75" lineStyle="Double" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement x="450" y="11" width="84" height="27" uuid="481af2ce-408f-495d-9724-d52884b4722b"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[رصيد ماقبله]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="275" y="11" width="175" height="27" uuid="be3dbf94-563a-4efa-a2bf-5c6f6b3d1e2f"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ob}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="275" y="38" width="175" height="27" forecolor="#000000" backcolor="#FFFFFF" uuid="9ddcd8e1-2f4d-422d-a944-09e59c14e167"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{sumcredit}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="275" y="65" width="175" height="27" forecolor="#000000" backcolor="#FFFFFF" uuid="e780bede-cb93-4429-8281-bc84894f1e16"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{sumdepit}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="450" y="38" width="84" height="27" uuid="228e4264-6310-4f1c-9cca-b3e61c2961c9"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[اجمالي له]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="450" y="65" width="84" height="27" uuid="eb2e8d66-b579-425b-8c46-bd9eecc78323"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[اجمالي عليه]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="175" y="11" width="100" height="54" uuid="502d9ce4-0a7a-4d32-baac-f6769e3c9a2b"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[الرصيد الحالي]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Transparent" x="11" y="11" width="163" height="54" forecolor="#000000" backcolor="#FFFFFF" uuid="1328632c-6dd5-4324-b05e-7e10592e4fb1"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{nb}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="11" y="65" width="264" height="27" uuid="282c9287-fc0c-47a8-a60f-522f1808e140"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{CorD}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement mode="Opaque" x="221" y="2" width="100" height="27" backcolor="#FFFFFF" uuid="bb553f6e-1c1a-4a64-94a1-64ba4a08fca7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الاجماليات]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>

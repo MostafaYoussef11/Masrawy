@@ -30,9 +30,9 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="125" height="20" uuid="d4746ac3-2fc1-4550-ac25-8928bed120b5"/>
+				<reportElement x="0" y="0" width="125" height="25" uuid="d4746ac3-2fc1-4550-ac25-8928bed120b5"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -46,7 +46,7 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 				<textFieldExpression><![CDATA[$F{exsuppliers_note}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="0" width="50" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="4cd06b8c-7694-4c38-8f71-77c314584a3c"/>
+				<reportElement mode="Transparent" x="125" y="0" width="50" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="4cd06b8c-7694-4c38-8f71-77c314584a3c"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -61,7 +61,7 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 				<textFieldExpression><![CDATA[$F{exsuppliers_price_exSuppliers}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="175" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="793dfdbb-9e03-408b-a50c-c5a4612db25d"/>
+				<reportElement mode="Transparent" x="175" y="0" width="100" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="793dfdbb-9e03-408b-a50c-c5a4612db25d"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -73,15 +73,14 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($F{exsuppliers_date_exSuppliers})
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($F{exsuppliers_date_exSuppliers})]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="150" y="1" width="125" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="faec7b2b-4d2a-484d-bd90-2c7cccaf2374"/>
+				<reportElement mode="Transparent" x="150" y="1" width="125" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="faec7b2b-4d2a-484d-bd90-2c7cccaf2374"/>
 				<box>
 					<pen lineWidth="1.25"/>
 					<topPen lineWidth="1.25"/>
@@ -96,7 +95,7 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 				<text><![CDATA[الاجمالي]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="1" width="150" height="20" uuid="ded4c24f-bc1c-4710-9cfb-f7bdf56697af"/>
+				<reportElement x="0" y="1" width="150" height="25" uuid="ded4c24f-bc1c-4710-9cfb-f7bdf56697af"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>

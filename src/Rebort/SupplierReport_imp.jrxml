@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SupplierReport_imp" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3487f825-7d2e-475c-96af-5d809ade32cf">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SupplierReport_imp" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="419a1ba9-ce8d-46d5-b161-ab6371c6afdf">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -11,9 +11,9 @@
      imsuppliers.`id_ImSuppliers` AS imsuppliers_id_ImSuppliers,
      imsuppliers.`id_Suppliers` AS imsuppliers_id_Suppliers,
      imsuppliers.`id_exp` AS imsuppliers_id_exp,
-     imsuppliers.`date_day` AS imsuppliers_date_day,
-     imsuppliers.`price` AS imsuppliers_price,
-     CONCAT(`note`,' - ' ,`name_table` ) notes, 
+     imsuppliers.`date_day` AS date_day,
+     imsuppliers.`price` AS price,
+     CONCAT( note , char(10), name_table ) note,
      imsuppliers.`IsActive` AS imsuppliers_IsActive
 FROM
      `imsuppliers` imsuppliers
@@ -22,19 +22,26 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 	<field name="imsuppliers_id_ImSuppliers" class="java.lang.Integer"/>
 	<field name="imsuppliers_id_Suppliers" class="java.lang.Integer"/>
 	<field name="imsuppliers_id_exp" class="java.lang.Integer"/>
-	<field name="imsuppliers_date_day" class="java.sql.Date"/>
-	<field name="imsuppliers_price" class="java.lang.Double"/>
-	<field name="notes" class="java.lang.String">
+	<field name="date_day" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="price" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="note" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="imsuppliers_IsActive" class="java.lang.Boolean"/>
+	<variable name="price_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{price}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="50">
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="0" y="0" width="125" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="5e5cc263-1b3f-4ca0-9844-8d073fa1826c"/>
+				<reportElement mode="Transparent" x="0" y="0" width="125" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="d9e6942c-d663-40a2-85ea-038e936eb335"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -46,10 +53,10 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{notes}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="125" y="0" width="50" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="1947d8ff-09f0-4a73-a309-a89ca66c598c"/>
+				<reportElement mode="Transparent" x="125" y="0" width="50" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="6a33b097-117a-45a8-9dea-f005b4e0ab33"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -61,10 +68,10 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{imsuppliers_price}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement mode="Transparent" x="175" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="29c2ccad-2568-43f1-bd1b-900efb7b331a"/>
+				<reportElement mode="Transparent" x="175" y="0" width="100" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="403a5b94-d2b1-460e-87b7-da16d1c8592c"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -76,15 +83,37 @@ WHERE id_Suppliers = $P{id_Suppliers} AND IsActive = 0]]>
 					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("YYYY-MM-dd").format($F{imsuppliers_date_day})
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd").format($F{date_day})
 ]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="40" splitType="Stretch">
+		<band height="50" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="157" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="9b071d4d-0c67-4d49-bf26-8648a8f5650b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{price_1}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement mode="Transparent" x="152" y="0" width="123" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="f8087753-58f9-4b3f-a7ee-a06c859fbf86"/>
+				<reportElement mode="Transparent" x="157" y="0" width="118" height="50" forecolor="#000000" backcolor="#FFFFFF" uuid="f6e4dd1d-b0ae-4a99-b3b4-9e4ff7697a5c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
 					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>

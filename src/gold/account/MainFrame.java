@@ -747,6 +747,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
         // TODO add your handling code here:
+       chooseSupplier c = new chooseSupplier();
+       c.setLocationRelativeTo(null);
+       c.setBackground(Color.PINK);
+       c.setVisible(true);
     }//GEN-LAST:event_jButton15ActionPerformed
    
     
@@ -781,17 +785,17 @@ public class MainFrame extends javax.swing.JFrame {
             String date = format.format(day);
             String assets = ConectionDataBase.getSum("assets", "price_assets");
             String expens = ConectionDataBase.getSum("expens WHERE id_Suppliers = 1 ", "price_expens");
-            String exports = ConectionDataBase.getSum("exports", "price_export");
+            String exports = ConectionDataBase.getSum("exports WHERE id_Suppliers = 1 ", "price_export");
             String imports = ConectionDataBase.getSum("imports", "amount_imports");
             String exSuppliers = ConectionDataBase.getSum("exsuppliers", "price_exSuppliers"); 
             String assetsD = ConectionDataBase.getSumOnDay("assets", "price_assets",date);
             String expensDay = ConectionDataBase.getSum("SELECT SUM(price_expens) AS sum FROM expens WHERE date_expens='"+date+"' AND id_Suppliers = 1 ;");
-            String exportsD = ConectionDataBase.getSumOnDay("exports", "price_export",date);
+            String exportsD = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports WHERE date_exports='"+date+"' AND id_Suppliers = 1 ;");//"exports", "price_export",date
             String importsD = ConectionDataBase.getSumOnDay("imports", "amount_imports",date);
             String exSupplierD = ConectionDataBase.getSumOnDay("exsuppliers", "price_exSuppliers", date);
             // Convert To Double
              double D_imports , D_expens , D_exports , D_assets ,D_exSuppliers , D_importsD , D_expensD , D_exportsD , D_assetsD ,D_exSuppliersD ;
-             if(imports.isEmpty() || importsD.isEmpty() || expens.isEmpty() ||expensDay.isEmpty() || exports.isEmpty() || exportsD.isEmpty() || assets.isEmpty() || assetsD.isEmpty() || exSuppliers.isEmpty() || exSupplierD.isEmpty()  ){
+             if(imports == null || importsD == null || expens == null||expensDay == null || exports == null || exportsD == null || assets == null || assetsD == null || exSuppliers == null || exSupplierD == null  ){
                  doDBProcessing();
              }
              else{

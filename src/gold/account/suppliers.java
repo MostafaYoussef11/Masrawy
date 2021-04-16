@@ -6,9 +6,11 @@
 package gold.account;
 
 import DataBase.ConectionDataBase;
+import static DataBase.ConectionDataBase.getSum;
 import DataBase.Tools;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 /**
@@ -40,8 +42,10 @@ public class suppliers extends javax.swing.JFrame {
         txtname = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtOldB = new javax.swing.JTextField();
+        txtdibtor = new javax.swing.JTextField();
         txtNowb = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtCriditor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -82,30 +86,59 @@ public class suppliers extends javax.swing.JFrame {
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("رصيد اول المدة");
+        jLabel4.setText("رصيد منه _ مدين");
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("رصيد اخر المدة");
         jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtOldB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtOldB.setText("0.00");
-        txtOldB.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtdibtor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtdibtor.setText("0.00");
+        txtdibtor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtdibtorActionPerformed(evt);
+            }
+        });
+        txtdibtor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtOldBKeyPressed(evt);
+                txtdibtorKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtOldBKeyReleased(evt);
+                txtdibtorKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtOldBKeyTyped(evt);
+                txtdibtorKeyTyped(evt);
             }
         });
 
         txtNowb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtNowb.setText("0.00");
         txtNowb.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("رصيد له _دائن");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtCriditor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCriditor.setText("0.00");
+        txtCriditor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCriditorActionPerformed(evt);
+            }
+        });
+        txtCriditor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCriditorKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCriditorKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCriditorKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,22 +147,25 @@ public class suppliers extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtname)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtNowb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(txtOldB))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtCriditor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtname))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtdibtor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -137,17 +173,18 @@ public class suppliers extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtname, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                        .addComponent(txtNowb, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(txtOldB, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtdibtor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCriditor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNowb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -156,11 +193,11 @@ public class suppliers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "رصيد اخر المدة", "رصيد اول المدة", "الاســـــــــم", "مسلسل"
+                "الرصيد الحالي", "رصيد دائن", "رصيد مدين", "الاســـــــــم", "مسلسل"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -175,13 +212,15 @@ public class suppliers extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(75);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(250);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(75);
         }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -304,11 +343,14 @@ public class suppliers extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
     private void SetNew(){
         txtId.setText(ConectionDataBase.AutoId("suppliers", "id_Suppliers"));
-        String sqlTable = "SELECT now_balance , old_Balance , name_Suppliers , id_Suppliers FROM suppliers ;";
-        String ColName[] = new String [] { "رصيد اخر المدة", "رصيد اول المدة", "الاســـــــــم", "مسلسل"};
+        //SELECT id_Suppliers as id , suppliers.name_Suppliers as name, (SELECT debtor - creditor FROM suppliers WHERE id_Suppliers = id ) old_balnce , now_balance FROM suppliers
+
+        String sqlTable = "SELECT now_balance , creditor , debtor , name_Suppliers , id_Suppliers AS id FROM suppliers ;";
+        String ColName[] = new String [] {"الرصيد الحالي", "رصيد دائن", "رصيد مدين", "الاســـــــــم", "مسلسل"};
         ConectionDataBase.fillAndCenterTable(sqlTable, jTable1, ColName);
         txtNowb.setText("0.00");
-        txtOldB.setText("0.00");
+        txtCriditor.setText("0.00");
+        txtdibtor.setText("0.00");
         txtname.setText("");
         
         btnDel.setEnabled(false);
@@ -325,7 +367,8 @@ public class suppliers extends javax.swing.JFrame {
         if(name == 0){
             Tools.ErorBox("الاسـم غير مكتوب");
         }else{
-            String sqlUpdate = "UPDATE suppliers SET name_Suppliers = '"+txtname.getText()+"' , old_Balance = "+txtOldB.getText()+",now_balance = "+txtNowb.getText()+ " WHERE id_Suppliers =" +txtId.getText()+";";
+            
+            String sqlUpdate = "UPDATE suppliers SET name_Suppliers = '"+txtname.getText()+"' , debtor = "+txtdibtor.getText()+",now_balance = "+txtNowb.getText()+", creditor = "+ txtCriditor.getText()+ "  WHERE id_Suppliers =" +txtId.getText()+";";
             if(ConectionDataBase.ExecuteAnyQuery(sqlUpdate)){
                  Tools.MasgBox("تم تحديث البيانات");
             }else{
@@ -352,20 +395,25 @@ public class suppliers extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnExActionPerformed
 
-    private void txtOldBKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldBKeyTyped
+    private void txtdibtorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdibtorKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_ENTER))){
+            getToolkit().beep();
+            evt.consume();
+        }
+        
+    }//GEN-LAST:event_txtdibtorKeyTyped
+
+    private void txtdibtorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdibtorKeyPressed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_txtOldBKeyTyped
+    }//GEN-LAST:event_txtdibtorKeyPressed
 
-    private void txtOldBKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldBKeyPressed
+    private void txtdibtorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdibtorKeyReleased
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_txtOldBKeyPressed
-
-    private void txtOldBKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldBKeyReleased
-        // TODO add your handling code here:
-        txtNowb.setText(txtOldB.getText());
-    }//GEN-LAST:event_txtOldBKeyReleased
+        setnb();
+    }//GEN-LAST:event_txtdibtorKeyReleased
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
@@ -378,7 +426,7 @@ public class suppliers extends javax.swing.JFrame {
         if(name == 0){
             Tools.ErorBox("الاسم غير موجود");
         }else{
-            String sqlSave = "INSERT INTO suppliers VALUES("+txtId.getText()+",'"+txtname.getText()+"',"+txtOldB.getText()+","+txtNowb.getText()+");";
+            String sqlSave = "INSERT INTO suppliers VALUES("+txtId.getText()+",'"+txtname.getText()+"',"+txtdibtor.getText()+","+txtCriditor.getText()+","+txtNowb.getText()+");";
             if(ConectionDataBase.ExecuteAnyQuery(sqlSave)){
                  Tools.MasgBox("تم الحفظ بنجاح");
             }else{
@@ -392,12 +440,13 @@ public class suppliers extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = jTable1.getSelectedRow();
         txtNowb.setText(jTable1.getValueAt(row, 0).toString());
-        txtOldB.setText(jTable1.getValueAt(row, 1).toString());
-        txtname.setText(jTable1.getValueAt(row, 2).toString());
-        txtId.setText(jTable1.getValueAt(row, 3).toString());
-        
-        txtOldB.setEnabled(false);
+        txtCriditor.setText(jTable1.getValueAt(row, 1).toString());
+        txtdibtor.setText(jTable1.getValueAt(row, 2).toString());
+        txtname.setText(jTable1.getValueAt(row, 3).toString());
+        txtId.setText(jTable1.getValueAt(row, 4).toString());
+        txtdibtor.setEnabled(false);
         txtname.setEnabled(false);
+        txtCriditor.setEnabled(false);
         
         btnDel.setEnabled(true);
         btnEdit.setEnabled(true);
@@ -415,8 +464,60 @@ public class suppliers extends javax.swing.JFrame {
         btnNew.setEnabled(true);
         
         txtname.setEnabled(true);
-        txtOldB.setEnabled(true);
+        txtdibtor.setEnabled(true);
+        txtCriditor.setEnabled(true);
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void txtdibtorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdibtorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtdibtorActionPerformed
+
+    private void txtCriditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCriditorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCriditorActionPerformed
+
+    private void txtCriditorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCriditorKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCriditorKeyPressed
+
+    private void txtCriditorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCriditorKeyReleased
+        // TODO add your handling code here:
+        setnb();
+                
+        
+    }//GEN-LAST:event_txtCriditorKeyReleased
+    private void setnb(){
+       String dibtor = txtdibtor.getText() ;
+       String cridtor = txtCriditor.getText() ;
+       if(dibtor.equals("") || dibtor == null){
+           dibtor = "0.00";
+       }
+       else if(cridtor.equals("") || cridtor == null){
+           cridtor = "0.00";
+       
+       }
+        double dbtor = Double.valueOf(dibtor);
+        double crit = Double.valueOf(cridtor);
+        double nB = crit - dbtor ;
+        String sqlPay = "SELECT SUM(price_exSuppliers) AS sum FROM exsuppliers WHERE IsActive = 0 AND id_Suppliers ="+txtId.getText()+";";
+        String sqlCrid ="SELECT SUM(price) AS sum FROM imsuppliers WHERE IsActive = 0 AND id_Suppliers ="+txtId.getText()+";";
+        String Creditor = getSum(sqlCrid);
+        String paySupplier = getSum(sqlPay);
+        double cr = Double.parseDouble(Creditor);
+        double pay = Double.parseDouble(paySupplier);
+        nB = nB + cr - pay;
+        txtNowb.setText(String.valueOf(nB));
+    
+    
+    }
+    private void txtCriditorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCriditorKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if(!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_ENTER))){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCriditorKeyTyped
 
     /**
      * @param args the command line arguments
@@ -464,13 +565,15 @@ public class suppliers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtCriditor;
     private javax.swing.JLabel txtId;
     private javax.swing.JLabel txtNowb;
-    private javax.swing.JTextField txtOldB;
+    private javax.swing.JTextField txtdibtor;
     private javax.swing.JTextField txtname;
     // End of variables declaration//GEN-END:variables
 }

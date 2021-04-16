@@ -114,6 +114,11 @@ public class Expens extends javax.swing.JFrame {
                 suppComboItemStateChanged(evt);
             }
         });
+        suppCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppComboActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -530,7 +535,7 @@ public class Expens extends javax.swing.JFrame {
              String now_balance = ""+ConectionDataBase.SetNBalanceSuppliers(id_Suppler);
              Tools.MasgBox(now_balance);
         } 
-        String sql = "DELETE FROM expens WHERE id_expens="+id;
+        String sql = "DELETE FROM expens WHERE id_expens="+id+";";
         boolean isDel = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isDel){
             Tools.MasgBox("تم الحذف بنجاح");
@@ -549,6 +554,10 @@ public class Expens extends javax.swing.JFrame {
             id_daily.setText(ConectionDataBase.AutoId("imsuppliers", "id_Imsuppliers"));
         }
     }//GEN-LAST:event_suppComboItemStateChanged
+
+    private void suppComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_suppComboActionPerformed
     private void SetNew(){
         // disable Buttn
         btnDel.setEnabled(false);

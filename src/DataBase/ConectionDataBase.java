@@ -468,14 +468,15 @@ public class ConectionDataBase {
 }
   public static double SetNBalanceSuppliers(String id_supplier){
       double nBalance = 0.00;
-      String sqOlBa = "SELECT old_Balance AS sum FROM suppliers WHERE id_Suppliers = " + id_supplier+";";
-      String oldBalance = getSum(sqOlBa);
+      String sqdebtor = "SELECT debtor AS sum FROM suppliers WHERE id_Suppliers = " + id_supplier+";";
+      String debtor = getSum(sqdebtor);
+      String sqcreditor = "SELECT creditor AS sum FROM suppliers WHERE id_Suppliers = " + id_supplier+";";
+      String creditor = getSum(sqcreditor);
       String sqlPay = "SELECT SUM(price_exSuppliers) AS sum FROM exsuppliers WHERE IsActive = 0 AND id_Suppliers ="+id_supplier+";";
       String sqlCrid ="SELECT SUM(price) AS sum FROM imsuppliers WHERE IsActive = 0 AND id_Suppliers ="+id_supplier+";";
-//"SELECT SUM(price_expens) AS sum FROM expens INNER JOIN imsuppliers ON expens.id_expens = imsuppliers.id_exp WHERE expens.id_Suppliers ="+id_supplier+" and imsuppliers.IsActive = 0;" ;
       String Creditor = getSum(sqlCrid);
       String paySupplier = getSum(sqlPay);
-      double ob = Double.parseDouble(oldBalance);
+      double ob = Double.parseDouble(creditor) - Double.parseDouble(debtor);
       double cr = Double.parseDouble(Creditor);
       double pay = Double.parseDouble(paySupplier);
       nBalance = ob + cr - pay;

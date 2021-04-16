@@ -145,6 +145,12 @@ CREATE TABLE ImSuppliers(
     FOREIGN KEY (id_Suppliers) REFERENCES suppliers(id_Suppliers),
 	FOREIGN key (id_expens) REFERENCES expens(id_expens)
 );
+
+//////
+ALTER TABLE ImSuppliers ALTER COLUMN id_expens NULL;
+ALTER TABLE ImSuppliers 
+
+
    ALTER TABLE workgroup ADD COLUMN isActive bit NOT NULL DEFAULT 0 ;
    ALTER TABLE `exports` ADD `id_daily` INT NOT NULL ;
    ALTER TABLE `assets` ADD `id_daily` INT NOT NULL ;
@@ -180,3 +186,50 @@ CREATE TABLE hours(
 	id_cirky int,
     FOREIGN KEY(id_cirky) REFERENCES cirky(id_cirky)
 );
+
+
+
+
+
+
+ALTER TABLE `imsuppliers` DROP INDEX `id_expens`;
+ALTER TABLE `imsuppliers` CHANGE `id_expens` `id_exp` INT(11) NOT NULL;
+ALTER TABLE `imsuppliers` ADD `date_day` DATE NULL AFTER `id_exp`, ADD `price` DOUBLE(10,2) NULL AFTER `date_day`, ADD `note` VARCHAR(512) NULL AFTER `price`, ADD `name_table` VARCHAR(512) NULL AFTER `note`;
+
+
+
+
+
+////////////////////////////////////////
+
+/// مدين
+ALTER TABLE `suppliers` CHANGE `old_Balance` `debtor` DOUBLE(10,2) NOT NULL;
+////دائن
+ALTER TABLE `suppliers` ADD `creditor`  DOUBLE(10,2)  NULL AFTER `debtor`;
+ALTER TABLE `suppliers` CHANGE `creditor` `creditor` DOUBLE(10,2) NULL DEFAULT NULL;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////
+

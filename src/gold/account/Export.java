@@ -23,7 +23,7 @@ public class Export extends javax.swing.JFrame {
     /**
      * Creates new form Export
      */
-    private String id_daily; 
+//    private String id_daily; 
     public Export() {
         initComponents();
     }
@@ -31,14 +31,17 @@ public class Export extends javax.swing.JFrame {
     private void SetNew(){
         Tools.SearchField(table_export, txtSearch);
         // table 
-        String sql = "SELECT exports.note , exports.price_export , account.name_account , exports.date_exports , exports.id_exports , exports.id_daily FROM exports INNER JOIN account ON exports.id_account = account.id_account ORDER BY id_exports DESC  ; ";
+        String sql = "SELECT suppliers.name_Suppliers,exports.note , exports.price_export , account.name_account , exports.date_exports , exports.id_exports , exports.id_daily FROM exports"
+                + " INNER JOIN account ON exports.id_account = account.id_account "
+                +" INNER JOIN suppliers ON exports.id_Suppliers = suppliers.id_Suppliers  "
+                + " ORDER BY id_exports DESC  ; ";
         String[] coulmnName = new String [] {
-                "البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"
+                "مورد","البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"
             };
         ConectionDataBase.fillAndCenterTable(sql, table_export, coulmnName);
         //txt
         txtDate.setEnabled(true);
-        id_daily = ConectionDataBase.AutoId("daily", "id_daily");
+        String id_daily = ConectionDataBase.AutoId("daily", "id_daily");
         txtDaily.setText(id_daily);
        // Date d = new Date();
         //txtDate.setDateFormatString("dd/MM/YYYY");
@@ -51,7 +54,9 @@ public class Export extends javax.swing.JFrame {
         txtPrice.setText("0.00");
         txtNote.setText("");
         comAccount.setEnabled(true);
+        comSupplier.setEnabled(true);
         ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ","name_account", comAccount);
+        ConectionDataBase.NewfillCombo("suppliers", "name_Suppliers", comSupplier);
         //btns
         btnNew.setEnabled(false);
         btnDel.setEnabled(false);
@@ -81,6 +86,8 @@ public class Export extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtNote = new javax.swing.JTextField();
         txtDaily = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        comSupplier = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_export = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -134,31 +141,49 @@ public class Export extends javax.swing.JFrame {
         txtDaily.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDaily.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("المورد");
+        jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        comSupplier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comSupplier.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comSupplierItemStateChanged(evt);
+            }
+        });
+        comSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comSupplierActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPrice)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtDaily, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(comSupplier, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -177,8 +202,10 @@ public class Export extends javax.swing.JFrame {
                     .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPrice)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(comSupplier, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -194,14 +221,14 @@ public class Export extends javax.swing.JFrame {
 
             },
             new String [] {
-                "البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"
+                "مورد", "البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -219,18 +246,18 @@ public class Export extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_export);
         if (table_export.getColumnModel().getColumnCount() > 0) {
-            table_export.getColumnModel().getColumn(1).setMinWidth(150);
-            table_export.getColumnModel().getColumn(1).setPreferredWidth(150);
-            table_export.getColumnModel().getColumn(1).setMaxWidth(150);
-            table_export.getColumnModel().getColumn(3).setMinWidth(150);
-            table_export.getColumnModel().getColumn(3).setPreferredWidth(150);
-            table_export.getColumnModel().getColumn(3).setMaxWidth(150);
-            table_export.getColumnModel().getColumn(4).setMinWidth(50);
-            table_export.getColumnModel().getColumn(4).setPreferredWidth(50);
-            table_export.getColumnModel().getColumn(4).setMaxWidth(50);
-            table_export.getColumnModel().getColumn(5).setMinWidth(60);
-            table_export.getColumnModel().getColumn(5).setPreferredWidth(60);
-            table_export.getColumnModel().getColumn(5).setMaxWidth(60);
+            table_export.getColumnModel().getColumn(2).setMinWidth(150);
+            table_export.getColumnModel().getColumn(2).setPreferredWidth(150);
+            table_export.getColumnModel().getColumn(2).setMaxWidth(150);
+            table_export.getColumnModel().getColumn(4).setMinWidth(150);
+            table_export.getColumnModel().getColumn(4).setPreferredWidth(150);
+            table_export.getColumnModel().getColumn(4).setMaxWidth(150);
+            table_export.getColumnModel().getColumn(5).setMinWidth(50);
+            table_export.getColumnModel().getColumn(5).setPreferredWidth(50);
+            table_export.getColumnModel().getColumn(5).setMaxWidth(50);
+            table_export.getColumnModel().getColumn(6).setMinWidth(60);
+            table_export.getColumnModel().getColumn(6).setPreferredWidth(60);
+            table_export.getColumnModel().getColumn(6).setMaxWidth(60);
         }
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -369,19 +396,32 @@ public class Export extends javax.swing.JFrame {
         String date = sdf.format(txtDate.getDate());
         String price = txtPrice.getText();
         String id_account = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
+        String id_supllier = ConectionDataBase.getIdFrmName("Suppliers", comSupplier.getSelectedItem().toString());
         double price_ex = Double.valueOf(price);
         if(price_ex==0.00){
             Tools.ErorBox("المبلغ غير مكتوب");
         }
         else{
-            String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"',0,"+id_daily+" ) ;";
+            String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"',"+id_supllier+",0,"+txtDaily.getText()+" ) ;";
             boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
             if(isSaved){
                 
                 String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
                 ConectionDataBase.newBalance(id_account);
-                String sqlDaily = "INSERT INTO daily VALUES("+id_daily+","+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
-                ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+                int id_sup = Integer.parseInt(id_supllier);
+                if(id_sup == 1){
+                    String sqlDaily = "INSERT INTO daily VALUES("+txtDaily.getText()+","+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
+                    ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+                }else{
+                    String id_imSupplier = txtDaily.getText();
+                    //String id_Supplier = ConectionDataBase.getIdFrmName("suppliers", suppCombo.getSelectedItem().toString());
+                    //id_ImSuppliers`, `id_Suppliers`, `id_exp`, `date_day`, `price`, `note`, `name_table`, `IsActive`
+                    String sqlImSupplier = "INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_supllier+","+id+",'"+date+"',"+price+",'"+txtNote.getText()+"','"+tabName+"' , 0);"; 
+                    ConectionDataBase.ExecuteAnyQuery(sqlImSupplier);
+                    String now_balance = "الرصيد الحالي للمورد  : "+ConectionDataBase.SetNBalanceSuppliers(id_supllier);
+                    Tools.MasgBox(now_balance);
+                }
+
                 ConectionDataBase.newBalance(id_account);
                 String newBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
                 Tools.MasgBox("تم الحفظ بنجاح" + "  والرصيد الحالي " + newBalance);
@@ -396,11 +436,28 @@ public class Export extends javax.swing.JFrame {
 
     private void table_exportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_exportMouseClicked
         // TODO add your handling code here:
+                // txt Disable
+        txtDate.setEnabled(false);
+        txtId.setEnabled(false);
+        txtNote.setEnabled(false);
+        txtPrice.setEnabled(false);
+        comAccount.setEnabled(false);
+        comSupplier.setEnabled(false);
+        // Butn Enablse And Disables
+        btnDel.setEnabled(true);
+        btnEdit.setEnabled(true);
+        btnNew.setEnabled(true);
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        
+        
         int row = table_export.getSelectedRow();
-        txtDaily.setText(table_export.getValueAt(row, 5).toString());
-        txtId.setText(table_export.getValueAt(row, 4).toString());
-        String date = table_export.getValueAt(row, 3).toString();
+        comSupplier.setSelectedItem(table_export.getValueAt(row, 0));
+        txtNote.setText(table_export.getValueAt(row, 1).toString());
+        txtPrice.setText(table_export.getValueAt(row, 2).toString());
+        comAccount.setSelectedItem(table_export.getValueAt(row, 3));
         SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+        String date = table_export.getValueAt(row, 4).toString();
         try {
             Date DT= SDF.parse(date);
             
@@ -408,21 +465,8 @@ public class Export extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(Export.class.getName()).log(Level.SEVERE, null, ex);
         }
-        comAccount.setSelectedItem(table_export.getValueAt(row, 2));
-        txtPrice.setText(table_export.getValueAt(row, 1).toString());
-        txtNote.setText(table_export.getValueAt(row, 0).toString());
-        // txt Disable
-        txtDate.setEnabled(false);
-        txtId.setEnabled(false);
-        txtNote.setEnabled(false);
-        txtPrice.setEnabled(false);
-        comAccount.setEnabled(false);
-        // Butn Enablse And Disables
-        btnDel.setEnabled(true);
-        btnEdit.setEnabled(true);
-        btnNew.setEnabled(true);
-        btnSave.setEnabled(false);
-        btnUpdate.setEnabled(false);
+        txtId.setText(table_export.getValueAt(row, 5).toString());
+        txtDaily.setText(table_export.getValueAt(row, 6).toString());
     }//GEN-LAST:event_table_exportMouseClicked
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
@@ -436,6 +480,7 @@ public class Export extends javax.swing.JFrame {
         txtNote.setEnabled(true);
         txtPrice.setEnabled(true);
         comAccount.setEnabled(true);
+        comSupplier.setEnabled(true);
         // Buttuns Enable and Disable
         btnDel.setEnabled(false);
         btnEdit.setEnabled(false);
@@ -455,19 +500,52 @@ public class Export extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
         String date = sdf.format(txtDate.getDate());
         nots = txtNote.getText();
+         String id_Suppliers = ConectionDataBase.getIdFrmName("suppliers", comSupplier.getSelectedItem().toString());
         // Set the Sql Statement
-        String sql = "UPDATE  exports SET date_exports='"+date+"' , price_export="+price+", id_account="+id_account+",note='"+nots+"' WHERE id_exports="+id+";";
-        
+        String sql = "UPDATE  exports SET date_exports='"+date+"' , price_export="+price+", id_account="+id_account+", id_Suppliers = "+id_Suppliers+",note='"+nots+"' WHERE id_exports="+id+";";
+        String oldIdDaily = ConectionDataBase.getSum("SELECT id_daily AS sum FROM exports WHERE id_exports ="+id+";");
+            //String id_Suppliers = ConectionDataBase.getIdFrmName("suppliers", comSupplier.getSelectedItem().toString());
+       int supplier = Integer.parseInt(id_Suppliers);
+        String idOldSupplier = ConectionDataBase.getSum("SELECT id_Suppliers AS sum FROM exports WHERE id_exports ="+id+";");
+        int oldSupplier = Integer.parseInt(idOldSupplier);
         boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sql);
         if(isUpdate){
-          
-          String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
-          String sqlDaily ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+nots+"' , name_table = '"+tabName+"' WHERE id_daily = "+txtDaily.getText() +";";
-          ConectionDataBase.ExecuteAnyQuery(sqlDaily);
-          ConectionDataBase.newBalance(id_account);
-          String newBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
-          Tools.MasgBox("تم تحديث البيانات بنجاح" + "  والرصيد الحالي " + newBalance);
+          Tools.MasgBox("تم تحديث البيانات");
+          String tableName = "حساب"+" "+comAccount.getSelectedItem().toString();
+         if(supplier == oldSupplier){ 
+             
+             String sqlupdate = "";
+              if(supplier == 1){
+                 sqlupdate ="UPDATE daily SET date_day='"+date+"', price = "+price+",note = '"+nots+"'"+", "+" id = "+id+" ,name_table = '"+tableName+"' WHERE id_daily="+txtDaily.getText()+";";
+                 
+              }else{
+                sqlupdate ="UPDATE imsuppliers SET date_day='"+date+"', price = "+price+",note = '"+nots+"'"+", "+" id_exp = "+id+" ,name_table = '"+tableName+"' WHERE id_ImSuppliers="+txtDaily.getText()+";";
+              }
+              ConectionDataBase.ExecuteAnyQuery(sqlupdate);
+         }
+         else{
+             if(oldSupplier == 1){
+                 //DELETE FROM dailay Table
+                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM daily WHERE id_daily="+oldIdDaily+";");
+                 // insert into imsuppliers
+                 //"INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_Supplier+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"' , 0);"; 
+                 ConectionDataBase.ExecuteAnyQuery("INSERT INTO imsuppliers VALUES("+txtDaily.getText()+","+id_Suppliers+","+id+",'"+date+"',"+price+",'"+nots+"','"+tableName+"' , 0);");
+                 
+             }else if(supplier == 1){
+                 //DELETE ImSupp
+                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM imSuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
+                 //Insert into daily
+                  //String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
+                  String sqlDaily = "INSERT INTO daily VALUES("+txtDaily.getText()+","+id+",'"+date+"',"+price+",'"+nots+"','"+tableName+"');";
+                  ConectionDataBase.ExecuteAnyQuery(sqlDaily);
+             }
+            String now_balance = "الرصيد الحالي للمورد : "+ConectionDataBase.SetNBalanceSuppliers(id_Suppliers);
+            Tools.MasgBox(now_balance);
+         
+         }
           SetNew();
+
+
         }else{
             Tools.ErorBox("خطأ");
         }
@@ -476,16 +554,22 @@ public class Export extends javax.swing.JFrame {
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
         String id = txtId.getText();
-        String sql = "DELETE FROM exports WHERE id_exports="+id+";";
-        String id_acount = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
-        boolean isdel = ConectionDataBase.ExecuteAnyQuery(sql);
-        if(isdel){
+        String id_day = txtDaily.getText();
+        String id_Suppler = ConectionDataBase.getIdFrmName("suppliers", comSupplier.getSelectedItem().toString());
+        int suppliers = Integer.parseInt(id_Suppler);
+        if(suppliers == 1){
+            ConectionDataBase.ExecuteAnyQuery("DELETE FROM daily WHERE id_daily = " + id_day +";");
+        }
+        else{
+            ConectionDataBase.ExecuteAnyQuery("DELETE FROM imsuppliers WHERE id_imSuppliers = "+ id_day +";" );
+             String now_balance = ""+ConectionDataBase.SetNBalanceSuppliers(id_Suppler);
+             Tools.MasgBox("رصيد المورد : "+now_balance);
+        } 
+        String sql = "DELETE FROM exports WHERE id_exports ="+id+";";
+        boolean isDel = ConectionDataBase.ExecuteAnyQuery(sql);
+        if(isDel){
+            String id_acount = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
             ConectionDataBase.newBalance(id_acount);
-            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
-            String date = sdf.format(txtDate.getDate());
-            String tabName = "حساب"+" "+comAccount.getSelectedItem().toString();
-            String sqlDaily ="delete FROM daily WHERE id_daily ="+txtDaily.getText()+";";
-            ConectionDataBase.ExecuteAnyQuery(sqlDaily);
             String newBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_acount+";");
             Tools.MasgBox("تم الحذف بنجاح" + "  والرصيد الحالي " + newBalance);
             SetNew();
@@ -493,6 +577,24 @@ public class Export extends javax.swing.JFrame {
             Tools.ErorBox("خطأ");
         }
     }//GEN-LAST:event_btnDelActionPerformed
+
+    private void comSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comSupplierActionPerformed
+        // TODO add your handling code here:
+       if(comSupplier.isEnabled()){
+
+       } 
+
+    }//GEN-LAST:event_comSupplierActionPerformed
+
+    private void comSupplierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comSupplierItemStateChanged
+        // TODO add your handling code here:
+           if(comSupplier.getSelectedItem().toString().equals("نقدي")){
+                txtDaily.setText(ConectionDataBase.AutoId("daily", "id_daily"));
+            }else{
+                txtDaily.setText(ConectionDataBase.AutoId("imsuppliers", "id_Imsuppliers"));
+            }
+
+    }//GEN-LAST:event_comSupplierItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -537,11 +639,13 @@ public class Export extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comAccount;
+    private javax.swing.JComboBox<String> comSupplier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
