@@ -9,10 +9,6 @@ import DataBase.ConectionDataBase;
 import DataBase.Tools;
 import java.awt.Image;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class Imports extends javax.swing.JFrame {
 

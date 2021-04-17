@@ -15,14 +15,12 @@ import java.awt.Toolkit;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class MainFrame extends javax.swing.JFrame {
 

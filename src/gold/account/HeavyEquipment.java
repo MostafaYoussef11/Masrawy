@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class HeavyEquipment extends javax.swing.JFrame {
 

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class Accounts extends javax.swing.JFrame {
 

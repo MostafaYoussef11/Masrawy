@@ -18,13 +18,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class Login extends javax.swing.JFrame {
     public static String Servernum;
     /**
      * Creates new form Login
      */
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public Login() {
         setUndecorated(true);
         initComponents();

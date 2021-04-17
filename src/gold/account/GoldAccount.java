@@ -8,7 +8,7 @@ package gold.account;
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class GoldAccount {
 

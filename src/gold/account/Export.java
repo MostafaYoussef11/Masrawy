@@ -9,21 +9,16 @@ import DataBase.ConectionDataBase;
 import DataBase.Tools;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class Export extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Export
-     */
-//    private String id_daily; 
     public Export() {
         initComponents();
     }
@@ -32,19 +27,15 @@ public class Export extends javax.swing.JFrame {
         Tools.SearchField(table_export, txtSearch);
         // table 
         String sql = "SELECT suppliers.name_Suppliers,exports.note , exports.price_export , account.name_account , exports.date_exports , exports.id_exports , exports.id_daily FROM exports"
-                + " INNER JOIN account ON exports.id_account = account.id_account "
-                +" INNER JOIN suppliers ON exports.id_Suppliers = suppliers.id_Suppliers  "
-                + " ORDER BY id_exports DESC  ; ";
-        String[] coulmnName = new String [] {
-                "مورد","البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"
-            };
+                    + " INNER JOIN account ON exports.id_account = account.id_account "
+                    +" INNER JOIN suppliers ON exports.id_Suppliers = suppliers.id_Suppliers  "
+                    + " ORDER BY id_exports DESC  ; ";
+        String[] coulmnName = new String [] {"مورد","البيان", "المبلغ", "الحساب", "التاريخ", "رقم", "قيد اليومية"};
         ConectionDataBase.fillAndCenterTable(sql, table_export, coulmnName);
         //txt
         txtDate.setEnabled(true);
         String id_daily = ConectionDataBase.AutoId("daily", "id_daily");
         txtDaily.setText(id_daily);
-       // Date d = new Date();
-        //txtDate.setDateFormatString("dd/MM/YYYY");
         txtDate.setDate(new Date());
         String id = ConectionDataBase.AutoId("exports", "id_exports");
         txtId.setText(id);
@@ -149,11 +140,6 @@ public class Export extends javax.swing.JFrame {
         comSupplier.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comSupplierItemStateChanged(evt);
-            }
-        });
-        comSupplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comSupplierActionPerformed(evt);
             }
         });
 
@@ -380,23 +366,20 @@ public class Export extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
         SetNew();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        // TODO add your handling code here:  
         String id = txtId.getText();
         SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
         String date = sdf.format(txtDate.getDate());
         String price = txtPrice.getText();
         String id_account = ConectionDataBase.getIdFrmName("account", comAccount.getSelectedItem().toString());
-        String id_supllier = ConectionDataBase.getIdFrmName("Suppliers", comSupplier.getSelectedItem().toString());
+        String id_supllier = ConectionDataBase.getIdFrmName("suppliers", comSupplier.getSelectedItem().toString());
         double price_ex = Double.valueOf(price);
         if(price_ex==0.00){
             Tools.ErorBox("المبلغ غير مكتوب");
@@ -412,31 +395,29 @@ public class Export extends javax.swing.JFrame {
                 if(id_sup == 1){
                     String sqlDaily = "INSERT INTO daily VALUES("+txtDaily.getText()+","+id +",'"+date+"' , "+price+",'"+txtNote.getText()+"','"+tabName+"');";
                     ConectionDataBase.ExecuteAnyQuery(sqlDaily);
-                }else{
+                }
+                else{
                     String id_imSupplier = txtDaily.getText();
-                    //String id_Supplier = ConectionDataBase.getIdFrmName("suppliers", suppCombo.getSelectedItem().toString());
-                    //id_ImSuppliers`, `id_Suppliers`, `id_exp`, `date_day`, `price`, `note`, `name_table`, `IsActive`
                     String sqlImSupplier = "INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_supllier+","+id+",'"+date+"',"+price+",'"+txtNote.getText()+"','"+tabName+"' , 0);"; 
                     ConectionDataBase.ExecuteAnyQuery(sqlImSupplier);
                     String now_balance = "الرصيد الحالي للمورد  : "+ConectionDataBase.SetNBalanceSuppliers(id_supllier);
                     Tools.MasgBox(now_balance);
                 }
-
                 ConectionDataBase.newBalance(id_account);
                 String newBalance = ConectionDataBase.getSum("SELECT now_balance AS sum FROM account WHERE id_account="+id_account+";");
                 Tools.MasgBox("تم الحفظ بنجاح" + "  والرصيد الحالي " + newBalance);
                 SetNew();
                 btnNew.setEnabled(false);
-               // btnSave.setEnabled(false);
-            }else{
+            }
+            else{
                 Tools.ErorBox("خطأ");
             }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void table_exportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_exportMouseClicked
-        // TODO add your handling code here:
-                // txt Disable
+ 
+        // txt Disable
         txtDate.setEnabled(false);
         txtId.setEnabled(false);
         txtNote.setEnabled(false);
@@ -504,8 +485,8 @@ public class Export extends javax.swing.JFrame {
         // Set the Sql Statement
         String sql = "UPDATE  exports SET date_exports='"+date+"' , price_export="+price+", id_account="+id_account+", id_Suppliers = "+id_Suppliers+",note='"+nots+"' WHERE id_exports="+id+";";
         String oldIdDaily = ConectionDataBase.getSum("SELECT id_daily AS sum FROM exports WHERE id_exports ="+id+";");
-            //String id_Suppliers = ConectionDataBase.getIdFrmName("suppliers", comSupplier.getSelectedItem().toString());
-       int supplier = Integer.parseInt(id_Suppliers);
+        //String id_Suppliers = ConectionDataBase.getIdFrmName("suppliers", comSupplier.getSelectedItem().toString());
+        int supplier = Integer.parseInt(id_Suppliers);
         String idOldSupplier = ConectionDataBase.getSum("SELECT id_Suppliers AS sum FROM exports WHERE id_exports ="+id+";");
         int oldSupplier = Integer.parseInt(idOldSupplier);
         boolean isUpdate = ConectionDataBase.ExecuteAnyQuery(sql);
@@ -522,30 +503,26 @@ public class Export extends javax.swing.JFrame {
                 sqlupdate ="UPDATE imsuppliers SET date_day='"+date+"', price = "+price+",note = '"+nots+"'"+", "+" id_exp = "+id+" ,name_table = '"+tableName+"' WHERE id_ImSuppliers="+txtDaily.getText()+";";
               }
               ConectionDataBase.ExecuteAnyQuery(sqlupdate);
-         }
+            }
          else{
              if(oldSupplier == 1){
                  //DELETE FROM dailay Table
                  ConectionDataBase.ExecuteAnyQuery("DELETE FROM daily WHERE id_daily="+oldIdDaily+";");
                  // insert into imsuppliers
-                 //"INSERT INTO imsuppliers VALUES("+id_imSupplier+","+id_Supplier+","+id+",'"+date+"',"+price+",'"+note+"','"+tableName+"' , 0);"; 
                  ConectionDataBase.ExecuteAnyQuery("INSERT INTO imsuppliers VALUES("+txtDaily.getText()+","+id_Suppliers+","+id+",'"+date+"',"+price+",'"+nots+"','"+tableName+"' , 0);");
                  
-             }else if(supplier == 1){
+             }
+             else if(supplier == 1){
                  //DELETE ImSupp
                  ConectionDataBase.ExecuteAnyQuery("DELETE FROM imSuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
                  //Insert into daily
-                  //String tableName =  "مصروفات " + " "+ txtWorkGroup.getSelectedItem().toString() ;
                   String sqlDaily = "INSERT INTO daily VALUES("+txtDaily.getText()+","+id+",'"+date+"',"+price+",'"+nots+"','"+tableName+"');";
                   ConectionDataBase.ExecuteAnyQuery(sqlDaily);
-             }
+            }
             String now_balance = "الرصيد الحالي للمورد : "+ConectionDataBase.SetNBalanceSuppliers(id_Suppliers);
             Tools.MasgBox(now_balance);
-         
          }
           SetNew();
-
-
         }else{
             Tools.ErorBox("خطأ");
         }
@@ -577,14 +554,6 @@ public class Export extends javax.swing.JFrame {
             Tools.ErorBox("خطأ");
         }
     }//GEN-LAST:event_btnDelActionPerformed
-
-    private void comSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comSupplierActionPerformed
-        // TODO add your handling code here:
-       if(comSupplier.isEnabled()){
-
-       } 
-
-    }//GEN-LAST:event_comSupplierActionPerformed
 
     private void comSupplierItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comSupplierItemStateChanged
         // TODO add your handling code here:

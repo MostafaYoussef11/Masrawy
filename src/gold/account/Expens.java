@@ -12,11 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.lucene.queryparser.surround.query.TooManyBasicQueries;
 
 /**
  *
- * @author mosta
+ * @author Mostafa Youssef 
  */
 public class Expens extends javax.swing.JFrame {
 
