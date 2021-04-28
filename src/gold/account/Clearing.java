@@ -688,8 +688,11 @@ public class Clearing extends javax.swing.JFrame {
         // TODO add your handling code here:
         setNew();
     }//GEN-LAST:event_formWindowOpened
+   
     private double  total , Expens , amount , expens;
+    
     private int workerCount;
+    
     private void setNew(){
         ConectionDataBase.NewfillCombo("workgroup", "name_workgroup", comWork);
         comWork.addItem("اختر اسم المجموعة");
@@ -726,7 +729,6 @@ public class Clearing extends javax.swing.JFrame {
         btnClear.setEnabled(false);
         btnPrint.setEnabled(false);
     }
-    
     
     private void clearingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearingActionPerformed
         // TODO add your handling code here:
@@ -980,6 +982,7 @@ public class Clearing extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_edWorkerActionPerformed
+    
     private void Lisenr(){
         txtHworker.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -1008,6 +1011,7 @@ public class Clearing extends javax.swing.JFrame {
         });        
     
     }
+    
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
        if(tabPanel.isEnabledAt(3)){
@@ -1198,7 +1202,6 @@ public class Clearing extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bocklen;
     private javax.swing.JPanel Ghorbal;

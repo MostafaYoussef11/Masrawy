@@ -20,6 +20,7 @@ public class Accounts extends javax.swing.JFrame {
     /**
      * Creates new form Accounts
      */
+
     public Accounts() {
         initComponents();
     }
@@ -332,10 +333,12 @@ public class Accounts extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+        progressBar pB ;
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+
         SetNew();
+
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -350,6 +353,11 @@ public class Accounts extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void SetNew(){
+        pB = new progressBar();
+        pB.setLocationRelativeTo(this);
+        pB.setVisible(true);
+       // pB.setupBar("جاري التحميل..");
+        pB.SetvalProgress(0);
          String[] coulmnName =  new String [] {
                 "النوع", "الرصيد الحالي", "رصيد اول المدة", "المجموعة", "اسم الحساب", "رقم "
             };
@@ -361,13 +369,17 @@ public class Accounts extends javax.swing.JFrame {
                 +" JOIN workgroup w ON aw.id_workgroup = w.id_workgroup"
                 +" ORDER BY ac.id_account DESC ;";
         ConectionDataBase.fillAndCenterTable(sql, AccontTable, coulmnName);
+        pB.SetvalProgress(20);
         ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", comWorkgroup);
+        pB.SetvalProgress(30);
         ConectionDataBase.NewfillCombo("_type", "name_type", comType);
+        pB.SetvalProgress(40);
        //btn disable
        addGroup.setEnabled(false);
        btnDel.setEnabled(false);
        btnEdit.setEnabled(false);
        btnSave.setEnabled(false);
+       pB.SetvalProgress(60);
        //label and textsiled disable
        txtOBalance.setEnabled(false);
        txtId.setEnabled(false);
@@ -375,9 +387,11 @@ public class Accounts extends javax.swing.JFrame {
        comWorkgroup.setEnabled(false);
        Tools.SearchField(AccontTable, txtSearch);
         btnNew.setEnabled(false);
+        pB.SetvalProgress(80);
         String id = ConectionDataBase.AutoId("account", "id_account");
         txtId.setEnabled(true);
         txtId.setText(id);
+        pB.SetvalProgress(95);
         txtOBalance.setEnabled(true);
         txtOBalance.setText("0.00");
         txtNBalance.setText("0.00");
@@ -388,6 +402,7 @@ public class Accounts extends javax.swing.JFrame {
         btnDel.setEnabled(false); 
         comWorkgroup.setEnabled(true);
         comType.setEnabled(true);
+        pB.SetvalProgress(100);
         //txtName.setFocusable(true);
         
 //        txtName.setRequestFocusEnabled(true);

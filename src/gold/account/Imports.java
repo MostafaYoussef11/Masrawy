@@ -32,10 +32,15 @@ public class Imports extends javax.swing.JFrame {
     /**
      * Creates new form Imports
      */
+    progressBar pB;
     public Imports() {
         initComponents();
     }
+   
     private void SetNew(){
+       pB = new progressBar();
+       pB.setLocationRelativeTo(this);
+       pB.setVisible(true);
         txtPrice.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -82,6 +87,7 @@ public class Imports extends javax.swing.JFrame {
         txtPathFile.setText("");
         labimage.setIcon(null);
         txtId.setText(ConectionDataBase.AutoId("imports", "id_import"));
+        pB.SetvalProgress(20);
         txtdate.setDate(new Date());
         txtPathFile.setText("");
         txtPrice.setText("");
@@ -89,11 +95,12 @@ public class Imports extends javax.swing.JFrame {
         txtcaliber.setText("");
         txtwight.setText("");
         ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
+        pB.SetvalProgress(50);
         txtwight.requestFocus();
         String sql = "Select workgroup.name_workgroup , imports.amount_imports , imports.price_imports , imports.caliber , imports.wight_imports , imports.date_imports , imports.id_import FROM imports INNER JOIN workgroup ON imports.id_workgroup = workgroup.id_workgroup ORDER BY id_import DESC;";
         String[] coulmnName = new String[]{"المجموعة", "الاجمالي", "سعر الجرام", "العيار", "الوزن", "التاريخ", "رقم"};
         ConectionDataBase.fillAndCenterTable(sql, tableImport, coulmnName);
-        
+        pB.SetvalProgress(70);
         //btn
         btnDImage.setEnabled(false);
         btnDelete.setEnabled(false);
@@ -102,7 +109,7 @@ public class Imports extends javax.swing.JFrame {
         btnNew.setEnabled(false);
         btnUpdate.setEnabled(false);
         btnchanage.setEnabled(false);
-    
+        pB.SetvalProgress(100);
     
     }
     /**
@@ -668,6 +675,7 @@ public class Imports extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */

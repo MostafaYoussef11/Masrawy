@@ -514,7 +514,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="10" width="370" height="-1"/>
+          <AbsoluteConstraints x="10" y="10" width="370" height="260"/>
         </Constraint>
       </Constraints>
 
@@ -569,10 +569,15 @@
                                   <Component id="jLabel12" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="totalD" min="-2" pref="110" max="-2" attributes="0"/>
-                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                  <Component id="total" min="-2" pref="110" max="-2" attributes="0"/>
-                                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="totalD" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                          <Component id="total" min="-2" pref="110" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jProgressBar1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Component id="jLabel13" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -626,6 +631,8 @@
                       <Component id="total" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="jLabel13" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -910,6 +917,12 @@
                 <LineBorder/>
               </Border>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+          <Properties>
+            <Property name="opaque" type="boolean" value="true"/>
+            <Property name="stringPainted" type="boolean" value="true"/>
           </Properties>
         </Component>
       </SubComponents>

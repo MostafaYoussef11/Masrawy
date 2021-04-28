@@ -33,6 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     public MainFrame(String userName , String Server) {
         initComponents();
+        jProgressBar1.setVisible(false);
         this.userName = userName;
         this.Server = Server;
         //
@@ -50,32 +51,14 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setLocation(x, 390);
         jPanel4.setLocation(x-190, 10);
         jPanel6.setLocation(5, 5);
-//        jPanel7.setLocation(5 , 368);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                    fillDailyTable();
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//
-//            private void fillDailyTable() throws InterruptedException {
-//               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//               String[] coulunNmae = new String [] {"الجدول","البيان", "المبلغ","التاريخ","مسلسل"};
-//               String sql = "SELECT name_table , note , price , date_day ,id_daily FROM daily ORDER BY id_daily DESC;";
-//               ConectionDataBase.fillAndCenterTable(sql, jTable1, coulunNmae);
-//               Thread.sleep(5000);
-//            }
-//        }).start();
+
     }
 /*
      SELECT name_table , note , price , date_day ,id_daily FROM daily ORDER BY id_daily DESC; 
     
     */
     private MainFrame() {
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     @SuppressWarnings("unchecked")
@@ -129,6 +112,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         txtASuppliers = new javax.swing.JLabel();
         txtDSuplier = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -548,6 +532,9 @@ public class MainFrame extends javax.swing.JFrame {
         txtDSuplier.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDSuplier.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jProgressBar1.setOpaque(true);
+        jProgressBar1.setStringPainted(true);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -594,9 +581,12 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(totalD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel6Layout.createSequentialGroup()
+                                        .addComponent(totalD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
@@ -638,11 +628,13 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(totalD, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         getContentPane().add(jPanel6);
-        jPanel6.setBounds(10, 10, 370, 229);
+        jPanel6.setBounds(10, 10, 370, 260);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -756,6 +748,7 @@ public class MainFrame extends javax.swing.JFrame {
        
     public MyThread(String name) {
         super(name);
+        jProgressBar1.setVisible(true);
     }
 
     @Override
@@ -777,26 +770,55 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void doDBProcessing() throws InterruptedException {
         Thread.sleep(1000);
+        String update= "جاري تحديث البيانات ";
+        jProgressBar1.setValue(20);
+        txtLastUpdate.setText(update+".");
         try{
             SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
             Date day = new Date();
             String date = format.format(day);
             String assets = ConectionDataBase.getSum("assets", "price_assets");
+            Thread.sleep(1000);
+            jProgressBar1.setValue(30);
+            txtLastUpdate.setText(update+"..");
             String expens = ConectionDataBase.getSum("expens WHERE id_Suppliers = 1 ", "price_expens");
+            Thread.sleep(1000);
+            jProgressBar1.setValue(40);
+            txtLastUpdate.setText(update+"...");
             String exports = ConectionDataBase.getSum("exports WHERE id_Suppliers = 1 ", "price_export");
+            Thread.sleep(1000);
+            jProgressBar1.setValue(50);
+            txtLastUpdate.setText(update+"....");
             String imports = ConectionDataBase.getSum("imports", "amount_imports");
+            Thread.sleep(1000);
+            jProgressBar1.setValue(60);
+            txtLastUpdate.setText(update+".....");
             String exSuppliers = ConectionDataBase.getSum("exsuppliers", "price_exSuppliers"); 
+            Thread.sleep(1000);
+            jProgressBar1.setValue(70);
+            txtLastUpdate.setText(update+"......");
             String assetsD = ConectionDataBase.getSumOnDay("assets", "price_assets",date);
+            Thread.sleep(1000);
+            jProgressBar1.setValue(80);
+            txtLastUpdate.setText(update+".......");
             String expensDay = ConectionDataBase.getSum("SELECT SUM(price_expens) AS sum FROM expens WHERE date_expens='"+date+"' AND id_Suppliers = 1 ;");
+            Thread.sleep(1000);
+            jProgressBar1.setValue(90);
+            txtLastUpdate.setText(update+"........");
             String exportsD = ConectionDataBase.getSum("SELECT SUM(price_export) AS sum FROM exports WHERE date_exports='"+date+"' AND id_Suppliers = 1 ;");//"exports", "price_export",date
+            Thread.sleep(1000);
+            jProgressBar1.setValue(100);
+            txtLastUpdate.setText(update+".........");
             String importsD = ConectionDataBase.getSumOnDay("imports", "amount_imports",date);
+            Thread.sleep(1000);
+            txtLastUpdate.setText(update+".........");
             String exSupplierD = ConectionDataBase.getSumOnDay("exsuppliers", "price_exSuppliers", date);
             // Convert To Double
              double D_imports , D_expens , D_exports , D_assets ,D_exSuppliers , D_importsD , D_expensD , D_exportsD , D_assetsD ,D_exSuppliersD ;
-             if(imports == null || importsD == null || expens == null||expensDay == null || exports == null || exportsD == null || assets == null || assetsD == null || exSuppliers == null || exSupplierD == null  ){
-                 doDBProcessing();
-             }
-             else{
+//             if(imports == null || importsD == null || expens == null||expensDay == null || exports == null || exportsD == null || assets == null || assetsD == null || exSuppliers == null || exSupplierD == null  ){
+//                 doDBProcessing();
+//             }
+//             else{
                  txtassition.setText(assets);
                  txtexpen.setText(expens);
                  txtexport.setText(exports);
@@ -823,7 +845,8 @@ public class MainFrame extends javax.swing.JFrame {
                 //Set Tootal 
                 totalD.setText(String.valueOf(SumtotalD));
                 total.setText(String.valueOf(Sumtotal));
-             }
+                jProgressBar1.setVisible(false);
+//             }
 
         }catch(NumberFormatException ex){
             System.err.println(ex.getMessage());
@@ -902,6 +925,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel total;
     private javax.swing.JLabel totalD;
     private javax.swing.JLabel txtASuppliers;
