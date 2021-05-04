@@ -99,9 +99,9 @@ public class Clearing extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         txtworkerOne = new javax.swing.JTextField();
         checkworker = new javax.swing.JCheckBox();
-        comAcount = new javax.swing.JComboBox<>();
+        comAcount = new javax.swing.JComboBox<String>();
         checkworker1 = new javax.swing.JCheckBox();
-        comAcount1 = new javax.swing.JComboBox<>();
+        comAcount1 = new javax.swing.JComboBox<String>();
         history = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -340,7 +340,7 @@ public class Clearing extends javax.swing.JFrame {
         txtClear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtClear.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        edWorker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gold/account/pencil.png"))); // NOI18N
+        edWorker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil.png"))); // NOI18N
         edWorker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edWorkerActionPerformed(evt);
@@ -452,13 +452,13 @@ public class Clearing extends javax.swing.JFrame {
         checkworker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         checkworker.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        comAcount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comAcount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         checkworker1.setText("حق عامل");
         checkworker1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         checkworker1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        comAcount1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comAcount1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout BocklenLayout = new javax.swing.GroupLayout(Bocklen);
         Bocklen.setLayout(BocklenLayout);
