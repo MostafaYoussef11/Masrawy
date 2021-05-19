@@ -151,5 +151,17 @@ public class Tools {
         f.setVisible(true);
    
    }
+   
+   
+    public static String getId_daily(int idSupplier){
+       //String id = ConectionDataBase.getIdFrmName("supplier", note)
+       String id_daily;
+       if(idSupplier == 1){
+           id_daily = ConectionDataBase.AutoId("daily", "id_daily");
+       }else{
+           id_daily = ConectionDataBase.AutoId("imsuppliers","id_ImSuppliers");
+       }
+       return id_daily;
+    } 
     
 }

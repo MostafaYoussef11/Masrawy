@@ -38,9 +38,14 @@ public class Imports extends javax.swing.JFrame {
     }
    
     private void SetNew(){
-       pB = new progressBar();
-       pB.setLocationRelativeTo(this);
-       pB.setVisible(true);
+         pB =  new progressBar(100);
+         pB.setupBar("جاري التحميل");
+         pB.star();
+//         for(int i = 0 ; i <= 100 ; i++){
+//             pB.slepthred(i);
+//             
+//         }
+         
         txtPrice.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -87,7 +92,7 @@ public class Imports extends javax.swing.JFrame {
         txtPathFile.setText("");
         labimage.setIcon(null);
         txtId.setText(ConectionDataBase.AutoId("imports", "id_import"));
-        pB.SetvalProgress(20);
+        //pB.SetvalProgress(20);
         txtdate.setDate(new Date());
         txtPathFile.setText("");
         txtPrice.setText("");
@@ -95,12 +100,12 @@ public class Imports extends javax.swing.JFrame {
         txtcaliber.setText("");
         txtwight.setText("");
         ConectionDataBase.NewfillCombo("workgroup WHERE isActive = 0 ", "name_workgroup", txtWorkGroup);
-        pB.SetvalProgress(50);
+        //pB.SetvalProgress(50);
         txtwight.requestFocus();
         String sql = "Select workgroup.name_workgroup , imports.amount_imports , imports.price_imports , imports.caliber , imports.wight_imports , imports.date_imports , imports.id_import FROM imports INNER JOIN workgroup ON imports.id_workgroup = workgroup.id_workgroup ORDER BY id_import DESC;";
         String[] coulmnName = new String[]{"المجموعة", "الاجمالي", "سعر الجرام", "العيار", "الوزن", "التاريخ", "رقم"};
         ConectionDataBase.fillAndCenterTable(sql, tableImport, coulmnName);
-        pB.SetvalProgress(70);
+        //pB.SetvalProgress(70);
         //btn
         btnDImage.setEnabled(false);
         btnDelete.setEnabled(false);
@@ -109,8 +114,6 @@ public class Imports extends javax.swing.JFrame {
         btnNew.setEnabled(false);
         btnUpdate.setEnabled(false);
         btnchanage.setEnabled(false);
-        pB.SetvalProgress(100);
-    
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -553,6 +556,8 @@ public class Imports extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+       // Date sdate = new Date();
+
         String Sql = null ,id , date , wight , caliber , price , amount , id_wg ;
         boolean isSaved;
         id = txtId.getText();
@@ -576,13 +581,17 @@ public class Imports extends javax.swing.JFrame {
         }else{
             Tools.ErorBox("خطأ");
         }
-        
+//        Date fDate = new Date();
+//        int timer = (int) (fDate.getTime() - sdate.getTime());
+//        Tools.MasgBox(""+timer);
         
         
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void tableImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableImportMouseClicked
         // TODO add your handling code here:
+        //Date sdate = new Date();
+
         int row = tableImport.getSelectedRow();
         txtId.setText(tableImport.getValueAt(row, 6).toString());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -599,18 +608,15 @@ public class Imports extends javax.swing.JFrame {
         txtamount.setText(tableImport.getValueAt(row, 1).toString());
         txtWorkGroup.setSelectedItem(tableImport.getValueAt(row,0));
         ImageIcon icon = ConectionDataBase.getImageImport(txtId.getText());
-       // icon.getImage()
         labimage.setIcon(icon);
         btnDImage.setEnabled(true);
         btnchanage.setEnabled(true);
         btnSelect.setEnabled(false);
-        
         btnNew.setEnabled(true);
         btnSave.setEnabled(false);
         btnEdit.setEnabled(true);
         btnUpdate.setEnabled(false);
-        btnDelete.setEnabled(true);
-        
+        btnDelete.setEnabled(true); 
         txtId.setEnabled(false);
         txtPathFile.setText("");
         txtPrice.setEnabled(false);
@@ -619,7 +625,9 @@ public class Imports extends javax.swing.JFrame {
         txtcaliber.setEnabled(false);
         txtdate.setEnabled(false);
         txtwight.setEnabled(false);
-        
+//        Date fDate = new Date();
+//        int timer = (int) (fDate.getTime() - sdate.getTime());
+//        Tools.MasgBox(""+timer);
         
         
     }//GEN-LAST:event_tableImportMouseClicked

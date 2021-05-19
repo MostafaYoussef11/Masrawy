@@ -69,6 +69,7 @@ public class ConectionDataBase {
         SetConnection();
         return con;
     } 
+  //time 1832
   public static boolean CheckUesrName(String userName , String Password){
      try{
            boolean isTrue = false;
@@ -80,6 +81,7 @@ public class ConectionDataBase {
              isTrue = true;
            } 
            con.close();
+
            return isTrue;
        }catch(SQLException ex){
          //  System.err.println(ex.getMessage());
@@ -88,8 +90,17 @@ public class ConectionDataBase {
        }
   
   }
+  
+  
+  //        Date sdate = new Date();
+//          Date fDate = new Date();
+//          int timer = (int) (fDate.getTime() - sdate.getTime());
+//          Tools.MasgBox(""+timer);
+
   public static void fillAndCenterTable(String sql , JTable table , String[] coulmnName){
        try{
+//            Date sdate = new Date();
+
            SetConnection();
            stmt = (Statement) con.createStatement();
            ResultSet rst = stmt.executeQuery(sql);
@@ -107,6 +118,9 @@ public class ConectionDataBase {
                model.addRow(v);
            }
            con.close();
+//          Date fDate = new Date();
+//          int timer = (int) (fDate.getTime() - sdate.getTime());
+//          Tools.MasgBox(""+timer);
        }catch(SQLException ex){
            Tools.ErorBox(ex.getMessage());
        }
