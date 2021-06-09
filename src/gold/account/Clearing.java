@@ -46,6 +46,7 @@ public class Clearing extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btgroub = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         comWork = new javax.swing.JComboBox();
@@ -92,16 +93,22 @@ public class Clearing extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtBoclen = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtArea = new javax.swing.JLabel();
+        txtSolar = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         txtBworker = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtworkerOne = new javax.swing.JTextField();
-        checkworker = new javax.swing.JCheckBox();
-        comAcount = new javax.swing.JComboBox<>();
         checkworker1 = new javax.swing.JCheckBox();
         comAcount1 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        txtanyexpens = new javax.swing.JLabel();
+        txtMillandTravel = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtfilter = new javax.swing.JLabel();
+        cr_tow = new javax.swing.JRadioButton();
+        crThree = new javax.swing.JRadioButton();
         history = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -340,7 +347,7 @@ public class Clearing extends javax.swing.JFrame {
         txtClear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtClear.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        edWorker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gold/account/pencil.png"))); // NOI18N
+        edWorker.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil.png"))); // NOI18N
         edWorker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edWorkerActionPerformed(evt);
@@ -427,11 +434,11 @@ public class Clearing extends javax.swing.JFrame {
         txtBoclen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("ربع مكان");
+        jLabel10.setText("الجاز");
         jLabel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        txtArea.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtArea.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtSolar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtSolar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -448,17 +455,51 @@ public class Clearing extends javax.swing.JFrame {
 
         txtworkerOne.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        checkworker.setText("حق مكان");
-        checkworker.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        checkworker.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
-        comAcount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         checkworker1.setText("حق عامل");
         checkworker1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         checkworker1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         comAcount1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("مصروفات اخري");
+        jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtanyexpens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtanyexpens.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtMillandTravel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtMillandTravel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("النقل و الطاحونة");
+        jLabel15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("الصافي");
+        jLabel17.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtfilter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtfilter.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        cr_tow.setText("نص ");
+        cr_tow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cr_tow.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        cr_tow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cr_towActionPerformed(evt);
+            }
+        });
+
+        crThree.setSelected(true);
+        crThree.setText("تلت");
+        crThree.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        crThree.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        crThree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crThreeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BocklenLayout = new javax.swing.GroupLayout(Bocklen);
         Bocklen.setLayout(BocklenLayout);
@@ -467,28 +508,49 @@ public class Clearing extends javax.swing.JFrame {
             .addGroup(BocklenLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBworker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtworkerOne)
-                    .addComponent(comAcount1, 0, 274, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                        .addComponent(checkworker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BocklenLayout.createSequentialGroup()
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBworker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtworkerOne)
+                            .addComponent(comAcount1, 0, 276, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addComponent(checkworker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createSequentialGroup()
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(BocklenLayout.createSequentialGroup()
+                                .addComponent(txtfilter, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                                .addGap(5, 5, 5))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(crThree, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cr_tow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBoclen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comAcount, 0, 222, Short.MAX_VALUE))
-                .addGap(5, 5, 5)
                 .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                        .addComponent(checkworker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BocklenLayout.createSequentialGroup()
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtBoclen, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                            .addComponent(txtSolar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(5, 5, 5)
+                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createSequentialGroup()
+                        .addComponent(txtanyexpens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createSequentialGroup()
+                        .addComponent(txtMillandTravel, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         BocklenLayout.setVerticalGroup(
@@ -496,35 +558,44 @@ public class Clearing extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addGroup(BocklenLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cr_tow)
+                    .addComponent(crThree))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BocklenLayout.createSequentialGroup()
-                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBoclen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(BocklenLayout.createSequentialGroup()
-                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBworker, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtworkerOne, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtfilter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BocklenLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkworker, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comAcount1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkworker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BocklenLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comAcount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBworker, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtworkerOne, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comAcount1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkworker1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13))
+            .addGroup(BocklenLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMillandTravel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBoclen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSolar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(BocklenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtanyexpens, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("حفار", new javax.swing.ImageIcon(getClass().getResource("/icons/digger.png")), Bocklen); // NOI18N
@@ -556,7 +627,7 @@ public class Clearing extends javax.swing.JFrame {
             historyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(historyLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 68, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("تصفيات", new javax.swing.ImageIcon(getClass().getResource("/icons/history.png")), history); // NOI18N
@@ -674,9 +745,9 @@ public class Clearing extends javax.swing.JFrame {
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(clearing, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tabPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -689,7 +760,7 @@ public class Clearing extends javax.swing.JFrame {
         setNew();
     }//GEN-LAST:event_formWindowOpened
    
-    private double  total , Expens , amount , expens;
+    private double  total , Expens , amount , expens , mt , anyex;
     
     private int workerCount;
     
@@ -834,9 +905,11 @@ public class Clearing extends javax.swing.JFrame {
                     
                     break;
                 case "4":
-                    ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAcount);
+                   // ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAcount);
                     ConectionDataBase.NewfillCombo("account WHERE isEnable = 0 ", "name_account", comAcount1);
                     id_type = "8";
+                    btgroub.add(cr_tow);
+                    btgroub.add(crThree);
                     tabPanel.setEnabled(true);
                     tabPanel.setTitleAt(0,null);
                     tabPanel.setTitleAt(1, null);
@@ -851,15 +924,46 @@ public class Clearing extends javax.swing.JFrame {
                     sqlCountWorker = "SELECT COUNT(ac.id_account) as sum FROM account ac JOIN accountworkgroup aw ON aw.id_account = ac.id_account WHERE aw.id_workgroup ="+id_work +" AND ac.id_type ="+id_type+" AND ac.isEnable = 0;";  
                     counWorker = ConectionDataBase.getSum(sqlCountWorker);
                     txtCount.setText(counWorker);
-                    double Half = Double.parseDouble(txtAmount.getText());
-                    Half = Half / 2 ;
-                    double HalfClaer = Half - Double.parseDouble(txtExpention.getText());
-                    txtBoclen.setText(HalfClaer+"");
-                    double HalfArea = Half / 2;
-                    txtArea.setText(HalfArea+"");
-                    txtBworker.setText(HalfArea+"");
-                    double workerOne = HalfArea / Integer.parseInt(txtCount.getText());
-                    txtworkerOne.setText(workerOne+"");
+                    double amountSum = Double.parseDouble(txtAmount.getText());
+
+                    // Set txt solar and any exepens  مصروفات الزوادة و الجاز
+                    String SqlSolar = "SELECT SUM(price_expens) AS sum FROM `expens` WHERE `id_workgroup` = 8 AND `isRelay`=0 AND `note` LIKE '%جاز%'; ";
+                    String SqlAnyexpens = "SELECT SUM(price_expens) AS sum FROM `expens` WHERE `id_workgroup` = 8 AND `isRelay`=0 AND `note` NOT LIKE '%جاز%' AND `note` NOT LIKE '%طاحون%' AND `note` NOT LIKE '%نقل%'; ";
+                    txtanyexpens.setText(ConectionDataBase.getSum(SqlAnyexpens));
+                    txtSolar.setText(ConectionDataBase.getSum(SqlSolar));
+                    // Mill And Travel النقل و الطاحونة
+                    String millAndTravel =ConectionDataBase.getSum("SELECT SUM(price_expens) AS sum FROM `expens` WHERE `id_workgroup` = 8 AND `isRelay`=0 AND `note` LIKE '%طاحون%' OR `note`  LIKE '%نقل%' ;");
+                    txtMillandTravel.setText(millAndTravel);
+                    
+                    //حساب الصافي بعد النقل و الطحين
+                    double exMillAndTravel = Double.parseDouble(millAndTravel);
+                    double filtering = amountSum - exMillAndTravel;
+                    double HalfAmount = filtering /2 ;
+                    txtBoclen.setText(HalfAmount+"");
+                    //Half After Filter  حساب الصافي بعد المصروفات (الزوادة)
+                    double FilterHalfAmount = HalfAmount - Double.parseDouble(txtanyexpens.getText());
+                    txtfilter.setText(FilterHalfAmount+"");
+                    
+                    // حساب حق العمال 
+                    double AllWorker = 0;
+                    if(crThree.isSelected()){
+                        double oneThree = FilterHalfAmount / 3 ;
+                        AllWorker = 2 * oneThree;
+                        txtBworker.setText(AllWorker+""); 
+                        int _oneWorker = (int) (AllWorker / Integer.parseInt(txtCount.getText()));
+                       txtworkerOne.setText(_oneWorker+"");
+                    }else if(cr_tow.isSelected()){
+                        double half = FilterHalfAmount / 2 ;
+                        AllWorker = half;
+                        //txtBworker.setText(towThree+""); 
+                       txtBworker.setText(AllWorker+""); 
+                       int _oneWorker = (int) (AllWorker / Integer.parseInt(txtCount.getText()));
+                       txtworkerOne.setText(_oneWorker+"");
+                       total = amountSum; 
+                       mt = Double.parseDouble(millAndTravel);
+                       anyex = Double.parseDouble(txtanyexpens.getText());
+                    }
+
                     break;
                 default:
                     Tools.ErorBox("الاتفاق؟؟");
@@ -1092,6 +1196,28 @@ public class Clearing extends javax.swing.JFrame {
                             Tools.ErorBox(ex.getMessage());
                         }
                     break;
+               case "4":
+                    try{
+                     InputStream stream = getClass().getResourceAsStream("/Rebort/ClearBocklenStonReport.jrxml");
+                     HashMap map = new HashMap();
+                     int id = Integer.parseInt(id_work);
+                     map.put("id_workgroup", id);
+                     map.put("SumImport", Double.parseDouble(txtAmount.getText()));
+                     map.put("mt", Double.parseDouble(txtMillandTravel.getText()));
+                     map.put("anyex",Double.parseDouble(txtanyexpens.getText()));
+                     int contwork = Integer.parseInt(txtCount.getText())+1;
+                     map.put("CountWorker",contwork );
+                     double towThree = Double.parseDouble(txtBworker.getText());
+                     map.put("twoThree", towThree);
+                    // map.put("SumExpens", Expens); oneWork
+                     double oneWork = towThree / contwork;
+                     map.put("oneWorker",oneWork);
+                     Tools.Printer(sql, stream, map);
+                    }
+                   catch(NumberFormatException ex){
+                            Tools.ErorBox(ex.getMessage());
+                        }
+                   break;
                default:
                    break;
            }
@@ -1168,6 +1294,29 @@ public class Clearing extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tableMouseClicked
 
+    private void crThreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crThreeActionPerformed
+        // TODO add your handling code here:
+        double FilterHalfAmount = Double.parseDouble(txtfilter.getText());
+        double oneThree = FilterHalfAmount / 3 ;
+        double AllWorker = 2 * oneThree;
+        txtBworker.setText(AllWorker+""); 
+        int _oneWorker = (int) (AllWorker / Integer.parseInt(txtCount.getText()));
+        txtworkerOne.setText(_oneWorker+"");
+        
+    }//GEN-LAST:event_crThreeActionPerformed
+
+    private void cr_towActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cr_towActionPerformed
+        // TODO add your handling code here:
+         double FilterHalfAmount = Double.parseDouble(txtfilter.getText());
+        double half = FilterHalfAmount / 2 ;
+        //AllWorker = half;
+                        //txtBworker.setText(towThree+""); 
+       txtBworker.setText(half+""); 
+       int _oneWorker = (int) (half / Integer.parseInt(txtCount.getText()));
+       txtworkerOne.setText(_oneWorker+"");
+        
+    }//GEN-LAST:event_cr_towActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1206,15 +1355,16 @@ public class Clearing extends javax.swing.JFrame {
     private javax.swing.JPanel Bocklen;
     private javax.swing.JPanel Ghorbal;
     private javax.swing.JPanel Ston;
+    private javax.swing.ButtonGroup btgroub;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnPrint;
-    private javax.swing.JCheckBox checkworker;
     private javax.swing.JCheckBox checkworker1;
     private javax.swing.JButton clearing;
     private javax.swing.JComboBox comAccount;
-    private javax.swing.JComboBox<String> comAcount;
     private javax.swing.JComboBox<String> comAcount1;
     private javax.swing.JComboBox comWork;
+    private javax.swing.JRadioButton crThree;
+    private javax.swing.JRadioButton cr_tow;
     private javax.swing.JToggleButton edWorker;
     private javax.swing.JPanel history;
     private javax.swing.JButton jButton2;
@@ -1222,8 +1372,11 @@ public class Clearing extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -1248,7 +1401,6 @@ public class Clearing extends javax.swing.JFrame {
     private javax.swing.JLabel txt5;
     private javax.swing.JLabel txt6;
     private javax.swing.JLabel txtAmount;
-    private javax.swing.JLabel txtArea;
     private javax.swing.JLabel txtBoclen;
     private javax.swing.JLabel txtBworker;
     private javax.swing.JLabel txtCar;
@@ -1260,7 +1412,11 @@ public class Clearing extends javax.swing.JFrame {
     private javax.swing.JLabel txtHtow;
     private javax.swing.JTextField txtHworker;
     private javax.swing.JLabel txtLoder;
+    private javax.swing.JLabel txtMillandTravel;
+    private javax.swing.JLabel txtSolar;
     private javax.swing.JLabel txtTthirds;
+    private javax.swing.JLabel txtanyexpens;
+    private javax.swing.JLabel txtfilter;
     private javax.swing.JLabel txtoneWork;
     private javax.swing.JLabel txtwight;
     private javax.swing.JTextField txtworkerOne;

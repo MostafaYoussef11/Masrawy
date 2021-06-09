@@ -738,4 +738,5 @@ public class Filttering extends javax.swing.JFrame {
     private javax.swing.JLabel txtCorD;
     private javax.swing.JLabel txtNB;
     // End of variables declaration//GEN-END:variables
+
 }

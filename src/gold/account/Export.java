@@ -514,7 +514,7 @@ public class Export extends javax.swing.JFrame {
              }
              else if(supplier == 1){
                  //DELETE ImSupp
-                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM imSuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
+                 ConectionDataBase.ExecuteAnyQuery("DELETE FROM imsuppliers WHERE id_ImSuppliers ="+oldIdDaily+";" );
                  //Insert into daily
                   String sqlDaily = "INSERT INTO daily VALUES("+txtDaily.getText()+","+id+",'"+date+"',"+price+",'"+nots+"','"+tableName+"');";
                   ConectionDataBase.ExecuteAnyQuery(sqlDaily);

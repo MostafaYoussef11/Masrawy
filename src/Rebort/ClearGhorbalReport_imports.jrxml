@@ -19,9 +19,9 @@
      imports.`isRelay` AS imports_isRelay
 FROM
      `imports` imports
-where
-id_workgroup = $P{id_workgroup}
-and isRelay=0]]>
+WHERE
+     id_workgroup = $P{id_workgroup}
+     and isRelay = 0]]>
 	</queryString>
 	<field name="imports_id_import" class="java.lang.Integer"/>
 	<field name="imports_date_imports" class="java.sql.Date"/>
@@ -45,7 +45,7 @@ and isRelay=0]]>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="120" height="30" uuid="a5066050-d7e0-4513-8d32-a7a72e97a180"/>
 				<box>

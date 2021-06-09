@@ -114,19 +114,4 @@ public class exportEntity implements entityInterface{
     public void setId_daily(String id_daily) {
         this.id_daily = id_daily;
     }
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
 }

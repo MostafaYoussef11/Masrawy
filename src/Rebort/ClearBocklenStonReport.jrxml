@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="23" bottomMargin="10" uuid="6a98a882-7527-42c0-ba79-e786373bebaa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="98"/>
+	<parameter name="id_workgroup" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\Masrawy Account\\Masrawy\\src\\Rebort\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SumImport" class="java.lang.Double"/>
+	<parameter name="oneWorker" class="java.lang.Double"/>
+	<parameter name="CountWorker" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mt" class="java.lang.Double"/>
+	<parameter name="anyex" class="java.lang.Double"/>
+	<parameter name="twoThree" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[SELECT * FROM workgroup WHERE id_workgroup=$P{id_workgroup};]]>
+	</queryString>
+	<field name="id_workgroup" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name_workgroup" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_deal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="Worker" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{filter2}.doubleValue() / $P{CountWorker}.intValue()]]></variableExpression>
+	</variable>
+	<variable name="filter1" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{SumImport}.doubleValue()-$P{mt}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="boclen" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{filter1}.doubleValue() / 2]]></variableExpression>
+	</variable>
+	<variable name="filter2" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{boclen}.doubleValue()- $P{anyex}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="oneworker" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{towthree}.doubleValue()/$P{CountWorker}.intValue()]]></variableExpression>
+	</variable>
+	<variable name="towthree" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{onethree}.doubleValue()*2]]></variableExpression>
+	</variable>
+	<variable name="onethree" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{filter2}.doubleValue()/3]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="0" width="565" height="79" uuid="b1817ce6-a268-43dd-922a-06066b77776b"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="293" y="5" width="80" height="25" uuid="ef608702-5c00-4809-8927-84d575e9611c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[تصفية حساب]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="175" y="5" width="120" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="165bdc2a-d905-4df0-b79f-cb12e0fdcf52"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name_workgroup}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="120" y="35" width="250" height="35" uuid="0d498572-ee97-4d27-9f05-83f8d760b347"/>
+				<subreportParameter name="id_workgroup">
+					<subreportParameterExpression><![CDATA[$P{id_workgroup}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ClearStonReport_PeriodTime.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="3" width="100" height="20" uuid="ef617eda-8e11-461c-9551-bf24a791d7a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[تصفية حسابات شغل الحجر ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="473" y="3" width="100" height="20" uuid="4386130a-8855-4968-b695-3349533cb5d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="130" y="35" width="60" height="30" uuid="bd53b93d-cfbd-4a13-8dfe-4ed2484d9316"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[المبلغ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="35" width="60" height="30" uuid="85748474-be71-47b3-b3d6-2cdae808002b"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[المبلغ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="5" width="275" height="30" uuid="e0e6c255-7a60-4b69-bb29-b660f9c0b2e4"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+					<topPen lineWidth="2.0" lineStyle="Solid"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الفواتير]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="35" width="100" height="30" uuid="7a3ffde8-455b-4367-b860-0e631bb5e7da"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[التاريــــخ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="5" width="285" height="30" uuid="474ae157-94b3-4121-8b65-000c9e58fec2"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+					<topPen lineWidth="2.0" lineStyle="Solid"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[المصروفات]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="35" width="125" height="30" uuid="22816f5a-f2c1-4570-8d94-354b9d179d1a"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+					<topPen lineWidth="2.0" lineStyle="Solid"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[البيـــــــــــان]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="35" width="95" height="30" uuid="de001b9d-743e-4a71-983f-d5708ee022ea"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[التاريــــخ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="35" width="120" height="30" uuid="87b29748-2863-4d36-b44f-49a46a90e6ed"/>
+				<box>
+					<pen lineWidth="2.0" lineStyle="Solid"/>
+					<topPen lineWidth="2.0" lineStyle="Solid"/>
+					<leftPen lineWidth="2.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="2.0" lineStyle="Solid"/>
+					<rightPen lineWidth="2.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[البيـــــــــــان]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="110" splitType="Stretch">
+			<subreport>
+				<reportElement x="295" y="5" width="275" height="100" uuid="05950baf-7504-49ed-a256-e162cd24f0d5"/>
+				<subreportParameter name="id_workgroup">
+					<subreportParameterExpression><![CDATA[$P{id_workgroup}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ClearGhorbalReport_imports.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="5" y="5" width="285" height="100" uuid="c3eedafe-7883-45ed-99ce-e0ab0f415851"/>
+				<subreportParameter name="id_workgroup">
+					<subreportParameterExpression><![CDATA[$P{id_workgroup}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ClearGhorbalReport_expens.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="16" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="25" uuid="13394560-820a-4362-aace-26f1667f0969"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="80" y="0" width="30" height="25" uuid="9302e2b6-1f25-4f6c-8d9f-c8859c1f334a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="276" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Transparent" x="5" y="5" width="565" height="232" forecolor="#000000" backcolor="#FFFFFF" uuid="386d6b33-74f1-41ba-86a3-f80dd3df4e67"/>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="460" y="22" width="100" height="30" uuid="d5d71944-2a64-4929-bb91-14064ff5c710"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[اجمالي الفواتير]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="62" width="100" height="30" uuid="9183ceb4-7400-4058-92fd-c794b4cd0270"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[النقل و الطواحونة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="102" width="100" height="30" uuid="944cb106-cc9d-481b-8b1a-8ede58f6dec7"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الصافي]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="460" y="148" width="100" height="30" uuid="588a8d39-74d8-4007-a102-f74e9c64c5b1"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[حق المعدة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="148" width="100" height="30" uuid="a11cb004-4afd-4071-b62b-ea4ff9a0f874"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[عدد العمال]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="193" width="100" height="30" uuid="10e0fe10-720e-4151-9938-f1ad750b3d47"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[حق العامل]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="22" width="100" height="30" uuid="d7741830-eb30-4965-a09f-7a9783cce879"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[مصروفات]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="62" width="100" height="30" uuid="7205f618-be09-4e83-a5d7-281d3cd45329"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الصافي]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="295" y="22" width="150" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="c918be97-4d96-4f39-b661-c942c75bb7e7"/>
+				<box>
+					<pen lineWidth="1.75" lineStyle="Double"/>
+					<topPen lineWidth="1.75" lineStyle="Double"/>
+					<leftPen lineWidth="1.75" lineStyle="Double"/>
+					<bottomPen lineWidth="1.75" lineStyle="Double"/>
+					<rightPen lineWidth="1.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SumImport}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="295" y="62" width="150" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="fd8e03b9-4508-4ca6-b102-846850e6871b"/>
+				<box>
+					<pen lineWidth="1.75" lineStyle="Double"/>
+					<topPen lineWidth="1.75" lineStyle="Double"/>
+					<leftPen lineWidth="1.75" lineStyle="Double"/>
+					<bottomPen lineWidth="1.75" lineStyle="Double"/>
+					<rightPen lineWidth="1.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="295" y="102" width="150" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="b7bf9543-efdf-479d-938c-ad340aca696d"/>
+				<box>
+					<pen lineWidth="1.75" lineStyle="Double"/>
+					<topPen lineWidth="1.75" lineStyle="Double"/>
+					<leftPen lineWidth="1.75" lineStyle="Double"/>
+					<bottomPen lineWidth="1.75" lineStyle="Double"/>
+					<rightPen lineWidth="1.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filter1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="295" y="148" width="150" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="ced59530-347c-4bbb-8ad2-f2823416cb42"/>
+				<box>
+					<pen lineWidth="1.75" lineStyle="Double"/>
+					<topPen lineWidth="1.75" lineStyle="Double"/>
+					<leftPen lineWidth="1.75" lineStyle="Double"/>
+					<bottomPen lineWidth="1.75" lineStyle="Double"/>
+					<rightPen lineWidth="1.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{boclen}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="18" y="22" width="144" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="c8d2b8a3-a443-4460-9daa-0bbe50878efc"/>
+				<box>
+					<pen lineWidth="2.25" lineStyle="Double"/>
+					<topPen lineWidth="2.25" lineStyle="Double"/>
+					<leftPen lineWidth="2.25" lineStyle="Double"/>
+					<bottomPen lineWidth="2.25" lineStyle="Double"/>
+					<rightPen lineWidth="2.25" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{anyex}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="18" y="62" width="144" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="33aec721-61f8-41f1-81a4-d62d0fe165fc"/>
+				<box>
+					<pen lineWidth="2.25" lineStyle="Double"/>
+					<topPen lineWidth="2.25" lineStyle="Double"/>
+					<leftPen lineWidth="2.25" lineStyle="Double"/>
+					<bottomPen lineWidth="2.25" lineStyle="Double"/>
+					<rightPen lineWidth="2.25" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filter2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="18" y="148" width="144" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="74f6238d-a52d-4745-80ee-0f7e2f8acee3"/>
+				<box>
+					<pen lineWidth="2.25" lineStyle="Double"/>
+					<topPen lineWidth="2.25" lineStyle="Double"/>
+					<leftPen lineWidth="2.25" lineStyle="Double"/>
+					<bottomPen lineWidth="2.25" lineStyle="Double"/>
+					<rightPen lineWidth="2.25" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CountWorker}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="175" y="102" width="100" height="30" uuid="5ed880da-84ce-42bc-b8d9-02d396e61adf"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[التلتين]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="18" y="102" width="144" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="63d11e5a-f26b-4b91-9c46-62793370f8d0"/>
+				<box>
+					<pen lineWidth="2.0"/>
+					<topPen lineWidth="2.0"/>
+					<leftPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+					<rightPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{twoThree}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="175" y="193" width="157" height="30" forecolor="#000000" backcolor="#FFFFFF" uuid="6e9e5da8-cb95-4a5a-b965-17801cb55063"/>
+				<box>
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{oneWorker}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

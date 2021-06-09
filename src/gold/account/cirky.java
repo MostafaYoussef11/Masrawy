@@ -760,6 +760,9 @@ public class cirky extends javax.swing.JFrame {
     }//GEN-LAST:event_bDelActionPerformed
     
     private void btNavitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNavitorActionPerformed
+          
+           String idCirky = ConectionDataBase.getSum("SELECT MAX(id_cirky) AS sum FROM creditors ;");
+           Tools.MasgBox(idCirky);
            HeavyEquipment he = new HeavyEquipment(comAccount.getSelectedItem().toString() , txtid.getText());
            Tools.OpenFrame(he, "ترحيل التجديدة", "navigation");
            dispose();
