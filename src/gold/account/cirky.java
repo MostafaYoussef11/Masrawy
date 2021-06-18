@@ -43,8 +43,8 @@ public class cirky extends javax.swing.JFrame {
         panalTab.setSelectedIndex(1);
         tab2.setEnabled(true); 
         panalTab.setEnabledAt(0, false);
-        String[] CouluName = new String [] {"نهاية", "بداية", "المعدة", "مسلسل"};
-        String sql = "SELECT c.ldate , c.fdate , a.name_account , c.id_cirky  FROM cirky c INNER JOIN account a ON a.id_account = c.id_account WHERE c.isActive = 0 ;";
+        String[] CouluName = new String [] {"الترحيل", "نهاية", "بداية", "المعدة", "مسلسل"};
+        String sql = "SELECT c.isActive , c.ldate , c.fdate , a.name_account , c.id_cirky  FROM cirky c INNER JOIN account a ON a.id_account = c.id_account ;";
         ConectionDataBase.fillAndCenterTable(sql, cirky_table, CouluName);
         txtid.setText(ConectionDataBase.AutoId("cirky", "id_cirky"));
         fdate.setDate(null);
@@ -64,6 +64,8 @@ public class cirky extends javax.swing.JFrame {
         txtTotal.setText("");
         table.setEnabled(true);
         btNavitor.setEnabled(false);
+        getIsActive();
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,6 +103,7 @@ public class cirky extends javax.swing.JFrame {
         bnewOne = new javax.swing.JButton();
         bDel = new javax.swing.JButton();
         btNavitor = new javax.swing.JButton();
+        isActive = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -313,11 +316,11 @@ public class cirky extends javax.swing.JFrame {
 
             },
             new String [] {
-                "نهاية", "بداية", "المعدة", "مسلسل"
+                "الترحيل", "نهاية", "بداية", "المعدة", "مسلسل"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -363,19 +366,23 @@ public class cirky extends javax.swing.JFrame {
             }
         });
 
+        isActive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(isActive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btNavitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btNavitor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bDel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -385,7 +392,7 @@ public class cirky extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panalTab)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,13 +405,12 @@ public class cirky extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bnewOne, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btNavitor))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(bDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btNavitor))
+                    .addComponent(isActive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5))
@@ -422,7 +428,10 @@ public class cirky extends javax.swing.JFrame {
     private void fdateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fdateKeyReleased
 
     }//GEN-LAST:event_fdateKeyReleased
-
+    private void getIsActive(){
+       String isActiveStr = ConectionDataBase.getSum("select isActive as sum from cirky where id_cirky = "+txtid.getText());
+       isActive.setText(isActiveStr);
+    }
     private void fdateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fdateKeyPressed
         // TODO add your handling code here:
 
@@ -522,7 +531,8 @@ public class cirky extends javax.swing.JFrame {
                        }
                        sum_Hour += Integer.parseInt(count_hour);
                        if(sum_Hour >= 120){
-                           btNavitor.setEnabled(true);
+                             checkheavy();
+                          
                        }
                        
                        notes = "اجمالي الساعات هو "+ sum_Hour;
@@ -543,20 +553,25 @@ public class cirky extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        if(isActive.getText().equals("تم الترحيل")){
+            Tools.ErorBox("لايمكن التعديل علي سركي مرحل ");
+        }else{
+            panalTab.setEnabledAt(0, true);
+            table.setEnabled(true);
+            fdate.setEnabled(false);
+            ldate.setEnabled(true);
+            txtTotal.setEnabled(true);
 
-        panalTab.setEnabledAt(0, true);
-        table.setEnabled(true);
-        fdate.setEnabled(false);
-        ldate.setEnabled(true);
-        txtTotal.setEnabled(true);
+            bnewOne.setEnabled(true);
+            bDel.setEnabled(true);
+
+            btnUpdate.setEnabled(true);
+            btnNew.setEnabled(true);
+            btnEdit.setEnabled(false);
+            btnDel.setEnabled(false);
+        }
         
-        bnewOne.setEnabled(true);
-        bDel.setEnabled(true);
-        
-        btnUpdate.setEnabled(true);
-        btnNew.setEnabled(true);
-        btnEdit.setEnabled(false);
-        btnDel.setEnabled(false);
+
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -565,20 +580,29 @@ public class cirky extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-      String id_cirky = txtid.getText();
-      // DEL all HOURS
-      int isOk = JOptionPane.showConfirmDialog(null, "هل ترعب في حذف كل الساعات ؟","حذف الكل " ,JOptionPane.YES_NO_OPTION , JOptionPane.ERROR_MESSAGE);
-      if(isOk == JOptionPane.OK_OPTION){
-          String Sql_del_hour = "DELETE FROM hours WHERE id_cirky = "+id_cirky +";";
-          boolean is_del = ConectionDataBase.ExecuteAnyQuery(Sql_del_hour);
-          if(is_del){
-              String sql_Delete_Cirky ="DELETE FROM cirky WHERE id_cirky = "+id_cirky +";";
-              if(ConectionDataBase.ExecuteAnyQuery(sql_Delete_Cirky)){
-                   Tools.MasgBox("تم الحذف");
+       if(isActive.getText().equals("تم الترحيل")){
+            Tools.ErorBox("لايمكن حذف  ");
+        }else{
+
+          String id_cirky = txtid.getText();
+          // DEL all HOURS
+          int isOk = JOptionPane.showConfirmDialog(null, "هل ترعب في حذف كل الساعات ؟","حذف الكل " ,JOptionPane.YES_NO_OPTION , JOptionPane.ERROR_MESSAGE);
+          if(isOk == JOptionPane.OK_OPTION){
+              String Sql_del_hour = "DELETE FROM hours WHERE id_cirky = "+id_cirky +";";
+              boolean is_del = ConectionDataBase.ExecuteAnyQuery(Sql_del_hour);
+              if(is_del){
+                  String sql_Delete_Cirky ="DELETE FROM cirky WHERE id_cirky = "+id_cirky +";";
+                  if(ConectionDataBase.ExecuteAnyQuery(sql_Delete_Cirky)){
+                       Tools.MasgBox("تم الحذف");
+                  }
               }
-          }
-          SetNew();
-      } 
+              SetNew();
+          } 
+       
+       
+       }
+        
+
     }//GEN-LAST:event_btnDelActionPerformed
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -620,7 +644,8 @@ public class cirky extends javax.swing.JFrame {
             txtTotal.setText(total + "");
             if(total >= 120){
                 new notifiction("انتهاء التجديدة").setVisible(true);
-                btNavitor.setEnabled(true);
+                checkheavy();
+                //
             
             }
         }
@@ -629,18 +654,22 @@ public class cirky extends javax.swing.JFrame {
     private void cirky_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cirky_tableMouseClicked
         // TODO add your handling code here:
         int row = cirky_table.getSelectedRow();
-        String id = cirky_table.getValueAt(row, 3).toString();
+        String id = cirky_table.getValueAt(row, 4).toString();
         txtid.setText(id);
-        comAccount.setSelectedItem(cirky_table.getValueAt(row, 2));
+        getIsActive();
+        comAccount.setSelectedItem(cirky_table.getValueAt(row, 3));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date f_date = sdf.parse(cirky_table.getValueAt(row, 1).toString());
-            Date L_date = sdf.parse(cirky_table.getValueAt(row, 0).toString());
+            Date f_date = sdf.parse(cirky_table.getValueAt(row, 2).toString());
+            Date L_date = sdf.parse(cirky_table.getValueAt(row, 1).toString());
             fdate.setDate(f_date);
             ldate.setDate(L_date);
         } catch (ParseException ex) {
             Logger.getLogger(cirky.class.getName()).log(Level.SEVERE, null, ex);
         }
+        String activetion = cirky_table.getValueAt(row, 0).toString();
+        
+        
         // Disable Edit txt
         comAccount.setEnabled(false);
         fdate.setEnabled(false);
@@ -668,8 +697,18 @@ public class cirky extends javax.swing.JFrame {
         txtTotal.setText(sumHours);
         int total = Integer.parseInt(sumHours);
         if(total >= 120){
-            btNavitor.setEnabled(true);
+            checkheavy();
+           
         }
+    }
+    private void checkheavy(){
+         if(isActive.getText().equals("0.00")){
+                isActive.setText("غير مرحل");
+                btNavitor.setEnabled(true);
+           }else{
+                isActive.setText("تم الترحيل");
+                btNavitor.setEnabled(false);
+         }
     }
     private void bnewOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnewOneActionPerformed
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -721,9 +760,12 @@ public class cirky extends javax.swing.JFrame {
     }//GEN-LAST:event_bDelActionPerformed
     
     private void btNavitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNavitorActionPerformed
-           HeavyEquipment he = new HeavyEquipment(comAccount.getSelectedItem().toString());
-           
+          
+           String idCirky = ConectionDataBase.getSum("SELECT MAX(id_cirky) AS sum FROM creditors ;");
+           Tools.MasgBox(idCirky);
+           HeavyEquipment he = new HeavyEquipment(comAccount.getSelectedItem().toString() , txtid.getText());
            Tools.OpenFrame(he, "ترحيل التجديدة", "navigation");
+           dispose();
     }//GEN-LAST:event_btNavitorActionPerformed
 
     /**
@@ -775,6 +817,7 @@ public class cirky extends javax.swing.JFrame {
     private javax.swing.JTable cirky_table;
     private javax.swing.JComboBox<String> comAccount;
     private com.toedter.calendar.JDateChooser fdate;
+    private javax.swing.JLabel isActive;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

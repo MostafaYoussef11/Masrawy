@@ -16,49 +16,57 @@ public class progressBar extends javax.swing.JFrame {
     /**
      * Creates new form progressBar
      */
-   
-    public progressBar( ) {
+    private int mill ;
+    public progressBar(int mill) {
         //setUndecorated(true);
         initComponents();
         setBackground(new Color(0.0f, 0.0f, 0.0f, 0.00f));
 
+        this.mill = mill;
     }
     public void setupBar(String text){
+        setVisible(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
         jProgressBar1.setStringPainted(true);
         jProgressBar1.setString(text);
         jProgressBar1.setBorderPainted(true);
-        jProgressBar1.setValue(5);
+        jProgressBar1.setValue(0);
         
     }
-    public void SetvalProgress(int v){
-        new proThred(v).start();
+    public void star(){
+        new proThred(mill).start();
         
        
     }
 private class proThred extends Thread{
-    private int value = 0;
-    public proThred(int val) {
-        this.value = val;
+   // private long value = 0;
+    public proThred(long val) {
+       // this.value = val;
     }
      
     @Override
     public void run(){
         try{
-            Thread.sleep(1000);
-            doProoces(value);
+//            Thread.sleep(1000);
+//            doProoces(value);
+            for(int i = 0 ; i <= 100 ; i++){
+               doProoces(i);
+               Thread.sleep(mill);
+            }
         }catch(Exception ex){
         
         }
     }
 
-        private void doProoces(int val) {
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void doProoces(int val) {
+            
         jProgressBar1.setValue(val);
         if(val == 100){
             dispose();
         }
         
-        }
+   }
 
 }
     
@@ -79,7 +87,6 @@ private class proThred extends Thread{
         setUndecorated(true);
 
         jProgressBar1.setForeground(new java.awt.Color(0, 204, 51));
-        jProgressBar1.setValue(5);
         jProgressBar1.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,7 +139,7 @@ private class proThred extends Thread{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new progressBar().setVisible(true);
+                new progressBar(5000).setVisible(true);
             }
         });
     }

@@ -837,8 +837,8 @@ public class MainFrame extends javax.swing.JFrame {
                  D_exportsD =  Double.valueOf(exportsD) ;
                  D_assets = Double.valueOf(assets) ; 
                  D_assetsD = Double.valueOf(assetsD) ;
-                 D_exSuppliers = Double.parseDouble(exSuppliers) ; 
-                 D_exSuppliersD = Double.parseDouble(exSupplierD);
+                 D_exSuppliers = Double.valueOf(exSuppliers) ; 
+                 D_exSuppliersD = Double.valueOf(exSupplierD);
                 //Sum Total
                  double Sumtotal = D_imports - D_expens - D_exports - D_assets - D_exSuppliers;
                  double SumtotalD = D_importsD - D_expensD - D_exportsD - D_assetsD  - D_exSuppliersD ;

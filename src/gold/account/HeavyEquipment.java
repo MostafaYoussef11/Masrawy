@@ -6,6 +6,7 @@
 package gold.account;
 
 import DataBase.ConectionDataBase;
+import DataBase.Tools;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,13 +20,15 @@ public class HeavyEquipment extends javax.swing.JFrame {
     /**
      * Creates new form HeavyEquipment
      */
-    protected String nameAccount ;
+    protected String nameAccount , id_cirky;
+   
     
     
-    public HeavyEquipment(String nameAccount) {
+    public HeavyEquipment(String nameAccount , String id_cirky) {
         setBackground(new Color(126, 255, 245));
         initComponents();
         this.nameAccount = nameAccount;
+        this.id_cirky = id_cirky;
         String id = ConectionDataBase.AutoId("creditors", "id_credit");
         txtId.setText(id);
         txtName.setText(nameAccount);
@@ -177,12 +180,26 @@ public class HeavyEquipment extends javax.swing.JFrame {
         //insert into creditors id_credit  date_credit 	amount id_account  id_clear note isFiltering
         String id_credit ,  date_credit ,amount, id_account ,note;
         id_credit = txtId.getText();
+        id_account = ConectionDataBase.getIdFrmName("account", txtName.getText());
         date_credit = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
         double amountsDouble = Double.parseDouble(txtPrice.getText());
         double oilAmount = Double.valueOf(txtOil.getText()); 
+        note = "انتهاء تجديدة " ;
         if(checkPlus.isSelected()){
             amount = String.valueOf(oilAmount+amountsDouble);           
             
+        }else{
+            amount = String.valueOf(amountsDouble);
+        }
+        String sql = "Insert into creditors values( " + id_credit + ",'" + date_credit +"',"+ amount +","+id_account+",null ,'"+note+"',0);";
+        if(ConectionDataBase.ExecuteAnyQuery(sql)){
+                  Tools.MasgBox("تم ترحيل المبلغ");
+                  // update isactive
+                  String upSql = "update cirky set isActive = 1 where id_cirky = "+id_cirky+";";
+                  ConectionDataBase.ExecuteAnyQuery(upSql);
+                  dispose();
+                  cirky c = new cirky();
+                  Tools.OpenFrame(c, "ساعات معدة", "loader");
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -217,7 +234,7 @@ public class HeavyEquipment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HeavyEquipment("").setVisible(true);
+                new HeavyEquipment("","").setVisible(true);
             }
         });
     }

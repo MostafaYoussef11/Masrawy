@@ -7,6 +7,7 @@ package gold.account;
 
 import DataBase.ConectionDataBase;
 import DataBase.Tools;
+import Entity.exportEntity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JTable;
@@ -592,9 +593,12 @@ public class Filttering extends javax.swing.JFrame {
             comAcount2.setEnabled(false);
         }
     }//GEN-LAST:event_goToAccountActionPerformed
+    
+   //exportEntity Exe ;
     private void MonyFiltter (){
+      // Exe = new exportEntity();
        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
-      String date = format.format(new Date());
+       String date = format.format(new Date());
        double nbalnc = Double.parseDouble(txtNB.getText());
        String price_export = txtAmount.getText();
        double price = Double.parseDouble(price_export);
@@ -606,14 +610,20 @@ public class Filttering extends javax.swing.JFrame {
             String id_daily = ConectionDataBase.AutoId("daily", "id");
             String id_exports = ConectionDataBase.AutoId("exports", "id_exports");
             //String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"',"+id_supllier+",0,"+txtDaily.getText()+" ) ;";
-
             String sql = "INSERT INTO exports VALUES("+id_exports+",'"+date+"',"+price_export+","+id_account+",'"+note+"',1,0,"+id_daily+");";
             boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);
             if(isSaved){
-                // daily
-                
-                String tabName = "حساب "+" "+comAcount.getSelectedItem().toString();
-                String sqlDay = "INSERT INTO daily VALUES("+id_daily+","+id_exports+",'"+date+"',"+price_export+",'"+note+"','"+tabName+"');";
+            // daily
+            String tabName = "حساب "+" "+comAcount.getSelectedItem().toString();
+            String sqlDay = "INSERT INTO daily VALUES("+id_daily+","+id_exports+",'"+date+"',"+price_export+",'"+note+"','"+tabName+"');";
+//            String id_daily = ConectionDataBase.AutoId("daily", "id_daily");
+//            String sql = "INSERT INTO exports VALUES("+id_exports+",'"+date+"',"+price_export+","+id_account+",'"+note+"',1 , 0 ,"+id_daily+");";
+//            boolean isSaved = ConectionDataBase.ExecuteAnyQuery(sql);  
+//            if(isSaved){
+//                // daily
+//                //Tools.MasgBox("is True");
+//                String tabName = "حساب "+" "+comAcount.getSelectedItem().toString();
+//                String sqlDay = "INSERT INTO daily VALUES("+id_daily+",id = "+id_exports+",'"+date+"',"+price_export+",'"+note+"','"+tabName+"');";
                 ConectionDataBase.ExecuteAnyQuery(sqlDay);
                 if(divPrice != 0){
                     String id_discount = ConectionDataBase.AutoId("discount", "id_discount");
@@ -633,11 +643,10 @@ public class Filttering extends javax.swing.JFrame {
                 if(Updated){
                     Tools.MasgBox("تم التصفية بنجاح و الرصيد الحالي  = "+getNowBalance);
                 }
-
-            }
-
         }
 
+     }
+    
     }
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
         // TODO add your handling code here:
@@ -736,4 +745,5 @@ public class Filttering extends javax.swing.JFrame {
     private javax.swing.JLabel txtCorD;
     private javax.swing.JLabel txtNB;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -11,6 +11,8 @@ import DataBase.Tools;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 
 /**
@@ -422,11 +424,12 @@ public class suppliers extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        String date = new SimpleDateFormat("YYYY-MM-dd").format(new Date());
         int name = txtname.getText().length();
         if(name == 0){
             Tools.ErorBox("الاسم غير موجود");
         }else{
-            String sqlSave = "INSERT INTO suppliers VALUES("+txtId.getText()+",'"+txtname.getText()+"',"+txtdibtor.getText()+","+txtCriditor.getText()+","+txtNowb.getText()+");";
+            String sqlSave = "INSERT INTO suppliers VALUES("+txtId.getText()+",'"+txtname.getText()+"',"+txtdibtor.getText()+","+txtCriditor.getText()+","+txtNowb.getText()+",'"+date+"');";
             if(ConectionDataBase.ExecuteAnyQuery(sqlSave)){
                  Tools.MasgBox("تم الحفظ بنجاح");
             }else{
