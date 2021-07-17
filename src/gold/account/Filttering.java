@@ -607,7 +607,7 @@ public class Filttering extends javax.swing.JFrame {
        String note = "تصفية حساب " + comAcount.getSelectedItem().toString();
         if(nB >= 0){
             // insert amount to export and diley
-            String id_daily = ConectionDataBase.AutoId("daily", "id");
+            String id_daily = ConectionDataBase.AutoId("daily", "id_daily");
             String id_exports = ConectionDataBase.AutoId("exports", "id_exports");
             //String sql = "INSERT INTO exports VALUES("+id +",'"+date+"' , "+price+", "+ id_account+" , '"+txtNote.getText()+"',"+id_supllier+",0,"+txtDaily.getText()+" ) ;";
             String sql = "INSERT INTO exports VALUES("+id_exports+",'"+date+"',"+price_export+","+id_account+",'"+note+"',1,0,"+id_daily+");";

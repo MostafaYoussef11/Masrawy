@@ -52,7 +52,7 @@ public class ConectionDataBase {
                  con = (Connection) DriverManager.getConnection("jdbc:mysql://41.38.1.120/masrawy?useUnicode=yes&characterEncoding=UTF-8", "mostafa","As@2800257");
                  break;
               case "Internet" ://141.136.39.52    === 141.136.39.78     egictaco_masrawy
-                 con = (Connection) DriverManager.getConnection("jdbc:mysql://141.136.39.78:3306/egictaco_masrawy?useUnicode=yes&characterEncoding=UTF-8", "egictaco_mostafa","As@2800257");
+                 con = (Connection) DriverManager.getConnection("jdbc:mysql://egicta.com:3306/egictaco_masrawy?useUnicode=yes&characterEncoding=UTF-8", "egictaco_mostafa","As@2800257");
                   break;
 
               default:

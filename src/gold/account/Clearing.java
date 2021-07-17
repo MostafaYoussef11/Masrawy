@@ -986,6 +986,7 @@ public class Clearing extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+        String date_credit = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
       String Sql , SqlUpdateImport , SqlUpdateExpens , SqlUpdateAssets ;
       boolean isInsert , UpImp ,UpExp ,isUpdate ,UpAst ;
       String id_Clear = ConectionDataBase.AutoId("clear", "id_clear");
@@ -1050,18 +1051,19 @@ public class Clearing extends javax.swing.JFrame {
                       UpAst = ConectionDataBase.ExecuteAnyQuery(SqlUpdateAssets);
                       isUpdate = UpImp && UpExp && UpAst ; 
                      if(isUpdate){
-                       //String[] names = ConectionDataBase.setClear(id_work, "8", txtHworker.getText(), note, id_Clear, txtClear.getText(),machin.isSelected() , comAccount.getSelectedItem().toString());
                        int count = Integer.parseInt(txtCount.getText());
+                       String sql = "SELECT account.name_account AS names FROM account INNER JOIN accountworkgroup ON account .`id_account` = accountworkgroup.`id_account` WHERE accountworkgroup.`id_workgroup` ="+id_work+" AND account.`id_type` = 8";
+                       String[] names = ConectionDataBase.fill(sql);
+                       String sql_id = "SELECT account.id_account AS names FROM account INNER JOIN accountworkgroup ON account .`id_account` = accountworkgroup.`id_account` WHERE accountworkgroup.`id_workgroup` ="+id_work+" AND account.`id_type` = 8";
+                       String[] idsAccount = ConectionDataBase.fill(sql_id);
+                       amount = Double.parseDouble(txtworkerOne.getText());
                        for(int i =0 ; i < count ; i++){
                           // insert to credit
-                          // INSERT INTO creditors VALUES (`id_credit`, `date_credit`, `amount`, `id_account`, `id_clear`, `note`, `isFiltering`) =====VALUES ('', '', '', '', NULL, '', b'0')
-                          /*
-                         SELECT account.`id_account` AS account_id_account FROM account INNER JOIN  accountworkgroup ON 
-                         account.`id_account` = accountworkgroup.`id_account`
-                         WHERE accountworkgroup.`id_workgroup`=  8 AND account.`id_type` = 8
-                          
-                          */
-                          
+                          String id_credit = ConectionDataBase.AutoId("creditors", "id_credit");
+                          String sql_insert = "INSERT INTO creditors VALUES ("+id_credit+",'"+ date_credit+"',"+ amount+","+ idsAccount[i]+", "+id_Clear+",'"+note+"', 1)" ;
+                          ConectionDataBase.ExecuteAnyQuery(sql_insert);
+                          Tools.MasgBox("تم الترحيل الي حساب " + names[i]);
+
                           
                        }
                      
